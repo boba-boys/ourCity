@@ -10,7 +10,7 @@ const tags = [
   {
     name: "group 1",
     latitude: 37.78824,
-    longitude: -122.43,
+    longitude: -122.42,
     groupId: 1,
   },
   {
@@ -21,8 +21,8 @@ const tags = [
   },
   {
     name: "group 1 and 2",
-    latitude: 37.7882,
-    longitude: -122.43,
+    latitude: 37.7881,
+    longitude: -122.432,
     groupId: 1,
   },
 ];
