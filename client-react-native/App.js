@@ -38,21 +38,20 @@ export function App(props) {
 
   return (
     // const tags = this.state.tags;
-    <SafeAreaView>
+    <>
       {
         (!tags) ? <Text >Loading</Text> :
-          <View>
-            <MapView
-              provider={PROVIDER_GOOGLE}
-              style={styles.map}
-              initialRegion={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}
-            >
-          {/* {tags.map((tag) => {
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          >
+            {/* {tags.map((tag) => {
             return (
               <Marker
                 key={tag.id}
@@ -65,10 +64,9 @@ export function App(props) {
               />
               );
           })} */}
-            </MapView>
-          </View>
+          </MapView>
       }
-    </SafeAreaView>
+    </>
   )
 }
 
