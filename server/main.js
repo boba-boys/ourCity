@@ -2,7 +2,7 @@
 
 const { db } = require("./db");
 const app = require("./index");
-const PORT = 1337;
+const PORT = "https://my-city-server.herokuapp.com/";
 
 db.sync() // if you update your db schemas, make sure you drop the tables first and then recreate them
   .then(() => {
