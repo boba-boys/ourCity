@@ -2,12 +2,14 @@
 
 const express = require("express");
 const path = require("path");
-const volleyball = require("volleyball");
+const morgan = require("morgan");
 const cors = require('cors');
 const app = express();
 
 // logging middleware
-app.use(volleyball);
+app.use(morgan('dev'));
+// Cross-Origin Resourse Sharing middleware
+app.use(cors());
 // body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -22,8 +24,6 @@ app.use(express.static(path.join(__dirname, "../App.js")));
 //   next();
 // });
 
-// Cross-Origin Resourse Sharing middleware
-app.use(cors({ origin: true, credentials: true}));
 
 app.use("/api", require("./api")); // include our routes!
 
