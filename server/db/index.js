@@ -5,8 +5,8 @@ const Group = require("./models/Group");
 const Tag = require("./models/Tag");
 const Comment= require("./models/Comment");
 
-User.belongsToMany(Group, { through: Tag });
-Group.belongsToMany(User, { through: Tag });
+User.belongsToMany(Group, { through: Comment });
+Group.belongsToMany(User, { through: Comment });
 
 Comment.belongsTo(Tag);
 
