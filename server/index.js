@@ -2,19 +2,28 @@
 
 const express = require("express");
 const path = require("path");
-const volleyball = require("volleyball");
-
+const morgan = require("morgan");
+const cors = require('cors');
 const app = express();
 
 // logging middleware
-app.use(volleyball);
-
+app.use(morgan('dev'));
+// Cross-Origin Resourse Sharing middleware
+app.use(cors());
 // body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // static middleware
 app.use(express.static(path.join(__dirname, "../App.js")));
+
+// Hopefully this works
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+
 
 app.use("/api", require("./api")); // include our routes!
 

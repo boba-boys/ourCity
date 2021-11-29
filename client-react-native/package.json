@@ -10,24 +10,28 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.0.6",
     "axios": "^0.24.0",
-    "chalk": "^4.1.2",
     "expo": "~43.0.2",
     "expo-status-bar": "~1.1.0",
-    "express": "^4.17.1",
+    "ngrok": "^4.1.0",
     "path": "^0.12.7",
-    "pg": "^8.7.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-maps": "0.29.4",
+    "react-native-safe-area-context": "3.3.2",
+    "react-native-screens": "~3.8.0",
     "react-native-web": "0.17.1",
-    "sequelize": "^6.12.0-alpha.1",
-    "volleyball": "^1.5.1",
-    "ngrok": "^4.1.0"
+    "react-redux": "^7.2.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@react-navigation/native-stack": "^6.2.5",
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.4.1"
   },
   "private": true
 }

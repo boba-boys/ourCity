@@ -1,9 +1,14 @@
 const Sequelize = require("sequelize");
 const db = require("../database");
 
-module.exports = db.define("group", {
+const Group = db.define("group", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
 });
+
+module.exports = Group;

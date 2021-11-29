@@ -1,11 +1,21 @@
 const db = require("./database");
+// const { User, Group, Tag, Comment } = require("./models"); // Why this doesnt work?
+const User = require("./models/User");
 const Group = require("./models/Group");
 const Tag = require("./models/Tag");
+const Comment= require("./models/Comment");
 
-Tag.belongsToMany(Group, { through: "groupTag" });
+User.belongsToMany(Group, { through: Tag });
+Group.belongsToMany(User, { through: Tag });
+
+Comment.belongsTo(Tag);
 
 module.exports = {
   db,
-  Group,
-  Tag,
+  models: {
+    Group,
+    Tag,
+    User,
+    Comment,
+  }
 };
