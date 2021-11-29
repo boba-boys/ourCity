@@ -1,21 +1,42 @@
 const Sequelize = require("sequelize");
 const db = require("../database");
 
-module.exports = db.define("tag", {
+Tag = db.define("tag", {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false
+  },
   name: {
     type: Sequelize.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   latitude: {
     type: Sequelize.FLOAT,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   longitude: {
     type: Sequelize.FLOAT,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
-  groupId: {
+  rating: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    defaultValue: 0,
+    validate: {
+      notEmpty: true,
+    },
   },
 });
+
+module.exports = Tag;
