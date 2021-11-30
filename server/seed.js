@@ -34,35 +34,35 @@ const dummyUsers = [
 
 const dummyTags = [ // The name of the tag has to be the name of the place
   {
-    name: "group 1 Admins",
-    latitude: 37.78824,
-    longitude: -122.42,
+    name: "Wilfie & Nell",
+    latitude: 40.7340642,
+    longitude: -74.00307049999999,
     userId: 2,
     groupId: 1,
   },
   {
-    name: "group 1 Admins",
+    name: "TEST!",
     latitude: 37.7882,
     longitude: -122.43,
     userId: 3,
     groupId: 1,
   },
   {
-    name: "group 1 Admins",
+    name: "TEST!",
     latitude: 37.783,
     longitude: -122.44,
     userId: 4,
     groupId: 1,
   },
   {
-    name: "group 1 Admins",
+    name: "TEST!",
     latitude: 37.788,
     longitude: -122.42,
     userId: 5,
     groupId: 1,
   },
   {
-    name: "group 1 nonAdmins",
+    name: "TEST!",
     latitude: 37.7882,
     longitude: -122.43,
     userId: 1,
