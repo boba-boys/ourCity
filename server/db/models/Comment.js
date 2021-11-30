@@ -16,22 +16,22 @@ const Comment = db.define("comment", {
             notEmpty: true,
         },
     },
-    userId: {
-        type: Sequelize.INTEGER,
-        unique: false,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
-    },
-    groupId: {
-        type: Sequelize.INTEGER,
-        unique: false,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
-    },
+    // userId: {
+    //     type: Sequelize.INTEGER,
+    //     unique: false,
+    //     allowNull: false,
+    //     validate: {
+    //         notEmpty: true,
+    //     },
+    // },
+    // groupId: {
+    //     type: Sequelize.INTEGER,
+    //     unique: false,
+    //     allowNull: false,
+    //     validate: {
+    //         notEmpty: true,
+    //     },
+    // },
     rating: {
         type: Sequelize.INTEGER,
         allowNull: false,
