@@ -98,13 +98,13 @@ const dummyComments = [
     description: "I like soda",
     rating: 2,
   },
-  // {
-  //   tagId: 2,
-  //   userId: 1,
-  //   groupId: 2,
-  //   description: "I like the nuggets",
-  //   rating: 4,
-  // },
+  {
+    tagId: 2,
+    userId: 1,
+    groupId: 2,
+    description: "I like the nuggets",
+    rating: 4,
+  },
 ]
 
 const seed = async () => {
@@ -135,7 +135,7 @@ const seed = async () => {
         return Comment.create(comment);
       })
     );
-
+    
     console.log("Database synced!");
     console.log(`seeded successfully`);
     return {

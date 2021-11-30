@@ -1,13 +1,13 @@
 const Sequelize = require("sequelize");
 const db = require("../database");
 
-Comment = db.define("comment", {
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
+const Comment = db.define("comment", {
+    // id: {
+    //     type: Sequelize.INTEGER,
+    //     primaryKey: true,
+    //     autoIncrement: true,
+    //     allowNull: false
+    // },
     description: {
         type: Sequelize.STRING,
         allowNull: false,
