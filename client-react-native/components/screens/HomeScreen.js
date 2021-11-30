@@ -43,8 +43,8 @@ const HomeScreen = (props) => {
             provider={PROVIDER_GOOGLE}
             style={styles.map}
             initialRegion={{// This has to be current location
-              latitude: 37.78825,
-              longitude: -122.4324,
+              latitude: 40.7091089,
+              longitude: -74.0058052,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
