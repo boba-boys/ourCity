@@ -1,15 +1,20 @@
-// The sole purpose of this module is to establish a connection to your
-// Postgres database by creating a Sequelize instance (called `db`).
-// You shouldn't need to make any modifications here.
-
 const Sequelize = require("sequelize");
-// const pkg = require("../package.json");
-
-console.log("Opening database connection");
-
-// create the database instance that can be used in other database files
-const db = new Sequelize(`postgres://localhost:5432/mycity`, {
-  logging: false, // so we don't see all the SQL queries getting made
-});
-
+const config = {
+  logging: false,
+};
+if (process.env.LOGGING === "true") {
+  delete config.logging;
+}
+//https://stackoverflow.com/questions/61254851/heroku-postgres-sequelize-no-pg-hba-conf-entry-for-host
+if (process.env.DATABASE_URL) {
+  config.dialectOptions = {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  };
+}
+const db = new Sequelize(
+  process.env.DATABASE_URL || `postgres://localhost:5432/mycity`,
+  config
+);
 module.exports = db;
