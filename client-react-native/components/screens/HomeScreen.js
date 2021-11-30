@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 // import axios from "axios";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux";// useSelector is mapState & useDispatch is mapDispatch
-import { getTags } from "../redux/tags";
+import { getTags } from "../../redux/tags";
 
 
 const HomeScreen = (props) => {
