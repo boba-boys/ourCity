@@ -2,12 +2,12 @@ const Sequelize = require("sequelize");
 const db = require("../database");
 
 Tag = db.define("tag", {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false
-  },
+  // id: {
+  //   type: Sequelize.INTEGER,
+  //   primaryKey: true,
+  //   autoIncrement: true,
+  //   allowNull: false
+  // },
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -25,14 +25,6 @@ Tag = db.define("tag", {
   longitude: {
     type: Sequelize.FLOAT,
     allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
-  },
-  rating: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
     validate: {
       notEmpty: true,
     },

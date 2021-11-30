@@ -4,11 +4,19 @@ import {Provider} from 'react-redux';
 import store from './redux/store/index';
 // import Navbar from './components/Navbar';
 import Routes from './Routes';
+import { StyleSheet } from 'react-native';
 
 export default function App() {
   return (
     <Provider store={store}>
-        <Routes />
+        <Routes styles={styles.root}/>
     </Provider>
   )
 }
+
+const styles = StyleSheet.create({
+  root: {
+    backgroundColor: '#f9fbfc'
+  }
+})
+
