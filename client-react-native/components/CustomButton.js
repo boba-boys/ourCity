@@ -35,6 +35,11 @@ container_signIn:{
   backgroundColor:'#3B71F3'
 },
 
+container_backToSignIn:{
+  borderColor: '#3B71F3',
+  borderWidth: 2
+},
+
 container_forgot:{
 
 },
@@ -45,6 +50,10 @@ text: {
 
 text_forgot:{
   color: 'purple'
+},
+
+text_backToSignIn:{
+  color: '#3B71F3'
 }
 
 })

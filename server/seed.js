@@ -34,21 +34,43 @@ const dummyUsers = [
 
 const dummyTags = [ // The name of the tag has to be the name of the place
   {
-    name: "McDonalds",
-    latitude: 37.78824,
-    longitude: -122.42,
+    name: "Wilfie & Nell",
+    latitude: 40.7340642,
+    longitude: -74.00307049999999,
+    userId: 2,
+    groupId: 1,
   },
   {
-    name: "Burger King",
-    latitude: 36.9,
-    longitude: -121.9,
+    name: "Brad's Williamsburg Apartment",
+    latitude: 40.713557,
+    longitude: -73.9669608,
+    userId: 3,
+    groupId: 1,
   },
   {
-    name: "Park",
-    latitude: 36,
-    longitude: -123,
+    name: "Horses and Divorces",
+    latitude: 40.7140536,
+    longitude: -73.9613537,
+    userId: 4,
+    groupId: 1,
   },
-];
+  {
+    name: "The Django",
+    latitude: 40.7194085,
+    longitude: -74.00490929999999,
+    userId: 5,
+    groupId: 1,
+  },
+  {
+    name: "Wall Street Bath & Spa 88",
+    latitude: 40.7091089,
+    longitude: -74.0058052,
+    userId: 1,
+    groupId: 2,
+  },
+ ];
+
+
 
 const dummyGroups = [
   {
@@ -135,7 +157,7 @@ const seed = async () => {
         return Comment.create(comment);
       })
     );
-    
+
     console.log("Database synced!");
     console.log(`seeded successfully`);
     return {

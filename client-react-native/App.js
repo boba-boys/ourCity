@@ -1,17 +1,22 @@
-import React from 'react';
+import React from "react";
 // import { NavigationContainer } from '@react-navigation/native';
-import {Provider} from 'react-redux';
-import store from './redux/store/index';
+import { Provider } from "react-redux";
+import store from "./redux/store/index";
 // import Navbar from './components/Navbar';
-import Routes from './Routes';
-import { StyleSheet } from 'react-native';
+import Routes from "./Routes";
+
+
+//brad added SafeAreaView to the below line...
+import { StyleSheet } from "react-native";
+// //brad added this line too.
+// import CarouselCards from "./components/screens/CarouselCards";
 
 export default function App() {
   return (
     <Provider store={store}>
-        <Routes styles={styles.root}/>
+      <Routes styles={styles.root} />
     </Provider>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -19,4 +24,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9fbfc'
   }
 })
-
