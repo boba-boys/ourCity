@@ -34,67 +34,76 @@ const dummyUsers = [
 
 const dummyTags = [ // The name of the tag has to be the name of the place
   {
-    name: "group 1 Admins",
+    name: "McDonalds",
     latitude: 37.78824,
     longitude: -122.42,
-    userId: 2,
-    groupId: 1,
   },
   {
-    name: "group 1 Admins",
-    latitude: 37.7882,
-    longitude: -122.43,
-    userId: 3,
-    groupId: 1,
+    name: "Burger King",
+    latitude: 36.9,
+    longitude: -121.9,
   },
   {
-    name: "group 1 Admins",
-    latitude: 37.783,
-    longitude: -122.44,
-    userId: 4,
-    groupId: 1,
-  },
-  {
-    name: "group 1 Admins",
-    latitude: 37.788,
-    longitude: -122.42,
-    userId: 5,
-    groupId: 1,
-  },
-  {
-    name: "group 1 nonAdmins",
-    latitude: 37.7882,
-    longitude: -122.43,
-    userId: 1,
-    groupId: 2,
+    name: "Park",
+    latitude: 36,
+    longitude: -123,
   },
 ];
 
 const dummyGroups = [
   {
-    name: "group 1",
+    name: "Boba Guys",
   },
   {
-    name: "group 2",
+    name: "Tennis League",
+  },
+  {
+    name: "Rugby Team",
   },
 ];
 
 const dummyComments = [
   {
-    description: "I don't go to mcdonalds",
     tagId: 1,
+    userId: 2,
+    groupId: 1,
+    description: "I don't go to mcdonalds",
+    rating: 1,
   },
   {
+    tagId: 1,
+    userId: 3,
+    groupId: 1,
     description: "I love the big macs here",
-    tagId: 2,
+    rating: 5,
   },
   {
+    tagId: 1,
+    userId: 4,
+    groupId: 1,
     description: "I love fries",
-    tagId: 3,
+    rating: 2,
   },
   {
+    tagId: 1,
+    userId: 5,
+    groupId: 1,
+    description: "I like the fast service",
+    rating: 4,
+  },
+  {
+    tagId: 1,
+    userId: 1,
+    groupId: 2,
     description: "I like soda",
-    tagId: 4,
+    rating: 2,
+  },
+  {
+    tagId: 2,
+    userId: 1,
+    groupId: 2,
+    description: "I like the nuggets",
+    rating: 4,
   },
 ]
 
@@ -102,6 +111,12 @@ const seed = async () => {
   try {
     await db.sync({ force: true });
     console.log(`starting seeding`);
+
+    let tags = await Promise.all(
+      dummyTags.map((tag) => {
+        return Tag.create(tag);
+      })
+    );
 
     let users = await Promise.all(
       dummyUsers.map((user) => {
@@ -115,18 +130,12 @@ const seed = async () => {
       })
     );
 
-    let tags = await Promise.all(
-      dummyTags.map((tag) => {
-        return Tag.create(tag);
-      })
-    );
-
     let comments = await Promise.all(
       dummyComments.map((comment) => {
         return Comment.create(comment);
       })
     );
-
+    
     console.log("Database synced!");
     console.log(`seeded successfully`);
     return {
@@ -148,7 +157,7 @@ async function runSeed() {
     await seed();
   } catch (err) {
     console.error(err);
-    process.exitCode = 1; // Don't know this does
+    process.exitCode = 1; // Don't know what this is...
   } finally {
     console.log("closing db connection");
     await db.close();

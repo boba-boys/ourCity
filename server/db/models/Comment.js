@@ -1,7 +1,13 @@
 const Sequelize = require("sequelize");
 const db = require("../database");
 
-Comment = db.define("comment", {
+const Comment = db.define("comment", {
+    // id: {
+    //     type: Sequelize.INTEGER,
+    //     primaryKey: true,
+    //     autoIncrement: true,
+    //     allowNull: false
+    // },
     description: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -10,17 +16,26 @@ Comment = db.define("comment", {
             notEmpty: true,
         },
     },
-    tagId: {
+    userId: {
         type: Sequelize.INTEGER,
+        unique: false,
         allowNull: false,
         validate: {
             notEmpty: true,
         },
     },
-    like: {
+    groupId: {
+        type: Sequelize.INTEGER,
+        unique: false,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        },
+    },
+    rating: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 0, // might have to be undefined
+        defaultValue: 0,
         validate: {
             notEmpty: true,
         },
