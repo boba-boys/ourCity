@@ -4,6 +4,7 @@ import myCity from '../../assets/myCity.jpeg'
 import CustomButton from '../CustomButton'
 import CustomInput from '../CustomInput'
 import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
+import { useNavigation } from '@react-navigation/core'
 
 
 const SignInScreen = () => {
@@ -11,19 +12,24 @@ const SignInScreen = () => {
   const [password, setPassword] = useState('');
 
   const{height} = useWindowDimensions();
+  const navigation = useNavigation();
 
   const onSignInPressed = () =>{
-    console.warn('sign in')
+
+    //validate
+    navigation.navigate('Home')
   }
 
   const onForgotPassWordPressed = () =>{
-    console.warn('hahahahah')
+
+    navigation.navigate('Forgot Password')
   }
 
 
 
   const onSignUpPressed = () =>{
-    console.warn('hahahahah')
+
+    navigation.navigate('signUp')
   }
 
   return (

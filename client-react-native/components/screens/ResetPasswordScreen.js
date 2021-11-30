@@ -3,6 +3,7 @@ import{View, Text, StyleSheet, useWindowDimensions, ScrollView} from 'react-nati
 
 import CustomButton from '../CustomButton'
 import CustomInput from '../CustomInput'
+import { useNavigation } from '@react-navigation/core'
 
 
 
@@ -11,22 +12,18 @@ const ResetPasswordScreen = () => {
   const [newPassword, setNewPassword] = useState('');
 
 
-
-
-  const onSignInPressed = () =>{
-    console.warn('sign in')
-  }
-
-
+  const navigation = useNavigation();
 
 
 
   const backToSignInPressed = () => {
-    console.warn('uve been warned')
+
+    navigation.navigate('signIn')
   }
 
   const onSubmitPressed = () => {
-    console.warn('uve been warned')
+
+    navigation.navigate('Home')
   }
 
   return (

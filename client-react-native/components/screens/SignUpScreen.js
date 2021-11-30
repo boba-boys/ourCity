@@ -4,6 +4,7 @@ import{View, Text, StyleSheet, useWindowDimensions, ScrollView} from 'react-nati
 import CustomButton from '../CustomButton'
 import CustomInput from '../CustomInput'
 import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
+import { useNavigation } from '@react-navigation/core'
 
 
 const SignUpScreen = () => {
@@ -12,16 +13,18 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
 
-
+const navigation = useNavigation();
 
   const onSignInPressed = () =>{
     console.warn('sign in')
+    navigation.navigate('signIn')
   }
 
 
 
   const onRegisterPressed = () =>{
     console.warn('hahahahah')
+    navigation.navigate('Confirm Email')
   }
 
   const onTermsPressed = () => {

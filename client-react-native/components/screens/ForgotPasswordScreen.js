@@ -3,32 +3,26 @@ import{View, Text, StyleSheet, useWindowDimensions, ScrollView} from 'react-nati
 
 import CustomButton from '../CustomButton'
 import CustomInput from '../CustomInput'
+import { useNavigation } from '@react-navigation/core'
 
 
 
 const ForgotPasswordScreen = () => {
   const [username, setUsername] = useState('');
 
-
-
-
-  const onSignInPressed = () =>{
-    console.warn('sign in')
-  }
-
+  const navigation = useNavigation();
 
 
   const onSendPressed = () =>{
-    console.warn('hahahahah')
+
+    navigation.navigate('Reset Password')
   }
 
   const backToSignInPressed = () => {
-    console.warn('uve been warned')
+
+    navigation.navigate('signIn')
   }
 
-  const onResendPressed = () => {
-    console.warn('uve been warned')
-  }
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>

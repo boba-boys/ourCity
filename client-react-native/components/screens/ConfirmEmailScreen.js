@@ -4,12 +4,13 @@ import{View, Text, StyleSheet, useWindowDimensions, ScrollView} from 'react-nati
 import CustomButton from '../CustomButton'
 import CustomInput from '../CustomInput'
 import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
+import { useNavigation } from '@react-navigation/core'
 
 
 const ConfirmEmailScreen = () => {
   const [code, setCode] = useState('');
 
-
+  const navigation = useNavigation();
 
 
   const onSignInPressed = () =>{
@@ -20,10 +21,12 @@ const ConfirmEmailScreen = () => {
 
   const onRegisterPressed = () =>{
     console.warn('hahahahah')
+    navigation.navigate('Home')
   }
 
   const backToSignInPressed = () => {
     console.warn('uve been warned')
+    navigation.navigate('signIn')
   }
 
   const onResendPressed = () => {
