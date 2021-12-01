@@ -1,0 +1,21 @@
+{
+  "name": "mycityserver",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node main.js",
+    "build" : "npm install",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.0-alpha.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9"
+  },
+  "private": true
+}
