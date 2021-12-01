@@ -1,22 +1,12 @@
 const router = require("express").Router();
 const Tag = require("../db/models/Tag");
 const Comment = require("../db/models/Comment");
-const Group = require("../db/models/Group");
+const User = require("../db/models/User");
 
-// /api/tags
-router.get("/", async (req, res, next) => {
-  try {
-    const tags = await Tag.findAll();
-    res.send(tags);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// /api/tags/:groupId
+// /api/users/:groupId
 router.get("/:groupId", async (req, res, next) => {
   try {
-    const tags = await Tag.findAll({
+    const users = await User.findAll({
       include: [{
         model: Comment,
         where: {
@@ -24,8 +14,8 @@ router.get("/:groupId", async (req, res, next) => {
         },
       }],
     });
-    // console.log("Tags of a group:", tags);
-    res.send(tags);
+    // console.log("Tags of a group:", users);
+    res.send(users);
   } catch (err) {
     next(err);
   }
