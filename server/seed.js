@@ -130,6 +130,27 @@ const dummyComments = [
     description: "I like the nuggets",
     rating: 4,
   },
+  {
+    tagId: 3,
+    userId: 2,
+    groupId: 1,
+    description: "I don't go to mcdonalds",
+    rating: 1,
+  },
+  {
+    tagId: 4,
+    userId: 2,
+    groupId: 1,
+    description: "I don't go to mcdonalds",
+    rating: 1,
+  },
+  {
+    tagId: 5,
+    userId: 2,
+    groupId: 1,
+    description: "I don't go to mcdonalds",
+    rating: 1,
+  },
 ];
 
 const seed = async () => {
