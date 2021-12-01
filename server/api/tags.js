@@ -1,9 +1,7 @@
 const router = require("express").Router();
 const Tag = require("../db/models/Tag");
-const Sequelize = require("sequelize");
 const Comment = require("../db/models/Comment");
 const Group = require("../db/models/Group");
-// const Op = Sequelize.Op;
 
 // /api/tags
 router.get("/", async (req, res, next) => {
