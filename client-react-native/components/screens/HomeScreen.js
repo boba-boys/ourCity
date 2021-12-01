@@ -11,27 +11,10 @@ const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
   const dispatch = useDispatch();
 
-  // async componentDidMount() {
-  //   const list = await getTags(groupId);
-
-  //   this.setState({ tags: list });
-  //   console.log("Setting state in comp did mount", this.state);
-  // }
   // const [tags, setTags] = useState([]);
 
   useEffect((groupId) => {
     console.log('Passing through useEffect in App.js');
-    // const tagsFromServer = await axios.get(`http://10.0.2.15:1337/api/tags`, {
-    //   method: "get",
-    //   headers: {
-    //     'Content-type': "Application/json",
-    //     Accept: 'Application/json'
-    //   },
-    //   data: undefined,
-    // });
-    // const tagsFromServer= await fetch('http://10.0.2.15:1337/api/tags/');
-    // console.log('This is tagsFromServer variable: ', tagsFromServer);
-    // setTags(tagsFromServer.data);
     dispatch(getTags(1)); // Hard coded group id
   }, []);
 

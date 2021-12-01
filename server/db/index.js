@@ -13,6 +13,7 @@ Comment.belongsTo(Group);
 
 Tag.hasMany(Comment);
 Comment.belongsTo(Tag);
+// console.log(Object.keys(Comment.prototype));
 
 module.exports = {
   db,
