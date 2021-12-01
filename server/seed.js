@@ -1,38 +1,43 @@
-const { db,
-  models: {// Somehow this is connected to ./db/index.js ...weird stuff
-    Tag, Group, User, Comment
-  }
+const {
+  db,
+  models: {
+    // Somehow this is connected to ./db/index.js ...weird stuff
+    Tag,
+    Group,
+    User,
+    Comment,
+  },
 } = require("./db");
-
 
 const dummyUsers = [
   {
     email: "nonadmin@gmail.com",
-    password: '123',
+    password: "123",
   },
   {
     email: "brad@gmail.com",
-    password: '123',
+    password: "123",
     isAdmin: true,
   },
   {
     email: "chase@gmail.com",
-    password: '123',
+    password: "123",
     isAdmin: true,
   },
   {
     email: "scott@gmail.com",
-    password: '123',
+    password: "123",
     isAdmin: true,
   },
   {
     email: "hector@gmail.com",
-    password: '123',
+    password: "123",
     isAdmin: true,
   },
-]
+];
 
-const dummyTags = [ // The name of the tag has to be the name of the place
+const dummyTags = [
+  // The name of the tag has to be the name of the place
   {
     name: "Wilfie & Nell",
     latitude: 40.7340642,
@@ -68,9 +73,7 @@ const dummyTags = [ // The name of the tag has to be the name of the place
     userId: 1,
     groupId: 2,
   },
- ];
-
-
+];
 
 const dummyGroups = [
   {
@@ -127,7 +130,7 @@ const dummyComments = [
     description: "I like the nuggets",
     rating: 4,
   },
-]
+];
 
 const seed = async () => {
   try {
@@ -144,7 +147,7 @@ const seed = async () => {
       dummyUsers.map((user) => {
         return User.create(user);
       })
-    )
+    );
 
     let groups = await Promise.all(
       dummyGroups.map((group) => {
@@ -165,7 +168,7 @@ const seed = async () => {
       groups,
       tags,
       comments,
-    }
+    };
   } catch (err) {
     console.error("Something went wrong inside: seed()! :S");
     console.error(err);

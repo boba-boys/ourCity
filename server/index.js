@@ -3,11 +3,11 @@
 const express = require("express");
 const path = require("path");
 const morgan = require("morgan");
-const cors = require('cors');
+const cors = require("cors");
 const app = express();
 
 // logging middleware
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 // Cross-Origin Resourse Sharing middleware
 app.use(cors());
 // body parsing middleware
@@ -23,7 +23,6 @@ app.use(express.static(path.join(__dirname, "../App.js")));
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //   next();
 // });
-
 
 app.use("/api", require("./api")); // include our routes!
 
