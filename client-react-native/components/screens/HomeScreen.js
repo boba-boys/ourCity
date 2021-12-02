@@ -21,6 +21,11 @@ const HomeScreen = (props) => {
     setCarouselStatus(true)
   };
 
+  const onPressMap = () => {
+    //upon pressing the group name, we want the carousel to pop up via conditional rendering.
+    setCarouselStatus(false)
+  };
+
   // const [tags, setTags] = useState([]);
 
   useEffect((groupId) => {
@@ -54,6 +59,8 @@ const HomeScreen = (props) => {
            : null
           }
         </View>
+
+
 
           {tags.map((tag) => {
             return (
@@ -102,6 +109,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  megaButton: {
+    backgroundColor: 'white',
+    width: 100,
+    shadowColor: "black",
+  }
 });
 
 export default HomeScreen;
