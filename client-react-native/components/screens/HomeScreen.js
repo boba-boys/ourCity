@@ -1,3 +1,4 @@
+import { CurrentRenderContext } from "@react-navigation/core";
 import { StatusBar } from "expo-status-bar";
 import React, { Component, useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
@@ -21,7 +22,7 @@ const HomeScreen = (props) => {
   return (
     <>
       {
-        (!tags) ? <Text >Loading</Text> :
+        // (!tags) ? <Text >Loading</Text> :
           <MapView
             provider={PROVIDER_GOOGLE}
             style={styles.map}
@@ -32,6 +33,9 @@ const HomeScreen = (props) => {
               longitudeDelta: 0.0421,
             }}
           >
+            <Text
+            //once it renders add an onPress function.
+             style={styles.groupText}>Boba Boys</Text>
             {tags.map((tag) => {
               return (
                 <Marker
@@ -70,6 +74,15 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  groupText: {
+    fontSize: 30,
+    fontWeight: "400",
+    marginTop: 30,
+    fontFamily: "Cochin",
+    textAlign: "center",
+    alignItems: 'center',
+    textAlignVertical: 'center'
   },
 });
 
