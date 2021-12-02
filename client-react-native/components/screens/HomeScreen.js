@@ -4,56 +4,63 @@ import React, { Component, useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 // import axios from "axios";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { useSelector, useDispatch } from "react-redux";// useSelector is mapState & useDispatch is mapDispatch
+import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
 import { getTags } from "../../redux/tags";
-
 
 const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
   const dispatch = useDispatch();
+  const [titleText, setTitleText] = useState("NYC Public Restrooms");
+
+  const onPressGroup = () => {
+    setTitleText("You clicked the Group Name!");
+  };
 
   // const [tags, setTags] = useState([]);
 
   useEffect((groupId) => {
-    console.log('Passing through useEffect in App.js');
+    console.log("Passing through useEffect in App.js");
     dispatch(getTags(1)); // Hard coded group id
   }, []);
 
   return (
     <>
-      {
-        // (!tags) ? <Text >Loading</Text> :
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            initialRegion={{// This has to be current location
-              latitude: 40.7091089,
-              longitude: -74.0058052,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          >
-            <Text
-            //once it renders add an onPress function.
-             style={styles.groupText}>Boba Boys</Text>
-            {tags.map((tag) => {
-              return (
-                <Marker
-                  key={tag.id}
-                  coordinate={{
-                    latitude: tag.latitude,
-                    longitude: tag.longitude,
-                  }}
-                  title={tag.name}
-                  description={tag.description}
-                />
-              );
-            })}
-          </MapView>
-      }
+      {!tags ? (
+        <Text>Loading</Text>
+      ) : (
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          initialRegion={{
+            // This has to be current location
+            latitude: 40.7091089,
+            longitude: -74.0058052,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          <Text style={styles.titleText} onPress={onPressGroup}>
+            {titleText}
+          </Text>
+
+          {tags.map((tag) => {
+            return (
+              <Marker
+                key={tag.id}
+                coordinate={{
+                  latitude: tag.latitude,
+                  longitude: tag.longitude,
+                }}
+                title={tag.name}
+                description={tag.description}
+              />
+            );
+          })}
+        </MapView>
+      )}
     </>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -74,15 +81,14 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+    alignItems: "center",
   },
-  groupText: {
-    fontSize: 30,
-    fontWeight: "400",
-    marginTop: 30,
+  titleText: {
+    paddingTop: 50,
     fontFamily: "Cochin",
-    textAlign: "center",
-    alignItems: 'center',
-    textAlignVertical: 'center'
+    alignItems: "center",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 
