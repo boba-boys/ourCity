@@ -1,23 +1,44 @@
 import React, {useState} from 'react'
-import{View, Text, Image, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
+import{View, Text, TextInput, Image, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
 import myCity from '../../assets/myCity.jpeg'
 import CustomButton from '../CustomButton'
 import CustomInput from '../CustomInput'
 import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/core'
+import axios from 'axios'
 
 
 const SignInScreen = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const{height} = useWindowDimensions();
   const navigation = useNavigation();
 
-  const onSignInPressed = () =>{
 
+  const onSignInPressed =  async () =>{
+
+
+     console.log(email, password, 'heyy')
+
+    // const password = 123
+    // const  firstname = 'ss'
+    // const lastname = 'sgg'
+    console.log('pressed')
+    // const email = 'chase@gmail.com'
+    // const pass =  "123"
+
+    // console.log(username, password)
+    // const email  = 'sda@hotmail.com'
+      const user = await axios.post(`https://my-city-server.herokuapp.com/auth/login`, {email, password})
+    // const user = await axios.get(`api/users/${1}`)
     //validate
+    console.log(user.data, 'theeeseee areeeee theeeeeee usssererrrrrrsssssssss')
+    if(user.data['token']){
     navigation.navigate('Home')
+    }else{
+      console.warn('incorrect password')
+    }
   }
 
   const onForgotPassWordPressed = () =>{
@@ -32,6 +53,8 @@ const SignInScreen = () => {
     navigation.navigate('signUp')
   }
 
+
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
     <View style={styles.root}>
@@ -39,9 +62,30 @@ const SignInScreen = () => {
        style={[styles.myCity, {height: height * 0.3}]}
        resizeMode="contain" />
 
-      <CustomInput placeholder="UserName" value={username} setValue={setUsername}/>
-      <CustomInput placeholder="Password" value={password} setValue={setPassword}
-      secureTextEntry/>
+       <TextInput
+        style={styles.container}
+        placeholder='username'
+        name="username"
+        autoCapitalize="none"
+        value={email}
+        onChangeText={email => setEmail(email)}
+      />
+      <TextInput
+        style={styles.container}
+        placeholder='password'
+        name="password"
+        autoCapitalize="none"
+        password
+        value={password}
+        onChangeText={password => setPassword(password)}
+      />
+
+      {/* <CustomInput placeholder="UserName"  value={username}
+        onChangeText={username => setUsername(username)}/>
+      <CustomInput placeholder="Password" value={password}
+        onChangeText={password => setPassword(password)}
+       secureTextEntry
+       /> */}
       <CustomButton text='Sign In' type='signIn' onPress={onSignInPressed}/>
       <CustomButton text='Forgot Password?' onPress={onForgotPassWordPressed} type="forgot"/>
       <SocialSignInButtons/>
@@ -60,7 +104,18 @@ const styles = StyleSheet.create({
     width:'70%',
     maxWidth: 300,
     maxHeight: 300
-  }
+  },
+  container:{
+    backgroundColor: 'white',
+    width: '100%',
+
+    borderColor: '#e8e8e8',
+    borderWidth: 1,
+    borderRadius: 5,
+
+    paddingHorizontal: 5,
+    marginVertical: 2
+  },
 })
 
 
