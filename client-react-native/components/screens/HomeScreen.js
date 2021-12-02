@@ -1,19 +1,25 @@
 import { CurrentRenderContext } from "@react-navigation/core";
 import { StatusBar } from "expo-status-bar";
 import React, { Component, useEffect, useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
 // import axios from "axios";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
 import { getTags } from "../../redux/tags";
+import CarouselCards from "./CarouselCards";
+
 
 const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
   const dispatch = useDispatch();
   const [titleText, setTitleText] = useState("NYC Public Restrooms");
+  const [CarouselStatus, setCarouselStatus] = useState(false);
 
   const onPressGroup = () => {
+    //upon pressing the group name, we want the carousel to pop up via conditional rendering.
     setTitleText("You clicked the Group Name!");
+    setCarouselStatus(true)
+    console.warn(CarouselStatus)
   };
 
   // const [tags, setTags] = useState([]);
@@ -42,6 +48,13 @@ const HomeScreen = (props) => {
           <Text style={styles.titleText} onPress={onPressGroup}>
             {titleText}
           </Text>
+
+          <View>
+          {CarouselStatus == true
+           ? (<CarouselCards/>)
+           : null
+          }
+        </View>
 
           {tags.map((tag) => {
             return (
