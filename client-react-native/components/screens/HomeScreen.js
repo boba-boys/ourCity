@@ -17,9 +17,8 @@ const HomeScreen = (props) => {
 
   const onPressGroup = () => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setTitleText("You clicked the Group Name!");
+    setTitleText("");
     setCarouselStatus(true)
-    console.warn(CarouselStatus)
   };
 
   // const [tags, setTags] = useState([]);
