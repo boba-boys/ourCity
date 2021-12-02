@@ -14,7 +14,7 @@ const CarouselCards = () => {
     <View style={styles.container}>
       <Carousel
         layout="tinder"
-        layoutCardOffset={9}
+        layoutCardOffset={30}
         ref={isCarousel}
         data={data}
         renderItem={CarouselCardItem}
@@ -22,21 +22,6 @@ const CarouselCards = () => {
         itemWidth={ITEM_WIDTH}
         inactiveSlideShift={0}
         useScrollView={true}
-      />
-      <Pagination
-        dotsLength={data.length}
-        activeDotIndex={index}
-        carouselRef={isCarousel}
-        dotStyle={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          marginHorizontal: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.92)",
-        }}
-        inactiveDotOpacity={0.4}
-        inactiveDotScale={0.6}
-        tappableDots={true}
       />
     </View>
   );
@@ -47,12 +32,16 @@ const styles = StyleSheet.create({
     alignItems:'center',
     padding: 20,
   },
-   container: {
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 50
-  },
+  //  container: {
+  //   width: 350,
+  //   height: 400,
+  //   backgroundColor: 'white',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   padding: 25,
+  //   opacity:100,
+  //   marginBottom:305,
+  // },
 })
 
 export default CarouselCards;
