@@ -17,7 +17,6 @@ const HomeScreen = (props) => {
 
   const onPressGroup = () => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setTitleText("");
     setCarouselStatus(true)
   };
 
@@ -39,6 +38,7 @@ const HomeScreen = (props) => {
         <Text>Loading</Text>
       ) : (
         <MapView
+          onPress = {onPressMap}
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           initialRegion={{
