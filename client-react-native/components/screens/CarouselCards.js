@@ -32,16 +32,15 @@ const styles = StyleSheet.create({
     alignItems:'center',
     padding: 20,
   },
-  //  container: {
-  //   width: 350,
-  //   height: 400,
-  //   backgroundColor: 'white',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   padding: 25,
-  //   opacity:100,
-  //   marginBottom:305,
-  // },
+   container: {
+    width: 350,
+    height: 460,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 0,
+    opacity:100,
+    marginBottom:0,
+  },
 })
 
 export default CarouselCards;
