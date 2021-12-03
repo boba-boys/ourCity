@@ -1,3 +1,14 @@
+// import axios from "axios";
+
+
+//Goal: Replace this data with an axios call to the DB to get the data from the Groups Model.  I created a new file called groups.js.
+
+// const data = await axios.get(
+//   `https://my-city-server.herokuapp.com/api/tags/${groupId}`
+// );
+
+
+
 export default data = [
   {
     title: "NYC Public Tennis Courts",

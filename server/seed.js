@@ -77,13 +77,19 @@ const dummyTags = [
 
 const dummyGroups = [
   {
-    name: "Boba Guys",
+    name: "NYC Public Tennis Courts",
+    body: "Locate your nearest outdoor tennis court" ,
+    imageUrl: "https://www.amny.com/wp-content/uploads/2018/08/image-23.jpeg",
   },
   {
-    name: "Tennis League",
+    name: "NYC Public Restrooms",
+    body: "This one could come in handy during the most dire times of need.",
+    imageUrl: "https://cdn.vox-cdn.com/thumbor/Odg9mBuKUScF3_K4sgVuEzYrFi0=/0x0:1050x700/1200x900/filters:focal(441x266:609x434)/cdn.vox-cdn.com/uploads/chorus_image/image/55983431/18209165_10155411067543606_7677092082494155012_o.0.jpg",
   },
   {
-    name: "Rugby Team",
+    name: "Best Rooftop Bars",
+    body: "Check out New York City's finest rooftop bars this summer",
+    imageUrl: "https://i.pinimg.com/originals/31/51/17/315117520e1df7b5583a828bf0774c7b.jpg",
   },
 ];
 
