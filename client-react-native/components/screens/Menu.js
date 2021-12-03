@@ -23,16 +23,18 @@ const Menu = (props) => {
 
 const styles = StyleSheet.create({
   root: {
-    alignItems: "center",
-    padding: 20,
+    // alignItems: "center",
+    // justifyContent: "flex-end",
+    //padding: 20,
   },
   container: {
-    width: "75%",
     height: "50%",
     backgroundColor: "#fff",
     borderRadius: 30,
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
+    //justifyContent: "center",
+    bottom: 0,
   },
 });
 

@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux"; // useSelector is mapSta
 import { getTags } from "../../redux/tags";
 import CarouselCards from "./CarouselCards";
 import Menu from "./Menu";
-import { Icon } from "react-native-elements";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
@@ -57,15 +57,9 @@ const HomeScreen = (props) => {
 
           <View>{CarouselStatus == true ? <CarouselCards /> : null}</View>
 
-          <View>{menuStatus === true ? <Menu /> : null}</View>
-
-          <Icon
-            name='menu'
-            size={50}
-            color='white'
-            style={{ position: "absolute", top: 10, right: 10 }}
-            onPress={() => setMenuStatus(true)}
-          />
+          <View style={styles.menu}>
+            {menuStatus === true ? <Menu /> : null}
+          </View>
           {tags.map((tag) => {
             return (
               <Marker
@@ -79,6 +73,12 @@ const HomeScreen = (props) => {
               />
             );
           })}
+          <MaterialIcons
+            name='menu'
+            size={50}
+            onPress={() => setMenuStatus(!menuStatus)}
+            style={{ position: "absolute", bottom: 30, right: 35 }}
+          />
         </MapView>
       )}
     </>
@@ -118,10 +118,9 @@ const styles = StyleSheet.create({
     width: 100,
     shadowColor: "black",
   },
-  menuButton: {
-    position: "absolute",
-    right: 20,
-    bottom: 100,
+  menu: {
+    //position: "absolute",
+    bottom: 30,
   },
 });
 
