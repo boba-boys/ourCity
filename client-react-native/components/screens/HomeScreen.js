@@ -42,7 +42,6 @@ const HomeScreen = (props) => {
       {!tags ? (
         <Text>Loading</Text>
       ) : (
-        // <View style={styles.generalContainer}>
         /* <MapView
             provider={PROVIDER_GOOGLE}
             style={styles.map}
@@ -109,16 +108,15 @@ const HomeScreen = (props) => {
           <View style={styles.tagScreenContainer} >
             {tagView === true
               ? (<TagScreen
-                tagId={tagId}
-                title="Testing tag view"
-                visible={tagView}
-                onTouchOutside={() => { setTagView(!tagView) }}
+                // tagId={tagId}
+                // title="Testing tag view"
+                // visible={tagView}
+                // onTouchOutside={() => { setTagView(!tagView) }}
               />)
               : null
             }
           </View>
         </MapView>
-        // </View>
       )
       }
     </>
@@ -126,30 +124,30 @@ const HomeScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-  generalContainer: {
-    flex: 1,
-    // justifyContent: 'space-between',
-    // flexDirection: "column",
-    // height: '100%',
-    // width: '100%',
-    // ...StyleSheet.absoluteFillObject,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: "600",
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: "400",
-  },
-  highlight: {
-    fontWeight: "700",
-  },
+  // generalContainer: {
+  //   flex: 1,
+  //   // justifyContent: 'space-between',
+  //   // flexDirection: "column",
+  //   // height: '100%',
+  //   // width: '100%',
+  //   // ...StyleSheet.absoluteFillObject,
+  // },
+  // sectionContainer: {
+  //   marginTop: 32,
+  //   paddingHorizontal: 24,
+  // },
+  // sectionTitle: {
+  //   fontSize: 24,
+  //   fontWeight: "600",
+  // },
+  // sectionDescription: {
+  //   marginTop: 8,
+  //   fontSize: 18,
+  //   fontWeight: "400",
+  // },
+  // highlight: {
+  //   fontWeight: "700",
+  // },
   carouselTextContainer: {
     backgroundColor: 'red',
     width: '60%',
