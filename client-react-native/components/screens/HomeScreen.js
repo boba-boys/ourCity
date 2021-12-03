@@ -42,8 +42,8 @@ const HomeScreen = (props) => {
       {!tags ? (
         <Text>Loading</Text>
       ) : (
-        <View style={styles.generalContainer}>
-          {/* <MapView
+        // <View style={styles.generalContainer}>
+        /* <MapView
             provider={PROVIDER_GOOGLE}
             style={styles.map}
             initialRegion={{
@@ -65,9 +65,9 @@ const HomeScreen = (props) => {
                 />)
                 : null
               }
-            </View> */}
-        <MapView
-          onPress = {onPressMap}
+            </View> */
+        < MapView
+          onPress={onPressMap}
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           initialRegion={{
@@ -81,23 +81,31 @@ const HomeScreen = (props) => {
           <Text style={styles.titleText} onPress={onPressGroup}>
             {titleText}
           </Text>
+          <View>
 
-            {tags.map((tag) => {
-              return (
-                <Marker
-                  key={`${tag.longitude}_${tag.latitude}`}
-                  coordinate={{
-                    latitude: tag.latitude,
-                    longitude: tag.longitude,
-                  }}
-                  title={tag.name}
-                  description={tag.description}
-                  identifier={`${tag.id}`}
-                  onPress={handleSelection}
-                />
-              );
-            })}
-          </MapView>
+            {CarouselStatus == true
+              ? (<CarouselCards
+              // visible={CarouselStatus}
+              // onTouchOutside={() => { setCarouselStatus(!CarouselStatus) }}
+              />)
+              : null
+            }
+          </View>
+          {tags.map((tag) => {
+            return (
+              <Marker
+                key={`${tag.longitude}_${tag.latitude}`}
+                coordinate={{
+                  latitude: tag.latitude,
+                  longitude: tag.longitude,
+                }}
+                title={tag.name}
+                description={tag.description}
+                identifier={`${tag.id}`}
+                onPress={handleSelection}
+              />
+            );
+          })}
           <View style={styles.tagScreenContainer} >
             {tagView === true
               ? (<TagScreen
@@ -109,8 +117,10 @@ const HomeScreen = (props) => {
               : null
             }
           </View>
-        </View>
-      )}
+        </MapView>
+        // </View>
+      )
+      }
     </>
   );
 };

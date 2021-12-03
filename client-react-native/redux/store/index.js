@@ -8,7 +8,7 @@ import groups from '../groups'
 
 const reducer= combineReducers({
     tags,
-    groups
+    groups,
 });
 
 const middleware= composeWithDevTools(
