@@ -13,10 +13,10 @@ const _gotGroups = (groups) => {
 };
 
 // thunks
-export const getGroups = () => async (dispatch) => {
+export const getGroups = (userId) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `https://my-city-server.herokuapp.com/api/tags/${groupId}`
+      `https://my-city-server.herokuapp.com/api/groups/${userId}`
     );
     dispatch(_gotGroups(response.data));
   } catch (err) {
