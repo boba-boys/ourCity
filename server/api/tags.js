@@ -24,6 +24,7 @@ router.get("/:groupId", async (req, res, next) => {
         },
       }],
     });
+    // console.log("Tags of a group:", tags);
     res.send(tags);
   } catch (err) {
     next(err);
