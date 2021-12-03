@@ -22,12 +22,11 @@ const CarouselCards = () => {
     dispatch(getGroups(1));
   }, []);
 
-
   return (
     <View style={styles.container}>
       <Carousel
         layout="tinder"
-        layoutCardOffset={30}
+        layoutCardOffset={15}
         ref={isCarousel}
         data={usersGroups}
         renderItem={CarouselCardItem}
@@ -46,8 +45,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
    container: {
-    width: 350,
-    height: 460,
+    width: 200,
+    height: 360,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 0,
