@@ -21,9 +21,13 @@ const HomeScreen = (props) => {
     setCarouselStatus(true)
   };
 
+  const onPressMap = () => {
+    //upon pressing the group name, we want the carousel to pop up via conditional rendering.
+    setCarouselStatus(false)
+  };
+
   // const [tags, setTags] = useState([]);
   useEffect((groupId) => {
-    // console.log('Passing through useEffect in App.js');
     dispatch(getTags(1)); // Hard coded group id
   }, []);
 
@@ -39,7 +43,7 @@ const HomeScreen = (props) => {
         <Text>Loading</Text>
       ) : (
         <View style={styles.generalContainer}>
-          <MapView
+          {/* <MapView
             provider={PROVIDER_GOOGLE}
             style={styles.map}
             initialRegion={{
@@ -61,9 +65,22 @@ const HomeScreen = (props) => {
                 />)
                 : null
               }
-            </View>
-            {/* <View>
             </View> */}
+        <MapView
+          onPress = {onPressMap}
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          initialRegion={{
+            // This has to be current location
+            latitude: 40.7091089,
+            longitude: -74.0058052,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          <Text style={styles.titleText} onPress={onPressGroup}>
+            {titleText}
+          </Text>
 
             {tags.map((tag) => {
               return (
@@ -81,10 +98,6 @@ const HomeScreen = (props) => {
               );
             })}
           </MapView>
-          {/* <TagScreen
-            visible={tagView}
-            onTouchOutside={null}// How can I do this
-          /> */}
           <View style={styles.tagScreenContainer} >
             {tagView === true
               ? (<TagScreen
@@ -141,6 +154,8 @@ const styles = StyleSheet.create({
     marginLeft: 100,
     fontFamily: "Cochin",
     // alignItems: "center",
+    // fontFamily: "Cochin",
+    alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
     width: '100%',
@@ -169,6 +184,11 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // flex:1,
   },
+  megaButton: {
+    backgroundColor: 'white',
+    width: 100,
+    shadowColor: "black",
+  }
 });
 
 export default HomeScreen;
