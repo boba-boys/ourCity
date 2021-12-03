@@ -1,23 +1,23 @@
 import { CurrentRenderContext } from "@react-navigation/core";
 import { StatusBar } from "expo-status-bar";
-import React, { Component, useEffect, useState, useRef } from "react";
+import React, { Component, useEffect, useState, } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Alert, TouchableOpacity, Pressable } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux";// useSelector is mapState & useDispatch is mapDispatch
 import { getTags } from "../../redux/tags";
+import CarouselCards from "./CarouselCards";
 import TagScreen from './TagScreen';
 
 const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
   const dispatch = useDispatch();
-  // let popupRef = useRef();
   const [titleText, setTitleText] = useState("NYC Public Restrooms");// This is the name of the group
   const [CarouselStatus, setCarouselStatus] = useState(false);
   const [tagView, setTagView] = useState(false);
+  const [tagId, setTagId] = useState(null);
 
   const onPressGroup = () => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setTitleText("");
     setCarouselStatus(true)
   };
 
@@ -27,28 +27,18 @@ const HomeScreen = (props) => {
     dispatch(getTags(1)); // Hard coded group id
   }, []);
 
-  // const handleShow = () => {
-  //   setTagView(true);
-  // }
-
-  // const handleClose = () => {
-  //   setShow(false);
-  // }
-
-  // const handleSelection = (event) => {
-  //   console.log('This trigers when pressed: ', event.nativeEvent);
-  //   // <TouchableOpacity style={styles.overlay}>
-  //   //   <Text style={styles.text}>Touchable Opacity</Text>
-  //   // </TouchableOpacity>
-  //   handleShow();
-  // }
+  const handleSelection = (event) => {
+    // console.log('This trigers when pressed: ', event.nativeEvent);
+    setTagView(!tagView);
+    setTagId(event.nativeEvent.id);
+  }
 
   return (
     <>
       {!tags ? (
         <Text>Loading</Text>
       ) : (
-        <View style={styles.map}>
+        <View style={styles.generalContainer}>
           <MapView
             provider={PROVIDER_GOOGLE}
             style={styles.map}
@@ -60,28 +50,33 @@ const HomeScreen = (props) => {
               longitudeDelta: 0.0421,
             }}
           >
-            <Text style={styles.titleText} onPress={onPressGroup}>
-              {titleText}
-            </Text>
-
-            <View>
+            <View style={styles.carouselTextContainer}>
+              <Text style={styles.titleText} onPress={onPressGroup}>
+                {titleText}
+              </Text>
               {CarouselStatus == true
-                ? (<CarouselCards />)
+                ? (<CarouselCards
+                  visible={CarouselStatus}
+                  onTouchOutside={() => { setCarouselStatus(!CarouselStatus) }}
+                />)
                 : null
               }
             </View>
+            {/* <View>
+            </View> */}
 
             {tags.map((tag) => {
               return (
                 <Marker
-                  key={tag.id}
+                  key={`${tag.longitude}_${tag.latitude}`}
                   coordinate={{
                     latitude: tag.latitude,
                     longitude: tag.longitude,
                   }}
                   title={tag.name}
                   description={tag.description}
-                  onPress={() => { setTagView(!tagView) }}
+                  identifier={`${tag.id}`}
+                  onPress={handleSelection}
                 />
               );
             })}
@@ -90,13 +85,13 @@ const HomeScreen = (props) => {
             visible={tagView}
             onTouchOutside={null}// How can I do this
           /> */}
-          <View style={{ flex: 1, alignItems: "center", position: 'absolute',
-    bottom: 50,}}>
+          <View style={styles.tagScreenContainer} >
             {tagView === true
               ? (<TagScreen
+                tagId={tagId}
                 title="Testing tag view"
                 visible={tagView}
-                onTouchOutside={null}// How can I do this
+                onTouchOutside={() => { setTagView(!tagView) }}
               />)
               : null
             }
@@ -108,6 +103,14 @@ const HomeScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
+  generalContainer: {
+    flex: 1,
+    // justifyContent: 'space-between',
+    // flexDirection: "column",
+    // height: '100%',
+    // width: '100%',
+    // ...StyleSheet.absoluteFillObject,
+  },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
@@ -124,25 +127,48 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: "700",
   },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: "center",
+  carouselTextContainer: {
+    backgroundColor: 'red',
+    width: '60%',
+    height: '8%',
+    marginTop: 20,
+    flexDirection: 'row',
+    // justifyContent: "center",
+    marginLeft: 70,
   },
   titleText: {
     paddingTop: 50,
+    marginLeft: 100,
     fontFamily: "Cochin",
-    alignItems: "center",
+    // alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
+    width: '100%',
+    bottom: 0,
   },
-  overlay: {
-    position: 'absolute',
-    bottom: 50,
-    backgroundColor: 'rgba(255, 255, 255, 1)',
+  tagScreenContainer: {
+    // width: "85%",
+    // height: '55%',
+    // marginLeft: 30,
+    // position: 'absolute',
+    // justifyContent: 'flex-start', // moves the content respective the main axis
+    // alignItems: "center",
+    // bottom: 5,
+    // backgroundColor: 'lightblue',
   },
+  // overlay: {
+  //   position: 'absolute',
+  //   bottom: 50,
+  //   backgroundColor: 'rgba(255, 255, 255, 1)',
+  // },
   text: {
     color: 'black'
-  }
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+    // alignItems: "center",
+    // flex:1,
+  },
 });
 
 export default HomeScreen;
