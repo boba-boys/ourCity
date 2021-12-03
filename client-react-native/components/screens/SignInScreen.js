@@ -19,21 +19,9 @@ const SignInScreen = () => {
   const onSignInPressed =  async () =>{
 
 
-     console.log(email, password, 'heyy')
-
-    // const password = 123
-    // const  firstname = 'ss'
-    // const lastname = 'sgg'
-    console.log('pressed')
-    // const email = 'chase@gmail.com'
-    // const pass =  "123"
-
-    // console.log(username, password)
-    // const email  = 'sda@hotmail.com'
       const user = await axios.post(`https://my-city-server.herokuapp.com/auth/login`, {email, password})
-    // const user = await axios.get(`api/users/${1}`)
-    //validate
-    console.log(user.data, 'theeeseee areeeee theeeeeee usssererrrrrrsssssssss')
+
+
     if(user.data['token']){
     navigation.navigate('Home')
     }else{
