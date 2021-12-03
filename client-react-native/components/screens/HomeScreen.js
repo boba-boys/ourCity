@@ -62,6 +62,7 @@ const HomeScreen = (props) => {
 
 
 
+
           {tags.map((tag) => {
             return (
               <Marker
