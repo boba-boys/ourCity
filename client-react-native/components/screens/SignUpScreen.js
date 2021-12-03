@@ -1,17 +1,18 @@
 import React, {useState} from 'react'
-import{View, Text, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
+import{View, Text, TextInput, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
 
 import CustomButton from '../CustomButton'
 import CustomInput from '../CustomInput'
 import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/core'
+import axios from 'axios'
 
 
 const SignUpScreen = () => {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordRepeat, setPasswordRepeat] = useState('');
+  const [firstName, setFirst] = useState('');
+  const [lastName, setLast] = useState('');
 
 const navigation = useNavigation();
 
@@ -22,9 +23,16 @@ const navigation = useNavigation();
 
 
 
-  const onRegisterPressed = () =>{
-    console.warn('hahahahah')
-    navigation.navigate('Confirm Email')
+  const onRegisterPressed = async () =>{
+    const user = await axios.post('https://my-city-server.herokuapp.com/auth/signup', {email, password, firstName, lastName})
+
+    if(user.data.createdAt){
+
+      navigation.navigate('Home')
+
+    }else{
+      console.warn(user.data)
+    }
   }
 
   const onTermsPressed = () => {
@@ -40,28 +48,44 @@ const navigation = useNavigation();
     <View style={styles.root}>
      <Text style={styles.title}>Create an account</Text>
 
-      <CustomInput
-       placeholder="UserName"
-       value={username}
-       setValue={setUsername}
-       />
+     <TextInput
+        style={styles.container}
+        placeholder='username'
+        name="username"
+        autoCapitalize="none"
+        value={email}
+        onChangeText={email => setEmail(email)}
+      />
 
-      <CustomInput
-      placeholder="Email"
-      value={email}
-      setValue={setEmail}
+      <TextInput
+        style={styles.container}
+        placeholder='password'
+        name="password"
+        autoCapitalize="none"
+        password
+        value={password}
+        onChangeText={password => setPassword(password)}
       />
-      <CustomInput
-      placeholder="Password"
-      value={passwordRepeat}
-      setValue={setPasswordRepeat}
-      secureTextEntry
+
+
+
+      <TextInput
+        style={styles.container}
+        placeholder='username'
+        name="username"
+        autoCapitalize="none"
+        value={firstName}
+        onChangeText={firstName => setFirst(firstName)}
       />
-      <CustomInput
-      placeholder="Repeat Password"
-       value={password}
-        setValue={setPassword}
-      secureTextEntry
+
+      <TextInput
+        style={styles.container}
+        placeholder='password'
+        name="password"
+        autoCapitalize="none"
+        password
+        value={lastName}
+        onChangeText={lastName => setLast(lastName)}
       />
       <CustomButton
       text='Register'
@@ -102,7 +126,18 @@ const styles = StyleSheet.create({
   },
   link:{
     color: '#FDB075'
-  }
+  },
+  container:{
+    backgroundColor: 'white',
+    width: '100%',
+
+    borderColor: '#e8e8e8',
+    borderWidth: 1,
+    borderRadius: 5,
+
+    paddingHorizontal: 5,
+    marginVertical: 2
+  },
 })
 
 

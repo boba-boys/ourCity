@@ -24,7 +24,7 @@ const HomeScreen = (props) => {
   // const [tags, setTags] = useState([]);
 
   useEffect((groupId) => {
-    console.log("Passing through useEffect in App.js");
+
     dispatch(getTags(1)); // Hard coded group id
   }, []);
 
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     paddingTop: 50,
-    fontFamily: "Cochin",
+    // fontFamily: "Cochin",
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
