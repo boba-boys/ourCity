@@ -7,22 +7,26 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
 import { getTags } from "../../redux/tags";
 import CarouselCards from "./CarouselCards";
+import getCarouselStatus from "../../redux/carouselStatus";
+
 
 
 const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
+  const carouselStatus = useSelector((state) => state.carouselStatus);
+  console.log('FUCK!', carouselStatus)
   const dispatch = useDispatch();
-  const [titleText, setTitleText] = useState("NYC Public Restrooms");
-  const [CarouselStatus, setCarouselStatus] = useState(false);
+  const [titleText, setTitleText] = useState("Group Name");
+  // const [CarouselStatus, setCarouselStatus] = useState(false);
 
   const onPressGroup = () => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setCarouselStatus(true)
+    dispatch(getCarouselStatus(carouselStatus))
   };
 
   const onPressMap = () => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setCarouselStatus(false)
+    dispatch(getCarouselStatus(carouselStatus))
   };
 
   // const [tags, setTags] = useState([]);
@@ -54,8 +58,8 @@ const HomeScreen = (props) => {
           </Text>
 
           <View>
-          {CarouselStatus == true
-           ? (<CarouselCards/>)
+          {carouselStatus === true
+           ? (<CarouselCards />)
            : null
           }
         </View>
