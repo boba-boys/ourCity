@@ -35,6 +35,7 @@ const HomeScreen = (props) => {
     // console.log('This trigers when pressed: ', event.nativeEvent);
     setTagView(!tagView);
     setTagId(event.nativeEvent.id);
+    setCarouselStatus(false)
   }
 
   return (
@@ -105,13 +106,13 @@ const HomeScreen = (props) => {
               />
             );
           })}
-          <View style={styles.tagScreenContainer} >
+          <View /* style={styles.tagScreenContainer}  */>
             {tagView === true
               ? (<TagScreen
-                // tagId={tagId}
-                // title="Testing tag view"
-                // visible={tagView}
-                // onTouchOutside={() => { setTagView(!tagView) }}
+              // tagId={tagId}
+              // title="Testing tag view"
+              // visible={tagView}
+              // onTouchOutside={() => { setTagView(!tagView) }}
               />)
               : null
             }
