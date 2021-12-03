@@ -4,26 +4,30 @@ import React, { Component, useEffect, useState, } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Alert, TouchableOpacity, Pressable } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux";// useSelector is mapState & useDispatch is mapDispatch
+import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
 import CarouselCards from "./CarouselCards";
 import TagScreen from './TagScreen';
 
 const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
+  const CarouselStatus = useSelector((state) => state.carouselStatus);
   const dispatch = useDispatch();
   const [titleText, setTitleText] = useState("NYC Public Restrooms");// This is the name of the group
-  const [CarouselStatus, setCarouselStatus] = useState(false);
+  // const [CarouselStatus, setCarouselStatus] = useState(false);
   const [tagView, setTagView] = useState(false);
   const [tagId, setTagId] = useState(null);
 
+
+
   const onPressGroup = () => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setCarouselStatus(true)
+    dispatch(getStatus(CarouselStatus));
   };
 
   const onPressMap = () => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setCarouselStatus(false)
+    dispatch(getStatus(CarouselStatus))
   };
 
   // const [tags, setTags] = useState([]);

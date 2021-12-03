@@ -52,7 +52,7 @@ const TagScreen = (props) => {
         //     </View>
         // </Modal>
         <View style={styles.container}>
-            <Carousel
+            {/* <Carousel
                 layout="tinder"
                 layoutCardOffset={30}
                 ref={isCarousel}
@@ -62,39 +62,39 @@ const TagScreen = (props) => {
                 itemWidth={ITEM_WIDTH}
                 inactiveSlideShift={0}
                 useScrollView={true}
-            />
+            /> */}
         </View>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        width: "85%",
-        height: '10%',
-        marginLeft: 30,
-        position: 'absolute',
-        justifyContent: 'flex-start', // moves the content respective the main axis
-        alignItems: "center",
-        bottom: 50,
-        backgroundColor: 'blue',
-    },
-    tag: {
-        backgroundColor: 'grey',
-        width: '100%',
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-        paddingHorizontal: 10,
-        maxHeight: deviceHeight * 0.4,
-        // marginTop: 100,
-    },
-    tagText: {
-        // marginTop: 100,
-        color: 'black',
-        fontSize: 20,
-        fontWeight: '500',
-        backgroundColor: 'white',
-        // bottom: 100,
-    }
-});
+// const styles = StyleSheet.create({
+//     container: {
+//         width: "85%",
+//         height: '10%',
+//         marginLeft: 30,
+//         position: 'absolute',
+//         justifyContent: 'flex-start', // moves the content respective the main axis
+//         alignItems: "center",
+//         bottom: 50,
+//         backgroundColor: 'blue',
+//     },
+//     tag: {
+//         backgroundColor: 'grey',
+//         width: '100%',
+//         borderTopRightRadius: 10,
+//         borderTopLeftRadius: 10,
+//         paddingHorizontal: 10,
+//         // maxHeight: deviceHeight * 0.4,
+//         // marginTop: 100,
+//     },
+//     tagText: {
+//         // marginTop: 100,
+//         color: 'black',
+//         fontSize: 20,
+//         fontWeight: '500',
+//         backgroundColor: 'white',
+//         // bottom: 100,
+//     }
+// });
 
 export default TagScreen;
