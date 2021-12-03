@@ -7,28 +7,30 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
 import { getTags } from "../../redux/tags";
 import CarouselCards from "./CarouselCards";
-
+import Menu from "./Menu";
+import { Icon } from "react-native-elements";
 
 const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
   const dispatch = useDispatch();
   const [titleText, setTitleText] = useState("NYC Public Restrooms");
   const [CarouselStatus, setCarouselStatus] = useState(false);
+  const [menuStatus, setMenuStatus] = useState(false);
 
   const onPressGroup = () => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setCarouselStatus(true)
+    setCarouselStatus(true);
   };
 
   const onPressMap = () => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setCarouselStatus(false)
+    setCarouselStatus(false);
+    setMenuStatus(false);
   };
 
   // const [tags, setTags] = useState([]);
 
   useEffect((groupId) => {
-
     dispatch(getTags(1)); // Hard coded group id
   }, []);
 
@@ -38,7 +40,7 @@ const HomeScreen = (props) => {
         <Text>Loading</Text>
       ) : (
         <MapView
-          onPress = {onPressMap}
+          onPress={onPressMap}
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           initialRegion={{
@@ -53,16 +55,17 @@ const HomeScreen = (props) => {
             {titleText}
           </Text>
 
-          <View>
-          {CarouselStatus == true
-           ? (<CarouselCards/>)
-           : null
-          }
-        </View>
+          <View>{CarouselStatus == true ? <CarouselCards /> : null}</View>
 
+          <View>{menuStatus === true ? <Menu /> : null}</View>
 
-
-
+          <Icon
+            name='menu'
+            size={50}
+            color='white'
+            style={{ position: "absolute", top: 10, right: 10 }}
+            onPress={() => setMenuStatus(true)}
+          />
           {tags.map((tag) => {
             return (
               <Marker
@@ -111,10 +114,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   megaButton: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     width: 100,
     shadowColor: "black",
-  }
+  },
+  menuButton: {
+    position: "absolute",
+    right: 20,
+    bottom: 100,
+  },
 });
 
 export default HomeScreen;
