@@ -5,20 +5,32 @@ import { StyleSheet, Text, View, SafeAreaView, Alert, TouchableOpacity, Pressabl
 import MapView, { Marker, PROVIDER_GOOGLE, } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux";// useSelector is mapState & useDispatch is mapDispatch
 import { getStatus } from "../../redux/carouselStatus";
+import { getGroups } from "../../redux/groups";
 import { getTags } from "../../redux/tags";
 import CarouselCards from "./CarouselCards";
 import TagScreen from './TagScreen';
 
 const HomeScreen = (props) => {
+  // Hook
+  const dispatch = useDispatch();
+
+  // Redux Store
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
-  const dispatch = useDispatch();
+
+  // Local State
   const [titleText, setTitleText] = useState("NYC Public Restrooms");// This is the name of the group
   // const [CarouselStatus, setCarouselStatus] = useState(false);
   const [tagView, setTagView] = useState(false);
   const [tagId, setTagId] = useState(null);
+  // const [tags, setTags] = useState([]);
 
-
+  // ComponentDidMount
+  useEffect(() => {
+    dispatch(getTags(1)); // Hard coded groupId
+    dispatch(getGroups(1))// Hard code userId
+  }, []);
+  
 
   const onPressGroup = () => {
     console.log('Inside onPressGroup before pressing the Group text: ', CarouselStatus);
@@ -31,11 +43,6 @@ const HomeScreen = (props) => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
     // dispatch(getStatus(CarouselStatus))
   };
-
-  // const [tags, setTags] = useState([]);
-  useEffect((groupId) => {
-    dispatch(getTags(1)); // Hard coded group id
-  }, []);
 
   const handleSelection = (event) => {
     // console.log('This trigers when pressed: ', event.nativeEvent);
