@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getGroups } from "../../redux/groups";
 import { getStatus } from "../../redux/carouselStatus";
+import { getTags } from "../../redux/tags";
 
 const SLIDER_WIDTH = Dimensions.get('window').width + 80
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
@@ -29,14 +30,15 @@ const CarouselCards = (props) => {
           source={{ uri: item.imageUrl }}
           style={styles.image}
         />
-        <Text style={styles.header} onPress={handlePress}>{item.name}</Text>
-        <Text style={styles.body} onPress={handlePress}>{item.body}</Text>
+        <Text style={styles.header} onPress={() => handlePress(item.id)}>{item.name}</Text>
+        <Text style={styles.body} onPress={() => handlePress(item.id)}>{item.body}</Text>
       </View>
     )
   }
 
-  const handlePress = () => {
-    dispatch(getStatus(CarouselStatus))
+  const handlePress = (groupId) => {
+    // dispatch(getStatus(CarouselStatus))
+    dispatch(getTags(groupId))
   }
 
   return (
