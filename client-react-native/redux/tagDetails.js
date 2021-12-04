@@ -27,7 +27,7 @@ export const getTagDetails = (tagId) => async (dispatch) => {
 };
 
 // Reducer
-export default function tagDetails(state = {}, action) {
+export default function tagDetails(state = [], action) {
     switch (action.type) {
         case GOT_SINGLE_TAG:
             return action.tagObj;

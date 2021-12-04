@@ -20,10 +20,10 @@ const CarouselCards = (props) => {
   const dispatch = useDispatch();
 
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
-  // useEffect(() => {
-  //   console.log('---------------------ComponentDidMount:--------------------')
-  //   dispatch(getGroups(1)); // userId hard coded
-  // }, []);
+  useEffect(() => {
+    console.log('---------------------ComponentDidMount in CarouselCards:--------------------')
+    dispatch(getGroups(1)); // userId hard coded
+  }, []);
 
   const CarouselCardItem = ({ index, item }) => {
     return (

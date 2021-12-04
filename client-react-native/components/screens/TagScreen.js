@@ -111,7 +111,7 @@ const TagScreen = (props) => {
     //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
     useEffect(() => {
         console.log('---------------------ComponentDidMount:--------------------')
-        dispatch(getTagDetails(props.tagId)); // tagId to render
+        // dispatch(getTagDetails(props.tagId)); // tagId to render
     }, []);
 
     const Separator = () => (

@@ -25,8 +25,8 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-    // dispatch(getTags(1)); // Hard coded groupId
-    dispatch(getGroups(1))// Hard code userId
+    dispatch(getTags(1)); // Hard coded groupId
+    // dispatch(getGroups(1))// Hard code userId <--DONT UNCOMMENT THIS
   }, []);
   
 
@@ -42,11 +42,12 @@ const HomeScreen = (props) => {
     // dispatch(getStatus(CarouselStatus))
   };
 
-  const onPressTag = (tagId) => {
+  const onPressTag = () => {
+    console.log('Inside onPressTag before pressing the Marker/Tag: ', tagScreeenStatus);
     // console.log('This trigers when pressed: ', event.nativeEvent);
-    dispatch(getTagScreenStatus(tagScreeenStatus))
+    // dispatch(getTagScreenStatus(tagScreeenStatus))
     // setTagView(!tagView);
-    setTagId(tagId);
+    // setTagId(tagId);
   }
 
   return (
@@ -86,7 +87,7 @@ const HomeScreen = (props) => {
                 title={tag.name}
                 description={tag.description}
                 identifier={`${tag.id}`}
-                onPress={onPressTag(tag.id)}
+                onPress={() => onPressTag(tag.id)}
               />
             );
           })}
