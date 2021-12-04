@@ -18,7 +18,6 @@ const HomeScreen = (props) => {
   const CarouselStatus = useSelector((state) => state.carouselStatus);
 
   // Local State
-  const [titleText, setTitleText] = useState("NYC Public Restrooms");// This is the name of the group
   const [tagView, setTagView] = useState(false);
   const [tagId, setTagId] = useState(null);
 
@@ -89,7 +88,7 @@ const HomeScreen = (props) => {
           }}
         >
           <Text style={styles.titleText} onPress={onPressGroup}>
-            {titleText}
+            {"Your Groups"}
           </Text>
           <View>
 
