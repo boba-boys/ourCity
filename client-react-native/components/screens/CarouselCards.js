@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
-import { StyleSheet, View, Text, Modal, TouchableWithoutFeedback, Dimensions, Image } from "react-native";
-import Carousel, { Pagination } from "react-native-snap-carousel";
-// import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
-// import CarouselData from "./CarouselData";
+import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
+import Carousel from "react-native-snap-carousel";
 import { getGroups } from "../../redux/groups";
 import { getStatus } from "../../redux/carouselStatus";
-import { getTags } from "../../redux/tags";
 
 const SLIDER_WIDTH = Dimensions.get('window').width + 80
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
@@ -17,15 +14,12 @@ const CarouselCards = (props) => {
   const isCarousel = useRef(null);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const usersGroups = useSelector((state) => state.groups);
-  // const [activePage, setActivePage] = useState(0);
-  // const [index, setIndex] = useState(0);
-  //might not need the above line.
   const dispatch = useDispatch();
 
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
 
-  useEffect(() => {
-    dispatch(getGroups(1)); // Need to use the userId from the redux store
+  useEffect((groupId) => {
+    dispatch(getGroups(1));
   }, []);
 
   const CarouselCardItem = ({ index, item }) => {
@@ -35,15 +29,14 @@ const CarouselCards = (props) => {
           source={{ uri: item.imageUrl }}
           style={styles.image}
         />
-        <Text style={styles.header} onPress={handlePress(item.id)}>{item.name}</Text>
-        <Text style={styles.body} onPress={handlePress(item.id)}>{item.body}</Text>
+        <Text style={styles.header} onPress={handlePress}>{item.name}</Text>
+        <Text style={styles.body} onPress={handlePress}>{item.body}</Text>
       </View>
     )
   }
 
-  const handlePress = (groupId) => {
-    dispatch(getTags(groupId));// <--When the carousel card is pressed we should render all the tags from that group
-    dispatch(getStatus(CarouselStatus));
+  const handlePress = () => {
+    dispatch(getStatus(CarouselStatus))
   }
 
   return (
