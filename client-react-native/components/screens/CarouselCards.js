@@ -39,7 +39,7 @@ const CarouselCards = (props) => {
   }
 
   const handlePress = (groupId) => {
-    // dispatch(getStatus(CarouselStatus))
+    dispatch(getStatus(CarouselStatus));
     dispatch(getTags(groupId))
   }
 
