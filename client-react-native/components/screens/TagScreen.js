@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux"; // useSelector is mapSta
 import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getGroups } from "../../redux/groups";
-import { getStatus } from "../../redux/carouselStatus";
-import { getTags } from "../../redux/tags";
+import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -155,7 +154,7 @@ const TagScreen = (props) => {
     }
 
     const handlePressClose = () => {
-        // dispatch(getStatus(CarouselStatus)); // Changes the tagView status
+        // dispatch(getTagScreenStatus(CarouselStatus)); // Changes the tagView status
     }
 
     const handlePressComments = (tagId) => {// Will have to build an individual component to display the comments

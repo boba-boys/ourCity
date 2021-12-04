@@ -5,12 +5,15 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import tags from '../tags'
 import groups from '../groups'
 import carouselStatus from '../carouselStatus';
+import tagScreenStatus from '../tagScreenStatus';
+
 
 const reducer= combineReducers({
     tags,
-    tagDetails,
+    // tagDetails, Tobe created
     groups,
     carouselStatus,
+    tagScreenStatus,// To be created
 });
 
 const middleware= composeWithDevTools(

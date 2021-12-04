@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";// useSelector is mapStat
 import { getStatus } from "../../redux/carouselStatus";
 import { getGroups } from "../../redux/groups";
 import { getTags } from "../../redux/tags";
+import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import CarouselCards from "./CarouselCards";
 import TagScreen from './TagScreen';
 
@@ -16,10 +17,11 @@ const HomeScreen = (props) => {
   // Redux Store (useSelector is Hook!)
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
+  const tagScreeenStatus = useSelector((state) => state.tagScreeenStatus);
 
   // Local State
-  const [tagView, setTagView] = useState(false);
-  const [tagId, setTagId] = useState(null);
+  // const [tagView, setTagView] = useState(false);
+  const [tagId, setTagId] = useState(undefined);
 
   // ComponentDidMount
   useEffect(() => {
@@ -40,10 +42,11 @@ const HomeScreen = (props) => {
     // dispatch(getStatus(CarouselStatus))
   };
 
-  const handleSelection = (event) => {
+  const onPressTag = (tagId) => {
     // console.log('This trigers when pressed: ', event.nativeEvent);
-    setTagView(!tagView);
-    setTagId(event.nativeEvent.id);
+    dispatch(getTagScreenStatus(tagScreeenStatus))
+    // setTagView(!tagView);
+    setTagId(tagId);
   }
 
   return (
@@ -83,12 +86,12 @@ const HomeScreen = (props) => {
                 title={tag.name}
                 description={tag.description}
                 identifier={`${tag.id}`}
-                onPress={handleSelection}
+                onPress={onPressTag(tag.id)}
               />
             );
           })}
           <View >
-            {tagView === true
+            {tagScreeenStatus === true
               ? (<TagScreen
               tagId={tagId}
               // title="Testing tag view"
