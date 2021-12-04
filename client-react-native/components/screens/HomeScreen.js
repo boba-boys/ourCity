@@ -44,7 +44,6 @@ const HomeScreen = (props) => {
     // console.log('This trigers when pressed: ', event.nativeEvent);
     setTagView(!tagView);
     setTagId(event.nativeEvent.id);
-    setCarouselStatus(false)
   }
 
   return (
@@ -52,29 +51,6 @@ const HomeScreen = (props) => {
       {!tags ? (
         <Text>Loading</Text>
       ) : (
-        /* <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            initialRegion={{
-              // This has to be current location
-              latitude: 40.7091089,
-              longitude: -74.0058052,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          >
-            <View style={styles.carouselTextContainer}>
-              <Text style={styles.titleText} onPress={onPressGroup}>
-                {titleText}
-              </Text>
-              {CarouselStatus == true
-                ? (<CarouselCards
-                  visible={CarouselStatus}
-                  onTouchOutside={() => { setCarouselStatus(!CarouselStatus) }}
-                />)
-                : null
-              }
-            </View> */
         < MapView
           onPress={onPressMap}
           provider={PROVIDER_GOOGLE}
@@ -92,10 +68,7 @@ const HomeScreen = (props) => {
           </Text>
           <View>
             {CarouselStatus == true
-              ? (<CarouselCards
-              // visible={CarouselStatus}
-              // onTouchOutside={() => { setCarouselStatus(!CarouselStatus) }}
-              />)
+              ? (<CarouselCards />)
               : null
             }
           </View>
@@ -114,10 +87,10 @@ const HomeScreen = (props) => {
               />
             );
           })}
-          <View /* style={styles.tagScreenContainer} */ >
+          <View >
             {tagView === true
               ? (<TagScreen
-              // tagId={tagId}
+              tagId={tagId}
               // title="Testing tag view"
               // visible={tagView}
               // onTouchOutside={() => { setTagView(!tagView) }}
