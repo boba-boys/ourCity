@@ -6,8 +6,10 @@ import { getGroups } from "../../redux/groups";
 import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
 
-const SLIDER_WIDTH = Dimensions.get('window').width + 80
-const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
+const SLIDER_WIDTH = Dimensions.get('window').width;
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
+const SLIDER_HEIGHT = Dimensions.get('window').height; 
+const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.38);
 
 //We can add pagination so users can skip to a certain item in the carousel without having to swipe continuously.  Below I create a state to store the current pagination index.
 
@@ -94,6 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 8,
     width: ITEM_WIDTH,
+    height: ITEM_HEIGHT,
     paddingBottom: 10,
     shadowColor: "black",
     shadowOffset: {
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: ITEM_WIDTH,
-    height: 300,
+    height: 150,
   },
   header: {
     color: "#222",
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingLeft: 20,
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   }
 })
 
