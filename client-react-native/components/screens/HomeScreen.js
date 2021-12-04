@@ -21,13 +21,15 @@ const HomeScreen = (props) => {
 
 
   const onPressGroup = () => {
+    console.log('Inside onPressGroup before pressing the Group text: ', CarouselStatus);
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
     dispatch(getStatus(CarouselStatus));
   };
 
   const onPressMap = () => {
+    console.log('Inside onPressMap before pressing the MAP: ', CarouselStatus);
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    dispatch(getStatus(CarouselStatus))
+    // dispatch(getStatus(CarouselStatus))
   };
 
   // const [tags, setTags] = useState([]);
