@@ -122,26 +122,34 @@ const TagScreen = (props) => {
     const CarouselCardItem = ({ index, item }) => {
         return (
             <View style={styles.container} key={item.id} >
-                {/* <Image
+                <View>
+                    {/* <Image
                     source={{ uri: item.imageUrl }}
                     style={styles.image}
-                /> This images should come from the Google API places*/}
+                    /> This images should come from the Google API places*/}
+                </View>
                 <Separator />
-                <Text style={styles.header} >
-                    {item.name}
-                </Text>
+                <View>
+                    <Text style={styles.header} >
+                        {item.name}
+                    </Text>
+                </View>
                 <Separator />
-                <Button
-                    style={styles.body}
-                    title="See Comments"
-                    onPress={() => handlePressComments(item.id)}
-                />
+                <View>
+                    <Button
+                        style={styles.body}
+                        title="See Comments"
+                        onPress={() => handlePressComments(item.id)}
+                    />
+                </View>
                 <Separator />
-                <Button
-                    title="Close"
-                    color="#f194ff"
-                    onPress={() => handlePressClose()}
-                />
+                <View>
+                    <Button
+                        title="Close"
+                        color="#f194ff"
+                        onPress={() => handlePressClose()}
+                    />
+                </View>
             </View>
         )
     }
