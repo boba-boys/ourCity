@@ -8,6 +8,7 @@ import carouselStatus from '../carouselStatus';
 
 const reducer= combineReducers({
     tags,
+    tagDetails,
     groups,
     carouselStatus,
 });

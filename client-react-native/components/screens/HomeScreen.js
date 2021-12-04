@@ -23,7 +23,7 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-    dispatch(getTags(1)); // Hard coded groupId
+    // dispatch(getTags(1)); // Hard coded groupId
     dispatch(getGroups(1))// Hard code userId
   }, []);
   
@@ -91,7 +91,6 @@ const HomeScreen = (props) => {
             {"My Groups"}
           </Text>
           <View>
-
             {CarouselStatus == true
               ? (<CarouselCards
               // visible={CarouselStatus}
@@ -115,7 +114,7 @@ const HomeScreen = (props) => {
               />
             );
           })}
-          <View /* style={styles.tagScreenContainer}  */>
+          <View /* style={styles.tagScreenContainer} */ >
             {tagView === true
               ? (<TagScreen
               // tagId={tagId}
@@ -180,14 +179,14 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   tagScreenContainer: {
-    // width: "85%",
-    // height: '55%',
-    // marginLeft: 30,
-    // position: 'absolute',
-    // justifyContent: 'flex-start', // moves the content respective the main axis
-    // alignItems: "center",
-    // bottom: 5,
-    // backgroundColor: 'lightblue',
+    width: "85%",
+    height: '55%',
+    marginLeft: 30,
+    position: 'absolute',
+    justifyContent: 'flex-start', // moves the content respective the main axis
+    alignItems: "center",
+    bottom: 5,
+    backgroundColor: 'lightblue',
   },
   // overlay: {
   //   position: 'absolute',
