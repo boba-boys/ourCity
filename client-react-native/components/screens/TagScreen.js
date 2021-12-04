@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux"; // useSelector is mapSta
 import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getGroups } from "../../redux/groups";
-import { getTagScreenStatus } from "../../redux/tagScreenStatus";
+import { getTagDetails } from "../../redux/tagDetails";
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
