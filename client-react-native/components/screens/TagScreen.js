@@ -139,7 +139,7 @@ const TagScreen = (props) => {
                     <Button
                         style={styles.body}
                         title="See Comments"
-                        onPress={() => handlePressComments(item.id)}
+                        onPress={handlePressComments(item.id)}
                     />
                 </View>
                 <Separator />
@@ -147,7 +147,7 @@ const TagScreen = (props) => {
                     <Button
                         title="Close"
                         color="#f194ff"
-                        onPress={() => handlePressClose()}
+                        onPress={handlePressClose()}
                     />
                 </View>
             </View>
