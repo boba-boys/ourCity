@@ -18,8 +18,8 @@ const CarouselCards = (props) => {
 
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
 
-  useEffect((groupId) => {
-    dispatch(getGroups(1));
+  useEffect(() => {
+    dispatch(getGroups(1)); // userId hard coded
   }, []);
 
   const CarouselCardItem = ({ index, item }) => {
