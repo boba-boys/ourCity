@@ -21,4 +21,19 @@ router.get("/:groupId", async (req, res, next) => {
   }
 });
 
+router.get("/", async (req, res, next) => {
+  try {
+
+    const user = await User.findOne({
+      where: {
+        email: 'hector@gmail.com',
+      },
+    });
+    // console.log("Tags of a group:", users);
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
