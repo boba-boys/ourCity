@@ -1,17 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
-import { StyleSheet, View, Modal, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, View, Text, Modal, TouchableWithoutFeedback, Dimensions, Image } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
-import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
+// import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 // import CarouselData from "./CarouselData";
 import { getGroups } from "../../redux/groups";
+import { getStatus } from "../../redux/carouselStatus";
 
+const SLIDER_WIDTH = Dimensions.get('window').width + 80
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
 
 //We can add pagination so users can skip to a certain item in the carousel without having to swipe continuously.  Below I create a state to store the current pagination index.
 
 const CarouselCards = (props) => {
   const { onTouchOutside, visible } = props;
   const isCarousel = useRef(null);
+  const CarouselStatus = useSelector((state) => state.carouselStatus);
+  const [activePage, setActivePage] = useState(0);
+  // console.log('activePage:',activePage)
   // const [index, setIndex] = useState(0);
   //might not need the above line.
   const usersGroups = useSelector((state) => state.groups);
@@ -23,6 +29,26 @@ const CarouselCards = (props) => {
     dispatch(getGroups(1));
   }, []);
 
+  const CarouselCardItem = ({ index, item }) => {
+    return (
+      <View style={styles.container} key={item.id} >
+        <Image
+          source={{ uri: item.imageUrl }}
+          style={styles.image}
+        />
+        <Text style={styles.header} onPress={handlePress}>{item.name}</Text>
+        <Text style={styles.body} onPress={handlePress}>{item.body}</Text>
+      </View>
+    )
+  }
+  // useEffect(() => {
+  //   getData();
+  // }, [activePage]);
+
+  const handlePress = () => {
+    // let indexx= isCarousel.currentIndex();
+    dispatch(getStatus(CarouselStatus))
+  }
 
   // const renderOutsideTouchable = (onTouch) => {
   //   const view = <View style={styles.backgroundScreen} />
@@ -35,7 +61,7 @@ const CarouselCards = (props) => {
   // }
 
   return (
-    <View style={styles.container} >
+    <View /* style={styles.container} */>
       {/* <Modal
           transparent={true}
           visible={visible}
@@ -50,6 +76,9 @@ const CarouselCards = (props) => {
         itemWidth={ITEM_WIDTH}
         inactiveSlideShift={0}
         useScrollView={true}
+        onSnapToItem={(index) => { setActivePage(index) }}
+      // onScroll={handlePress}
+      // onPress={() =>{handlePress}}
       />
       {/* {renderOutsideTouchable(onTouchOutside)} */}
       {/* </Modal> */}
@@ -80,15 +109,47 @@ const styles = StyleSheet.create({
     bottom: 50,
     backgroundColor: 'blue',
   },
+  // container: {
+  //   width: 350,
+  //   height: 460,
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   padding: 0,
+  //   opacity: 100,
+  //   marginBottom: 0,
+  // },
   container: {
-    width: 350,
-    height: 460,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 0,
-    opacity: 100,
-    marginBottom: 0,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    width: ITEM_WIDTH,
+    paddingBottom: 10,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.75,
+    shadowRadius: 4.65,
+    elevation: 7,
   },
+  image: {
+    width: ITEM_WIDTH,
+    height: 300,
+  },
+  header: {
+    color: "#222",
+    fontSize: 28,
+    fontWeight: "bold",
+    paddingLeft: 20,
+    paddingTop: 20
+  },
+  body: {
+    color: "#222",
+    fontSize: 18,
+    paddingLeft: 20,
+    paddingLeft: 20,
+    paddingRight: 20
+  }
 })
 
 export default CarouselCards;

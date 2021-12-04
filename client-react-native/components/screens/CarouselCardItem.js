@@ -1,20 +1,51 @@
-import React from 'react'
+import React, { Component, useEffect, useState, } from "react";
+import { useSelector, useDispatch, connect } from "react-redux";// useSelector is mapState & useDispatch is mapDispatch
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native"
+import { getStatus } from "../../redux/carouselStatus";
+
 
 export const SLIDER_WIDTH = Dimensions.get('window').width + 80
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
 
-const CarouselCardItem = ({ item, index }) => {
-  return (
-    <View style={styles.container} key={index}>
-      <Image
-        source={{ uri: item.imageUrl }}
-        style={styles.image}
-      />
-      <Text style={styles.header}>{item.name}</Text>
-      <Text style={styles.body}>{item.body}</Text>
-    </View>
-  )
+class CarouselCardItem extends Component {
+  constructor(props) {
+    super(props);
+    state = {
+      item: this.props.item,
+      index:this.props.index,
+    }
+    this.handlePress = this.handlePress.bind();
+  }
+
+  componentDidMount(){
+    this.props.carouselStatusThunk(false);
+  }
+  // const CarouselStatus = useSelector((state) => state.carouselStatus);
+  // const { item, index } = props
+  // const dispatch = useDispatch();
+  // console.log('This is Props:',props)
+
+  // useEffect(() => {
+  //   storeData();
+  // }, []);
+
+  handlePress = () => {
+    // dispatch(getStatus(CarouselStatus))
+    // console.log('hi');
+  }
+
+  render() {
+    return (
+      <View style={styles.container} key={item.id}>
+        <Image
+          source={{ uri: item.imageUrl }}
+          style={styles.image}
+        />
+        <Text style={styles.header}>{item.name}</Text>
+        <Text style={styles.body}>{item.body}</Text>
+      </View>
+    )
+  }
 }
 const styles = StyleSheet.create({
   container: {
@@ -51,4 +82,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default CarouselCardItem
+const mapDispatch = (dispatch) => {
+  return {
+    carouselStatusThunk:(state) => dispatch(getStatus(state)),
+  };
+};
+
+export default connect(null, mapDispatch)(CarouselCardItem);
