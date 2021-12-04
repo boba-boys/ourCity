@@ -13,17 +13,14 @@ import TagScreen from './TagScreen';
 const HomeScreen = (props) => {
   // Hook
   const dispatch = useDispatch();
-
-  // Redux Store
+  // Redux Store (useSelector is Hook!)
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
 
   // Local State
   const [titleText, setTitleText] = useState("NYC Public Restrooms");// This is the name of the group
-  // const [CarouselStatus, setCarouselStatus] = useState(false);
   const [tagView, setTagView] = useState(false);
   const [tagId, setTagId] = useState(null);
-  // const [tags, setTags] = useState([]);
 
   // ComponentDidMount
   useEffect(() => {
