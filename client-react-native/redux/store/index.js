@@ -4,10 +4,14 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import tags from '../tags'
 import groups from '../groups'
+
+import users from '../user';
+
 import carouselStatus from '../carouselStatus';
 import tagScreenStatus from '../tagScreenStatus';
 import tagDetails from '../tagDetails';
 import allTagsScreenStatus from '../allTagsScreenStatus';
+
 
 
 const reducer= combineReducers({
@@ -15,8 +19,12 @@ const reducer= combineReducers({
     tagDetails,
     groups,
     carouselStatus,
+
+    users,
+
     tagScreenStatus,
     allTagsScreenStatus,
+
 });
 
 const middleware= composeWithDevTools(
