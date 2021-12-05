@@ -32,10 +32,10 @@ import TagScreen from "./SingleTagScreen";
 
 const HomeScreen = (props) => {
 
-  const tags = useSelector((state) => state.tags);
-  const carouselStatus = useSelector((state) => state.carouselStatus);
+  // const tags = useSelector((state) => state.tags);
+  // const carouselStatus = useSelector((state) => state.carouselStatus);
   const userState = useSelector((state) => state.user);
-  
+
 
   const dispatch = useDispatch();
   const mapReference = createRef();
