@@ -73,6 +73,7 @@ const HomeScreen = (props) => {
         style={styles.map}
         initialRegion={initialState}
         ref={mapReference}
+        showUserLocation={true}
       >
         <Text style={styles.groupsText} onPress={onPressGroup}>
           {"My Groups"}
