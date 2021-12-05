@@ -1,20 +1,20 @@
 
 // action types
-const GOT_CarouselStatus = "GOT_CarouselStatus";
+const GOT_CAROUSEL_STATUS = "GOT_CAROUSEL_STATUS";
 
 // action creators
-const _getCarouselStatus = (status) => {
+const _gotCarouselStatus = (status) => {
   return {
-    type: GOT_CarouselStatus,
-    carouselStatus: status,
+    type: GOT_CAROUSEL_STATUS,
+    carouselState: status,
   };
 };
 
 // thunks
-export const getCarouselStatus = (carouselStatus) => async (dispatch) => {
+export const getStatus = (currentStatus) => async (dispatch) => {
   try {
-   const newStatus = !carouselStatus
-    dispatch(_getCarouselStatus(newStatus));
+    let newStatus=!currentStatus;
+    dispatch(_gotCarouselStatus(newStatus));
   } catch (err) {
     console.log(err);
     return [];
@@ -24,8 +24,8 @@ export const getCarouselStatus = (carouselStatus) => async (dispatch) => {
 // Reducer
 export default function carouselStatus(state = false, action) {
   switch (action.type) {
-    case GOT_CarouselStatus:
-      return action.carouselStatus;
+    case GOT_CAROUSEL_STATUS:
+      return action.carouselState;
     default:
       return state;
   }

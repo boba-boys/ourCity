@@ -30,4 +30,19 @@ router.get("/:groupId", async (req, res, next) => {
   }
 });
 
+// /api/tags/details/:tagId
+router.get("/details/:tagId", async (req, res, next) => {
+  try {
+    const singleTag = await Tag.findOne({
+      where: {
+        id: req.params.tagId,
+      },
+    });
+    // console.log("Tags of a group:", tags);
+    res.send(singleTag);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
