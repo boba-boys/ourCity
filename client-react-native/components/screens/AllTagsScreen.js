@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
 import { StyleSheet, View, Text, Dimensions, Image, Button } from "react-native";
 import Carousel from "react-native-snap-carousel";
-import { getGroups } from "../../redux/groups";
-import { getTagDetails } from "../../redux/tagDetails";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
@@ -12,21 +10,14 @@ const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.38);
 
 
-const TagScreen = (props) => {
+const AllTagsScreen = (props) => {
     // Hooks
     const dispatch = useDispatch();
     const isCarousel = useRef(null);
 
     // Redux store
-    const usersTag = useSelector((state) => state.tagDetails);
+    const userTags = useSelector((state) => state.tags);
     const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
-
-    console.log('This is the passed tag inside TAG_SCREEN:', props.tagId);
-    //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
-    useEffect(() => {
-        console.log('---------------------ComponentDidMount in TagScreen :--------------------')
-        dispatch(getTagDetails(props.tagId)); // tagId to render
-    }, []);
 
     const Separator = () => (
         <View style={styles.separator} />
@@ -36,14 +27,21 @@ const TagScreen = (props) => {
         return (
             <View style={styles.container} key={item.id} >
                 <View>
-                    {/* <Image
-                    source={{ uri: item.imageUrl }}
-                    style={styles.image}
-                    /> This images should come from the Google API places*/}
+                    <Text style={styles.header} >
+                        Details:
+                    </Text>
                 </View>
                 <Separator />
                 <View>
-                    <Text style={styles.header} >
+                    <Image
+                        source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
+                        style={styles.image}
+                    />
+                    {/*This images should come from the Google API places */}
+                </View>
+                <Separator />
+                <View>
+                    <Text style={styles.tagName} >
                         {item.name}
                     </Text>
                 </View>
@@ -51,6 +49,7 @@ const TagScreen = (props) => {
                 <View>
                     <Button
                         style={styles.body}
+                        color={"rgb(31, 126, 160)"}
                         title="See Comments"
                         onPress={() => handlePressComments(item.id)}
                     />
@@ -58,8 +57,8 @@ const TagScreen = (props) => {
                 <Separator />
                 <View>
                     <Button
+                        color={"#9B2F2F"}
                         title="Close"
-                        color="black"
                         onPress={handlePressClose}
                     />
                 </View>
@@ -81,7 +80,7 @@ const TagScreen = (props) => {
                 layout="tinder"
                 layoutCardOffset={30}
                 ref={isCarousel}
-                data={usersTag}
+                data={userTags}
                 renderItem={CarouselCardItem}
                 sliderWidth={SLIDER_WIDTH}
                 itemWidth={ITEM_WIDTH}
@@ -121,22 +120,34 @@ const styles = StyleSheet.create({
     },
     image: {
         width: ITEM_WIDTH,
-        height: 150,
+        height: 125,
     },
     header: {
         color: "#222",
+        fontSize: 20,
+        alignSelf: 'center',
+        fontWeight: "bold",
+    },
+    tagName: {
+        color: "#222",
         fontSize: 28,
         fontWeight: "bold",
-        paddingLeft: 20,
-        paddingTop: 20
+        alignSelf: 'center',
     },
-    body: {
-        color: "#222",
-        fontSize: 18,
-        paddingLeft: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
+    // body: {
+    //     color: "rgb(31, 126, 160)",
+    //     fontSize: 18,
+    //     paddingLeft: 20,
+    //     paddingRight: 20,
+    //     fontWeight: "bold",
+    // },
+    // close: {
+    //     color: "#9B2F2F",
+    //     fontSize: 18,
+    //     paddingLeft: 20,
+    //     paddingRight: 20,
+    //     fontWeight: "bold",
+    // },
     separator: {
         marginVertical: 8,
         borderBottomColor: '#737373',
@@ -144,4 +155,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default TagScreen;
+export default AllTagsScreen;

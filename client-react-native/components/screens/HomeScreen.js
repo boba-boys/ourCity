@@ -1,6 +1,6 @@
 import { CurrentRenderContext } from "@react-navigation/core";
 import { StatusBar } from "expo-status-bar";
-import React, { Component, useEffect, useState, } from "react";
+import React, { Component, useEffect, useRef, useState, } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Alert, TouchableOpacity, Pressable } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux";// useSelector is mapState & useDispatch is mapDispatch
@@ -8,13 +8,15 @@ import { getStatus } from "../../redux/carouselStatus";
 import { getGroups } from "../../redux/groups";
 import { getTags } from "../../redux/tags";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
-import CarouselCards from "./CarouselCards";
-import TagScreen from './TagScreen';
+import AllTagsScreen from "./AllTagsScreen";
+import CarouselCards from "./GroupsScreen";
+import TagScreen from './SingleTagScreen';
 
 
 const HomeScreen = (props) => {
   // Hook
   const dispatch = useDispatch();
+  const mapReference = useRef(null);
 
   // Redux Store (useSelector is Hook!)
   const tags = useSelector((state) => state.tags);
@@ -23,6 +25,14 @@ const HomeScreen = (props) => {
 
   // Local State
   const [tagId, setTagId] = useState(undefined);
+  const [initialState, setInitialState] = useState(
+    { // This has to be current location
+      latitude: 40.7091089,
+      longitude: -74.0058052,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    }
+  );
 
   // ComponentDidMount
   useEffect(() => {
@@ -55,22 +65,21 @@ const HomeScreen = (props) => {
         onPress={onPressMap}
         provider={PROVIDER_GOOGLE}
         style={styles.map}
-        initialRegion={{
-          // This has to be current location
-          latitude: 40.7091089,
-          longitude: -74.0058052,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        initialRegion={initialState}
+        ref={mapReference}
       >
-        <Text style={styles.titleText} onPress={onPressGroup}>
+        <Text style={styles.groupsText} onPress={onPressGroup}>
           {"My Groups"}
+        </Text>
+        <Text style={styles.allPlacesText} >
+          {"All Places"}
         </Text>
         <View>
           {
             CarouselStatus == true ?
               (
-                <CarouselCards />
+                <CarouselCards
+                />
               )
               : null
           }
@@ -95,10 +104,20 @@ const HomeScreen = (props) => {
             (
               <TagScreen
                 tagId={tagId}
+                mapRef={mapReference}
               />
             )
             : null
           }
+        </View>
+        <View>
+          {/*
+            something == true ?
+              (
+                <AllTagsScreen />
+              )
+              : null
+              */}
         </View>
       </MapView>
     </>
@@ -109,15 +128,27 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  titleText: {
+  groupsText: {
     paddingTop: 50,
-    marginLeft: 100,
+    marginLeft: 60,
     fontFamily: "Cochin",
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
     width: '100%',
     bottom: 0,
+
+  },
+  allPlacesText: {
+    paddingTop: 25,
+    marginLeft: 250,
+    fontFamily: "Cochin",
+    alignItems: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+    width: '100%',
+    bottom: 48,
+    // backgroundColor:'red',
   },
   tagContainer: {
     position: 'absolute',

@@ -8,8 +8,8 @@ import { getTags } from "../../redux/tags";
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
-const SLIDER_HEIGHT = Dimensions.get('window').height; 
-const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.38);
+const SLIDER_HEIGHT = Dimensions.get('window').height;
+const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 
 //We can add pagination so users can skip to a certain item in the carousel without having to swipe continuously.  Below I create a state to store the current pagination index.
 
@@ -25,14 +25,26 @@ const CarouselCards = (props) => {
     dispatch(getGroups(1)); // userId hard coded
   }, []);
 
+  const Separator = () => (
+    <View style={styles.separator} />
+  );
   const CarouselCardItem = ({ index, item }) => {
     return (
       <View style={styles.container} key={item.id} >
+        <View>
+          <Text style={styles.headerGroup} >
+            Groups:
+          </Text>
+        </View>
+        <Separator />
         <Image
           source={{ uri: item.imageUrl }}
           style={styles.image}
         />
+        <Separator />
+
         <Text style={styles.header} onPress={() => handlePress(item.id)}>{item.name}</Text>
+        <Separator />
         <Text style={styles.body} onPress={() => handlePress(item.id)}>{item.body}</Text>
       </View>
     )
@@ -97,7 +109,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: ITEM_WIDTH,
     height: ITEM_HEIGHT,
-    paddingBottom: 10,
     shadowColor: "black",
     shadowOffset: {
       width: 0,
@@ -109,22 +120,30 @@ const styles = StyleSheet.create({
   },
   image: {
     width: ITEM_WIDTH,
-    height: 150,
+    height: 125,
   },
   header: {
     color: "#222",
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: "bold",
-    paddingLeft: 20,
-    paddingTop: 20
+    alignSelf: 'center',
   },
   body: {
     color: "#222",
     fontSize: 18,
-    paddingLeft: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-  }
+    alignSelf: 'flex-start',
+  },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  headerGroup: {
+    color: "#222",
+    fontSize: 18,
+    alignSelf: 'center',
+    fontWeight: "bold",
+  },
 })
 
 export default CarouselCards;
