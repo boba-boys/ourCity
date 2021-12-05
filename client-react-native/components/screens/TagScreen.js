@@ -108,6 +108,7 @@ const TagScreen = (props) => {
     const usersTag = useSelector((state) => state.tagDetails);
     const dispatch = useDispatch();
 
+    console.log('This is the passed tag when pressed:', props.tagId);
     //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
     useEffect(() => {
         console.log('---------------------ComponentDidMount:--------------------')
@@ -173,6 +174,7 @@ const TagScreen = (props) => {
                 itemWidth={ITEM_WIDTH}
                 inactiveSlideShift={0}
                 useScrollView={true}
+                containerCustomStyle={styles.container}
             />
         </View>
     );
@@ -180,6 +182,11 @@ const TagScreen = (props) => {
 
 
 const styles = StyleSheet.create({
+    carousel:{
+        // position: 'absolute',
+        // bottom:0,
+        // marginBottom: 4,
+    },
     backgroundScreen: {
         width: "85%",
         height: '45%',
@@ -204,8 +211,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.75,
         shadowRadius: 4.65,
         elevation: 7,
-        bottom: 5,
-        position: 'absolute',
+        // bottom: 5,
+        // position: 'absolute',
     },
     image: {
         width: ITEM_WIDTH,

@@ -17,7 +17,7 @@ const HomeScreen = (props) => {
   // Redux Store (useSelector is Hook!)
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
-  const tagScreeenStatus = useSelector((state) => state.tagScreeenStatus);
+  const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
 
   // Local State
   // const [tagView, setTagView] = useState(false);
@@ -25,10 +25,10 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-    dispatch(getTags(1)); // Hard coded groupId
-    // dispatch(getGroups(1))// Hard code userId <--DONT UNCOMMENT THIS
+    dispatch(getTags(1)); //Hard coded groupId <--might have to be this way
+    // dispatch(getGroups(1))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, []);
-  
+
 
   const onPressGroup = () => {
     console.log('Inside onPressGroup before pressing the Group text: ', CarouselStatus);
@@ -42,12 +42,12 @@ const HomeScreen = (props) => {
     // dispatch(getStatus(CarouselStatus))
   };
 
-  const onPressTag = () => {
-    console.log('Inside onPressTag before pressing the Marker/Tag: ', tagScreeenStatus);
+  const onPressTag = (tagId) => {
+    console.log('Inside onPressTag before pressing the Marker/Tag: ', tagScreenStatus);
     // console.log('This trigers when pressed: ', event.nativeEvent);
-    // dispatch(getTagScreenStatus(tagScreeenStatus))
+    dispatch(getTagScreenStatus(tagScreenStatus))
     // setTagView(!tagView);
-    // setTagId(tagId);
+    setTagId(tagId);
   }
 
   return (
@@ -91,10 +91,10 @@ const HomeScreen = (props) => {
               />
             );
           })}
-          <View >
-            {tagScreeenStatus === true
+          <View style={styles.tagContainer}>
+            {tagScreenStatus === true
               ? (<TagScreen
-              tagId={tagId}
+                tagId={tagId}
               // title="Testing tag view"
               // visible={tagView}
               // onTouchOutside={() => { setTagView(!tagView) }}
@@ -182,7 +182,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: 100,
     shadowColor: "black",
-  }
+  },
+  tagContainer: {
+    position: 'absolute',
+    bottom: 0,
+    marginBottom: 4,
+  },
 });
 
 export default HomeScreen;
