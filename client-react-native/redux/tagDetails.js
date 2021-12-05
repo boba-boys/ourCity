@@ -16,9 +16,10 @@ export const getTagDetails = (tagId) => async (dispatch) => {
     try {
 
         const response = await axios.get(
-            `https://my-city-server.herokuapp.com/api/tags/${tagId}`
-            // `http://localhost:1337//api/tags/${tagId}`
+            `https://my-city-server.herokuapp.com/api/tags/details/${tagId}`
+            // `http://localhost:1337/api/tags/${tagId}`
         );
+        console.log('tag from the server:', response.data);
         dispatch(_gotSingleTag(response.data));
     } catch (err) {
         console.log(err);
@@ -30,7 +31,7 @@ export const getTagDetails = (tagId) => async (dispatch) => {
 export default function tagDetails(state = [], action) {
     switch (action.type) {
         case GOT_SINGLE_TAG:
-            return action.tagObj;
+            return [action.tagObj];
         default:
             return state;
     }
