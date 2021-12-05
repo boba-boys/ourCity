@@ -1,42 +1,4 @@
 
-import React, {useState} from 'react'
-import{View, Text, TextInput, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
-import { useDispatch } from 'react-redux'
-import CustomButton from '../CustomButton'
-import CustomInput from '../CustomInput'
-import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
-import { useNavigation } from '@react-navigation/core'
-import axios from 'axios'
-
-
-const SignUpScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirst] = useState('');
-  const [lastName, setLast] = useState('');
-
-const navigation = useNavigation();
-const dispatch = useDispatch();
-
-  const onSignInPressed = () =>{
-    console.warn('sign in')
-
-    navigation.navigate('signIn')
-  }
-
-
-
-  const onRegisterPressed = async () =>{
-    const user = await axios.post('https://my-city-server.herokuapp.com/auth/signup', {email, password, firstName, lastName})
-
-
-
-    if(user.data.createdAt){
-
-      navigation.navigate('Home')
-
-    }else{
-      console.warn(user.data)
 
 import React, { useState } from "react";
 import {

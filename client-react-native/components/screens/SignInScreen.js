@@ -27,7 +27,7 @@ const SignInScreen = () => {
       dispatch(loadUserToState(email))
 
     if(user.data['token']){
-    // navigation.navigate('Home')
+    navigation.navigate('Home')
     }else{
       console.warn('incorrect password')
     }
