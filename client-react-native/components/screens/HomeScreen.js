@@ -4,6 +4,7 @@ import React, { Component, useEffect, useRef, useState, } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Alert, TouchableOpacity, Pressable } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux";// useSelector is mapState & useDispatch is mapDispatch
+import { getAllTagsScreenStatus } from "../../redux/allTagsScreenStatus";
 import { getStatus } from "../../redux/carouselStatus";
 import { getGroups } from "../../redux/groups";
 import { getTags } from "../../redux/tags";
@@ -22,6 +23,7 @@ const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
+  const allTagsStatus = useSelector((state => {state.allTagsScreenStatus}))
 
   // Local State
   const [tagId, setTagId] = useState(undefined);
@@ -55,8 +57,12 @@ const HomeScreen = (props) => {
   const onPressTag = (tagId) => {
     console.log('Inside onPressTag before pressing the Marker/Tag: ', tagScreenStatus);
     // console.log('This trigers when pressed: ', event.nativeEvent);
-    dispatch(getTagScreenStatus(tagScreenStatus))
+    dispatch(getTagScreenStatus(tagScreenStatus));
     setTagId(tagId);
+  }
+
+  const onPressAllTags = () => {
+    dispatch(getAllTagsScreenStatus(allTagsStatus));
   }
 
   return (
@@ -71,7 +77,7 @@ const HomeScreen = (props) => {
         <Text style={styles.groupsText} onPress={onPressGroup}>
           {"My Groups"}
         </Text>
-        <Text style={styles.allPlacesText} >
+        <Text style={styles.allPlacesText} onPress={onPressAllTags}>
           {"All Places"}
         </Text>
         <View>
