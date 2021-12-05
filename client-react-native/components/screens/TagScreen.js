@@ -11,98 +11,6 @@ const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.38);
 
-const FirstTagScreen = (props) => {
-    // let [show, setShow] = useState(true);
-    // const { tagId, onTouchOutside, visible } = props;
-
-    // useEffect((tagId) => {
-    //     // console.log('Passing through useEffect in TagScreen.js');
-    //     dispatch(getSingleTag(tagId)); // THUNK
-    // }, []);
-
-    // const handleClose = () => {
-    //     setShow(false);
-    // }
-
-    // const renderOutsideTouchable = (onTouch) => {
-    //     const view = <View style={{ flex: 1, width: '100%' }} />
-    //     if (!onTouch) return view;
-    //     return (
-    //         <TouchableWithoutFeedback  onPress={onTouch} style={{ flex: 1, width: '100%' }}>
-    //             {view}
-    //         </TouchableWithoutFeedback>
-    //     )
-    // }
-    const isCarousel = useRef(null);
-    const userTags = useSelector((state) => state.tags);
-    const dispatch = useDispatch();
-
-    //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
-
-    useEffect((userId) => {
-        dispatch(getGroups(1));
-    }, []);
-
-    return (
-        // <Modal
-        //     transparent={true}
-        //     visible={visible}
-        // >
-        //     <View style={styles.container}>
-        //         {renderOutsideTouchable(onTouchOutside)}
-        //         <Text style={styles.tagText}>
-        //             {props.title}
-        //         </Text>
-        //         {/* <View style={styles.tag}>
-        //         </View> */}
-        //     </View>
-        // </Modal>
-        <View style={styles.container}>
-            {/* <Carousel
-                layout="tinder"
-                layoutCardOffset={30}
-                ref={isCarousel}
-                data={userTags}
-                renderItem={}
-                sliderWidth={SLIDER_WIDTH}
-                itemWidth={ITEM_WIDTH}
-                inactiveSlideShift={0}
-                useScrollView={true}
-            /> */}
-        </View>
-    )
-}
-
-const FirstTagScreenStyles = StyleSheet.create({
-    //     container: {
-    //         width: "85%",
-    //         height: '10%',
-    //         marginLeft: 30,
-    //         position: 'absolute',
-    //         justifyContent: 'flex-start', // moves the content respective the main axis
-    //         alignItems: "center",
-    //         bottom: 50,
-    //         backgroundColor: 'blue',
-    //     },
-    //     tag: {
-    //         backgroundColor: 'grey',
-    //         width: '100%',
-    //         borderTopRightRadius: 10,
-    //         borderTopLeftRadius: 10,
-    //         paddingHorizontal: 10,
-    //         // maxHeight: deviceHeight * 0.4,
-    //         // marginTop: 100,
-    //     },
-    //     tagText: {
-    //         // marginTop: 100,
-    //         color: 'black',
-    //         fontSize: 20,
-    //         fontWeight: '500',
-    //         backgroundColor: 'white',
-    //         // bottom: 100,
-    //     }
-});
-
 
 const TagScreen = (props) => {
     // Hooks
@@ -151,7 +59,7 @@ const TagScreen = (props) => {
                 <View>
                     <Button
                         title="Close"
-                        color="#f194ff"
+                        color="black"
                         onPress={handlePressClose}
                     />
                 </View>
@@ -168,7 +76,7 @@ const TagScreen = (props) => {
     }
 
     return (
-        <View /* style={styles.container} */>
+        <View>
             <Carousel
                 layout="tinder"
                 layoutCardOffset={30}
@@ -179,7 +87,6 @@ const TagScreen = (props) => {
                 itemWidth={ITEM_WIDTH}
                 inactiveSlideShift={0}
                 useScrollView={true}
-                containerCustomStyle={styles.carousel}
             />
         </View>
     );
@@ -187,11 +94,6 @@ const TagScreen = (props) => {
 
 
 const styles = StyleSheet.create({
-    carousel: {
-        position: 'absolute',
-        bottom: 0,
-        marginBottom: 4,
-    },
     backgroundScreen: {
         width: "85%",
         height: '45%',
@@ -216,8 +118,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.75,
         shadowRadius: 4.65,
         elevation: 7,
-        // bottom: 5,
-        // position: 'absolute',
     },
     image: {
         width: ITEM_WIDTH,

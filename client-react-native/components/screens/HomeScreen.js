@@ -11,21 +11,17 @@ import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import CarouselCards from "./CarouselCards";
 import TagScreen from './TagScreen';
 
-// import { useNavigation } from '@react-navigation/core'
-
 
 const HomeScreen = (props) => {
   // Hook
   const dispatch = useDispatch();
-  // const navigation = useNavigation();
-  
+
   // Redux Store (useSelector is Hook!)
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
 
   // Local State
-  // const [tagView, setTagView] = useState(false);
   const [tagId, setTagId] = useState(undefined);
 
   // ComponentDidMount
@@ -42,158 +38,91 @@ const HomeScreen = (props) => {
   };
 
   const onPressMap = () => {
-    console.log('Inside onPressMap before pressing the MAP: ', CarouselStatus);
-    //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    // dispatch(getStatus(CarouselStatus))
+    console.log('Inside onPressMap before pressing the MAP: ', CarouselStatus); // Notive that this is always called when we interact with the map!!
+
   };
 
   const onPressTag = (tagId) => {
     console.log('Inside onPressTag before pressing the Marker/Tag: ', tagScreenStatus);
     // console.log('This trigers when pressed: ', event.nativeEvent);
     dispatch(getTagScreenStatus(tagScreenStatus))
-    // setTagView(!tagView);
     setTagId(tagId);
   }
 
   return (
     <>
-      {!tags ? (
-        <Text>Loading</Text>
-      ) : (
-        < MapView
-          onPress={onPressMap}
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          initialRegion={{
-            // This has to be current location
-            latitude: 40.7091089,
-            longitude: -74.0058052,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        >
-          <Text style={styles.titleText} onPress={onPressGroup}>
-            {"My Groups"}
-          </Text>
-          <View>
-            {CarouselStatus == true
-              ? (<CarouselCards />)
-              : null
-            }
-          </View>
-          {tags.map((tag) => {
-            return (
-              <Marker
-                key={`${tag.longitude}_${tag.latitude}`}
-                coordinate={{
-                  latitude: tag.latitude,
-                  longitude: tag.longitude,
-                }}
-                title={tag.name}
-                description={tag.description}
-                identifier={`${tag.id}`}
-                onPress={() => onPressTag(tag.id)}
-              />
-            );
-          })}
-          <View style={styles.tagContainer}>
-            {tagScreenStatus === true ?
+      < MapView
+        onPress={onPressMap}
+        provider={PROVIDER_GOOGLE}
+        style={styles.map}
+        initialRegion={{
+          // This has to be current location
+          latitude: 40.7091089,
+          longitude: -74.0058052,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Text style={styles.titleText} onPress={onPressGroup}>
+          {"My Groups"}
+        </Text>
+        <View>
+          {
+            CarouselStatus == true ?
               (
-                <TagScreen
-                  tagId={tagId}
-                // title="Testing tag view"
-                // visible={tagView}
-                // onTouchOutside={() => { setTagView(!tagView) }}
-                />
+                <CarouselCards />
               )
               : null
-            }
-          </View>
-        </MapView>
-      )
-      }
+          }
+        </View>
+        {tags.map((tag) => {
+          return (
+            <Marker
+              key={`${tag.longitude}_${tag.latitude}`}
+              coordinate={{
+                latitude: tag.latitude,
+                longitude: tag.longitude,
+              }}
+              title={tag.name}
+              description={tag.description}
+              identifier={`${tag.id}`}
+              onPress={() => onPressTag(tag.id)}
+            />
+          );
+        })}
+        <View style={styles.tagContainer}>
+          {tagScreenStatus === true ?
+            (
+              <TagScreen
+                tagId={tagId}
+              />
+            )
+            : null
+          }
+        </View>
+      </MapView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  // generalContainer: {
-  //   flex: 1,
-  //   // justifyContent: 'space-between',
-  //   // flexDirection: "column",
-  //   // height: '100%',
-  //   // width: '100%',
-  //   // ...StyleSheet.absoluteFillObject,
-  // },
-  // sectionContainer: {
-  //   marginTop: 32,
-  //   paddingHorizontal: 24,
-  // },
-  // sectionTitle: {
-  //   fontSize: 24,
-  //   fontWeight: "600",
-  // },
-  // sectionDescription: {
-  //   marginTop: 8,
-  //   fontSize: 18,
-  //   fontWeight: "400",
-  // },
-  // highlight: {
-  //   fontWeight: "700",
-  // },
-  carouselTextContainer: {
-    backgroundColor: 'red',
-    width: '60%',
-    height: '8%',
-    marginTop: 20,
-    flexDirection: 'row',
-    // justifyContent: "center",
-    marginLeft: 70,
+  map: {
+    ...StyleSheet.absoluteFillObject,
   },
   titleText: {
     paddingTop: 50,
     marginLeft: 100,
     fontFamily: "Cochin",
-    // alignItems: "center",
-    // fontFamily: "Cochin",
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
     width: '100%',
     bottom: 0,
   },
-  tagScreenContainer: {
-    width: "85%",
-    height: '55%',
-    marginLeft: 30,
-    position: 'absolute',
-    justifyContent: 'flex-start', // moves the content respective the main axis
-    alignItems: "center",
-    bottom: 5,
-    backgroundColor: 'lightblue',
-  },
-  // overlay: {
-  //   position: 'absolute',
-  //   bottom: 50,
-  //   backgroundColor: 'rgba(255, 255, 255, 1)',
-  // },
-  text: {
-    color: 'black'
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-    // alignItems: "center",
-    // flex:1,
-  },
-  megaButton: {
-    backgroundColor: 'white',
-    width: 100,
-    shadowColor: "black",
-  },
   tagContainer: {
     position: 'absolute',
     bottom: 0,
-    marginBottom: 4,
+    marginBottom: 40,
   },
 });
 
