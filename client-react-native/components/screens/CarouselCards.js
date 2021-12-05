@@ -47,7 +47,7 @@ const CarouselCards = (props) => {
     <View /* style={styles.container} */>
       <Carousel
         layout="tinder"
-        layoutCardOffset={30}
+        layoutCardOffset={15}
         ref={isCarousel}
         data={usersGroups}
         renderItem={CarouselCardItem}
