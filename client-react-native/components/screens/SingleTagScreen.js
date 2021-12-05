@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
 import { StyleSheet, View, Text, Dimensions, Image, Button } from "react-native";
 import Carousel from "react-native-snap-carousel";
-import { getGroups } from "../../redux/groups";
 import { getTagDetails } from "../../redux/tagDetails";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 

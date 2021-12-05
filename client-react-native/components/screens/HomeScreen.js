@@ -50,7 +50,7 @@ const HomeScreen = (props) => {
   };
 
   const onPressMap = () => {
-    console.log('Inside onPressMap before pressing the MAP: ', CarouselStatus); // Notive that this is always called when we interact with the map!!
+    console.log('Inside onPressMap before pressing the MAP: ', CarouselStatus); // Notice that this is always called when we interact with the map!!
 
   };
 
