@@ -121,7 +121,7 @@ const HomeScreen = (props) => {
           }
         </View>
 
-        <View>
+        <View style={styles.tagContainer}>
           {
             allTagsStatus === true ?
               (

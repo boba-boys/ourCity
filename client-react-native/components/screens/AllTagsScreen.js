@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.75,
         shadowRadius: 4.65,
         elevation: 7,
-        bottom: 0,
+        // bottom: -1,
+        // // paddingTop: 0,
     },
     image: {
         width: ITEM_WIDTH,

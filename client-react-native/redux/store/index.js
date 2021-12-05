@@ -12,7 +12,7 @@ import allTagsScreenStatus from '../allTagsScreenStatus';
 
 const reducer= combineReducers({
     tags,
-    tagDetails, // Tobe created
+    tagDetails,
     groups,
     carouselStatus,
     tagScreenStatus,
