@@ -37,43 +37,43 @@ const CreateGroup = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ScrollView>
-        <View style={styles.form}>
-          <Text style={styles.title}>Create a Group</Text>
-          <TextInput
-            style={styles.input}
-            placeholder='Group Name'
-            value={groupName}
-            onChangeText={setGroupName}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder='Group Description'
-            value={groupDescription}
-            onChangeText={setGroupDescription}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder='Group Image'
-            value={groupImage}
-            onChangeText={setGroupImage}
-          />
-          <TouchableOpacity style={styles.button} onPress={onSubmit}>
-            <Text style={styles.buttonText}>Create Group</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+    // <View
+    //   style={styles.container}
+    //   //behavior={Platform.OS === "ios" ? "padding" : "height"}
+    // >
+    <ScrollView style={styles.container}>
+      <View style={styles.form}>
+        <Text style={styles.title}>Create a Group</Text>
+        <TextInput
+          style={styles.input}
+          placeholder='Group Name'
+          value={groupName}
+          onChangeText={setGroupName}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Group Description'
+          value={groupDescription}
+          onChangeText={setGroupDescription}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Group Image'
+          value={groupImage}
+          onChangeText={setGroupImage}
+        />
+        <TouchableOpacity style={styles.button} onPress={onSubmit}>
+          <Text style={styles.buttonText}>Create Group</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+    // </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#fff",
     //height: "50%",
   },

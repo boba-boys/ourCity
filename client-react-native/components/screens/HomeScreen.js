@@ -1,120 +1,190 @@
 import { CurrentRenderContext } from "@react-navigation/core";
 import { StatusBar } from "expo-status-bar";
-import React, { Component, useEffect, useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
-// import axios from "axios";
+import React, {
+  Component,
+  createRef,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Alert,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
+import { getAllTagsScreenStatus } from "../../redux/allTagsScreenStatus";
+import { getStatus } from "../../redux/carouselStatus";
+import { getGroups } from "../../redux/groups";
 import { getTags } from "../../redux/tags";
-import CarouselCards from "./CarouselCards";
 import Menu from "./Menu";
 import { MaterialIcons } from "@expo/vector-icons";
 import CreateGroup from "./CreateGroup";
+import { getTagScreenStatus } from "../../redux/tagScreenStatus";
+import AllTagsScreen from "./AllTagsScreen";
+import CarouselCards from "./GroupsScreen";
+import TagScreen from "./SingleTagScreen";
 
 const HomeScreen = (props) => {
-  const tags = useSelector((state) => state.tags);
+  // Hook
   const dispatch = useDispatch();
-  const [titleText, setTitleText] = useState("NYC Public Restrooms");
-  const [CarouselStatus, setCarouselStatus] = useState(false);
+  const mapReference = createRef();
+
+  // Redux Store (useSelector is Hook!)
+  const tags = useSelector((state) => state.tags);
+  const CarouselStatus = useSelector((state) => state.carouselStatus);
+  const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
+  const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
+
+  // Local State
   const [menuStatus, setMenuStatus] = useState(false);
-  const [createGroupStatus, setCreateGroupStatus] = useState(false);
+  const [tagId, setTagId] = useState(undefined);
+  const [initialState, setInitialState] = useState({
+    // This has to be current location
+    latitude: 40.7091089,
+    longitude: -74.0058052,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+
+  // ComponentDidMount
+  useEffect(() => {
+    dispatch(getTags(1)); //Hard coded groupId <--might have to be this way
+    // dispatch(getGroups(1))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+  }, []);
 
   const onPressGroup = () => {
+    console.log(
+      "Inside onPressGroup before pressing the Group text: ",
+      CarouselStatus
+    );
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setCarouselStatus(true);
+    dispatch(getStatus(CarouselStatus));
   };
 
   const onPressMap = () => {
-    //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    setCarouselStatus(false);
+    console.log("Inside onPressMap before pressing the MAP: ", CarouselStatus); // Notice that this is always called when we interact with the map!!
     setMenuStatus(false);
-    setCreateGroupStatus(false);
+    dispatch(getStatus(true));
+    dispatch(getAllTagsScreenStatus(true));
+    dispatch(getTagScreenStatus(true));
+    //setCreateGroupStatus(false);
   };
 
-  // const [tags, setTags] = useState([]);
+  const onPressTag = (tagId) => {
+    console.log(
+      "Inside onPressTag before pressing the Marker/Tag: ",
+      tagScreenStatus
+    );
+    // console.log('This trigers when pressed: ', event.nativeEvent);
+    dispatch(getTagScreenStatus(tagScreenStatus));
+    setTagId(tagId);
+  };
 
-  useEffect((groupId) => {
-    dispatch(getTags(1)); // Hard coded group id
-  }, []);
+  const onPressAllTags = () => {
+    dispatch(getAllTagsScreenStatus(allTagsStatus));
+  };
+
+  const onPressOpenMenu = () => {
+    setMenuStatus(!menuStatus);
+  };
 
   return (
     <>
-      {!tags ? (
-        <Text>Loading</Text>
-      ) : (
-        <MapView
-          onPress={onPressMap}
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          initialRegion={{
-            // This has to be current location
-            latitude: 40.7091089,
-            longitude: -74.0058052,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        >
-          <Text style={styles.titleText} onPress={onPressGroup}>
-            {titleText}
+      <MapView
+        onPress={onPressMap}
+        provider={PROVIDER_GOOGLE}
+        style={styles.map}
+        initialRegion={initialState}
+        ref={mapReference}
+        showUserLocation={true}
+      >
+        <Text style={styles.groupsText} onPress={onPressGroup}>
+          {"My Groups"}
+        </Text>
+        <View>
+          <Text style={styles.allPlacesText} onPress={onPressAllTags}>
+            {"All Places"}
           </Text>
+        </View>
+        <View>{CarouselStatus == true ? <CarouselCards /> : null}</View>
+        <View>
+          {menuStatus === true ? (
+            <CreateGroup style={{ position: "absolute" }} />
+          ) : null}
+        </View>
 
-          <View>{CarouselStatus == true ? <CarouselCards /> : null}</View>
-          <View>{createGroupStatus === true ? <CreateGroup /> : null}</View>
-          <View style={styles.menu}>
-            {menuStatus === true ? <Menu /> : null}
-          </View>
-          {tags.map((tag) => {
-            return (
-              <Marker
-                key={tag.id}
-                coordinate={{
-                  latitude: tag.latitude,
-                  longitude: tag.longitude,
-                }}
-                title={tag.name}
-                description={tag.description}
-              />
-            );
-          })}
-          <MaterialIcons
-            name='menu'
-            size={50}
-            onPress={() => setMenuStatus(!menuStatus)}
-            style={{ position: "absolute", bottom: 30, right: 35 }}
-          />
-        </MapView>
-      )}
+        {tags.map((tag) => {
+          return (
+            <Marker
+              key={`${tag.longitude}_${tag.latitude}`}
+              coordinate={{
+                latitude: tag.latitude,
+                longitude: tag.longitude,
+              }}
+              title={tag.name}
+              description={tag.description}
+              identifier={`${tag.id}`}
+              onPress={() => onPressTag(tag.id)}
+            />
+          );
+        })}
+        <View style={styles.tagContainer}>
+          {tagScreenStatus === true ? <TagScreen tagId={tagId} /> : null}
+        </View>
+
+        <View style={styles.tagContainer}>
+          {allTagsStatus === true ? (
+            <AllTagsScreen mapRef={mapReference} />
+          ) : null}
+        </View>
+        <MaterialIcons
+          name='menu'
+          size={50}
+          onPress={onPressOpenMenu}
+          style={{ position: "absolute", bottom: 30, right: 35 }}
+        />
+      </MapView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: "600",
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: "400",
-  },
-  highlight: {
-    fontWeight: "700",
-  },
   map: {
     ...StyleSheet.absoluteFillObject,
-    alignItems: "center",
   },
-  titleText: {
+  groupsText: {
     paddingTop: 50,
-    // fontFamily: "Cochin",
+    marginLeft: 60,
+    fontFamily: "Cochin",
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
+    width: "25%",
+    bottom: 0,
+    // backgroundColor:'blue',
+  },
+  allPlacesText: {
+    paddingTop: 50,
+    marginLeft: 250,
+    fontFamily: "Cochin",
+    alignItems: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+    width: "25%",
+    height: "30%",
+    bottom: 0,
+    // backgroundColor:'red',
+  },
+  tagContainer: {
+    position: "absolute",
+    bottom: 0,
+    marginBottom: 40,
   },
   megaButton: {
     backgroundColor: "white",

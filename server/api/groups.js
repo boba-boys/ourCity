@@ -17,7 +17,6 @@ router.get('/:userId', async (req, res, next) => {
         },
       }]
     });
-    console.log('these are the groups for this userId', comments)
     res.json(comments);
   } catch (err) {
     next(err);
