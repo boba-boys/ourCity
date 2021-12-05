@@ -7,14 +7,16 @@ import groups from '../groups'
 import carouselStatus from '../carouselStatus';
 import tagScreenStatus from '../tagScreenStatus';
 import tagDetails from '../tagDetails';
+import allTagsScreenStatus from '../allTagsScreenStatus';
 
 
 const reducer= combineReducers({
     tags,
-    tagDetails, // Tobe created
+    tagDetails,
     groups,
     carouselStatus,
     tagScreenStatus,
+    allTagsScreenStatus,
 });
 
 const middleware= composeWithDevTools(
