@@ -1,6 +1,6 @@
 import { CurrentRenderContext } from "@react-navigation/core";
 import { StatusBar } from "expo-status-bar";
-import React, { Component, useEffect, useRef, useState, } from "react";
+import React, { Component, createRef, useEffect, useRef, useState, } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Alert, TouchableOpacity, Pressable } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux";// useSelector is mapState & useDispatch is mapDispatch
@@ -17,13 +17,13 @@ import TagScreen from './SingleTagScreen';
 const HomeScreen = (props) => {
   // Hook
   const dispatch = useDispatch();
-  const mapReference = useRef(null);
+  const mapReference = createRef();
 
   // Redux Store (useSelector is Hook!)
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
-  const allTagsStatus = useSelector((state) => state.allTagsScreenStatus );
+  const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
 
   // Local State
   const [tagId, setTagId] = useState(undefined);
@@ -114,7 +114,6 @@ const HomeScreen = (props) => {
             (
               <TagScreen
                 tagId={tagId}
-                mapRef={mapReference}
               />
             )
             : null
@@ -125,7 +124,9 @@ const HomeScreen = (props) => {
           {
             allTagsStatus === true ?
               (
-                <AllTagsScreen />
+                <AllTagsScreen
+                  mapRef={mapReference}
+                />
               )
               : null
           }
@@ -158,7 +159,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
-    width: '100%',
+    width: '25%',
+    height: '30%',
     bottom: 0,
     // backgroundColor:'red',
   },

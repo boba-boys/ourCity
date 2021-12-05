@@ -65,13 +65,22 @@ const AllTagsScreen = (props) => {
             </View>
         )
     }
-
     const handlePressClose = () => {
         dispatch(getAllTagsScreenStatus(tagsStatus)); // Changes the tagView status
     }
 
     const handlePressComments = (tagId) => {// Will have to build an individual component to display the comments
         // dispatch(getStatus(CarouselStatus));
+    }
+
+    const onCarouselItemChange = (index) => {
+        let location = userTags[index];
+        props.mapRef.current.animateToRegion({
+            latitude: location.latitude,
+            longitude: location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+        })
     }
 
     return (
@@ -86,6 +95,7 @@ const AllTagsScreen = (props) => {
                 itemWidth={ITEM_WIDTH}
                 inactiveSlideShift={0}
                 useScrollView={true}
+                onSnapToItem={(index) => onCarouselItemChange(index)}
             />
         </View>
     );
