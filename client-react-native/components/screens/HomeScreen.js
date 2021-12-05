@@ -11,9 +11,14 @@ import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import CarouselCards from "./CarouselCards";
 import TagScreen from './TagScreen';
 
+// import { useNavigation } from '@react-navigation/core'
+
+
 const HomeScreen = (props) => {
   // Hook
   const dispatch = useDispatch();
+  // const navigation = useNavigation();
+  
   // Redux Store (useSelector is Hook!)
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
@@ -92,13 +97,15 @@ const HomeScreen = (props) => {
             );
           })}
           <View style={styles.tagContainer}>
-            {tagScreenStatus === true
-              ? (<TagScreen
-                tagId={tagId}
-              // title="Testing tag view"
-              // visible={tagView}
-              // onTouchOutside={() => { setTagView(!tagView) }}
-              />)
+            {tagScreenStatus === true ?
+              (
+                <TagScreen
+                  tagId={tagId}
+                // title="Testing tag view"
+                // visible={tagView}
+                // onTouchOutside={() => { setTagView(!tagView) }}
+                />
+              )
               : null
             }
           </View>

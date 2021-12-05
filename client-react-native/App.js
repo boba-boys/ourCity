@@ -15,13 +15,8 @@ import { StyleSheet } from "react-native";
 export default function App() {
   return (
     <Provider store={store}>
-      <Routes styles={styles.root} />
+      <Routes />
     </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  root: {
-    backgroundColor: '#f9fbfc'
-  }
-})

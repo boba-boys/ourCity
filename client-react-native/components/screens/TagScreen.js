@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
-import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
+import { StyleSheet, View, Text, Dimensions, Image, Button } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getGroups } from "../../redux/groups";
 import { getTagDetails } from "../../redux/tagDetails";
+import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -104,15 +105,19 @@ const FirstTagScreenStyles = StyleSheet.create({
 
 
 const TagScreen = (props) => {
-    const isCarousel = useRef(null);
-    const usersTag = useSelector((state) => state.tagDetails);
+    // Hooks
     const dispatch = useDispatch();
+    const isCarousel = useRef(null);
 
-    console.log('This is the passed tag when pressed:', props.tagId);
+    // Redux store
+    const usersTag = useSelector((state) => state.tagDetails);
+    const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
+
+    console.log('This is the passed tag inside TAG_SCREEN:', props.tagId);
     //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
     useEffect(() => {
-        console.log('---------------------ComponentDidMount:--------------------')
-        // dispatch(getTagDetails(props.tagId)); // tagId to render
+        console.log('---------------------ComponentDidMount in TagScreen :--------------------')
+        dispatch(getTagDetails(props.tagId)); // tagId to render
     }, []);
 
     const Separator = () => (
@@ -139,7 +144,7 @@ const TagScreen = (props) => {
                     <Button
                         style={styles.body}
                         title="See Comments"
-                        onPress={handlePressComments(item.id)}
+                        onPress={() => handlePressComments(item.id)}
                     />
                 </View>
                 <Separator />
@@ -147,7 +152,7 @@ const TagScreen = (props) => {
                     <Button
                         title="Close"
                         color="#f194ff"
-                        onPress={handlePressClose()}
+                        onPress={handlePressClose}
                     />
                 </View>
             </View>
@@ -155,7 +160,7 @@ const TagScreen = (props) => {
     }
 
     const handlePressClose = () => {
-        // dispatch(getTagScreenStatus(CarouselStatus)); // Changes the tagView status
+        dispatch(getTagScreenStatus(tagScreenStatus)); // Changes the tagView status
     }
 
     const handlePressComments = (tagId) => {// Will have to build an individual component to display the comments
@@ -174,7 +179,7 @@ const TagScreen = (props) => {
                 itemWidth={ITEM_WIDTH}
                 inactiveSlideShift={0}
                 useScrollView={true}
-                containerCustomStyle={styles.container}
+                containerCustomStyle={styles.carousel}
             />
         </View>
     );
@@ -182,10 +187,10 @@ const TagScreen = (props) => {
 
 
 const styles = StyleSheet.create({
-    carousel:{
-        // position: 'absolute',
-        // bottom:0,
-        // marginBottom: 4,
+    carousel: {
+        position: 'absolute',
+        bottom: 0,
+        marginBottom: 4,
     },
     backgroundScreen: {
         width: "85%",
