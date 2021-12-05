@@ -9,6 +9,7 @@ import { getTags } from "../../redux/tags";
 import CarouselCards from "./CarouselCards";
 import Menu from "./Menu";
 import { MaterialIcons } from "@expo/vector-icons";
+import CreateGroup from "./CreateGroup";
 
 const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
@@ -16,6 +17,7 @@ const HomeScreen = (props) => {
   const [titleText, setTitleText] = useState("NYC Public Restrooms");
   const [CarouselStatus, setCarouselStatus] = useState(false);
   const [menuStatus, setMenuStatus] = useState(false);
+  const [createGroupStatus, setCreateGroupStatus] = useState(false);
 
   const onPressGroup = () => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
@@ -26,6 +28,7 @@ const HomeScreen = (props) => {
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
     setCarouselStatus(false);
     setMenuStatus(false);
+    setCreateGroupStatus(false);
   };
 
   // const [tags, setTags] = useState([]);
@@ -56,7 +59,7 @@ const HomeScreen = (props) => {
           </Text>
 
           <View>{CarouselStatus == true ? <CarouselCards /> : null}</View>
-
+          <View>{createGroupStatus === true ? <CreateGroup /> : null}</View>
           <View style={styles.menu}>
             {menuStatus === true ? <Menu /> : null}
           </View>
@@ -76,7 +79,7 @@ const HomeScreen = (props) => {
           <MaterialIcons
             name='menu'
             size={50}
-            onPress={() => setMenuStatus(!menuStatus)}
+            onPress={() => setCreateGroupStatus(!createGroupStatus)}
             style={{ position: "absolute", bottom: 30, right: 35 }}
           />
         </MapView>
@@ -119,8 +122,12 @@ const styles = StyleSheet.create({
     shadowColor: "black",
   },
   menu: {
-    //position: "absolute",
-    bottom: 30,
+    top: 550,
+    width: "85%",
+  },
+  createGroup: {
+    top: 550,
+    width: "85%",
   },
 });
 

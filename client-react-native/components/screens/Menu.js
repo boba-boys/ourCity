@@ -3,6 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Pressable,
   TouchableOpacity,
   Image,
   ScrollView,
@@ -11,12 +12,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { CustomButton } from "../CustomButton";
 
 const Menu = (props) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <Text>YEET</Text>
+      <Pressable>
+        <Text>Create Group</Text>
+      </Pressable>
     </View>
   );
 };
