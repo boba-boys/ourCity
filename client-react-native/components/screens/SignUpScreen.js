@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import{View, Text, TextInput, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
-
+import { useDispatch } from 'react-redux'
 import CustomButton from '../CustomButton'
 import CustomInput from '../CustomInput'
 import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
@@ -15,9 +15,11 @@ const SignUpScreen = () => {
   const [lastName, setLast] = useState('');
 
 const navigation = useNavigation();
+const dispatch = useDispatch();
 
   const onSignInPressed = () =>{
     console.warn('sign in')
+
     navigation.navigate('signIn')
   }
 
@@ -25,6 +27,8 @@ const navigation = useNavigation();
 
   const onRegisterPressed = async () =>{
     const user = await axios.post('https://my-city-server.herokuapp.com/auth/signup', {email, password, firstName, lastName})
+
+
 
     if(user.data.createdAt){
 

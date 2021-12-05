@@ -14,7 +14,8 @@ import getCarouselStatus from "../../redux/carouselStatus";
 const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
   const carouselStatus = useSelector((state) => state.carouselStatus);
-  console.log('FUCK!', carouselStatus)
+  const userState = useSelector((state) => state.user);
+  console.log('FUC!', userState)
   const dispatch = useDispatch();
   const [titleText, setTitleText] = useState("Group Name");
   // const [CarouselStatus, setCarouselStatus] = useState(false);
