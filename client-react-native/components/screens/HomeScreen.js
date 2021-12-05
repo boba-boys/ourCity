@@ -79,7 +79,7 @@ const HomeScreen = (props) => {
           <MaterialIcons
             name='menu'
             size={50}
-            onPress={() => setCreateGroupStatus(!createGroupStatus)}
+            onPress={() => setMenuStatus(!menuStatus)}
             style={{ position: "absolute", bottom: 30, right: 35 }}
           />
         </MapView>
