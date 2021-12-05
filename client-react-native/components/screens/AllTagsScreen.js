@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
 import { StyleSheet, View, Text, Dimensions, Image, Button } from "react-native";
 import Carousel from "react-native-snap-carousel";
-import { getTagScreenStatus } from "../../redux/tagScreenStatus";
+import { getAllTagsScreenStatus } from "../../redux/allTagsScreenStatus";
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -17,7 +17,7 @@ const AllTagsScreen = (props) => {
 
     // Redux store
     const userTags = useSelector((state) => state.tags);
-    const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
+    const tagsStatus = useSelector((state) => state.allTagsScreenStatus);
 
     const Separator = () => (
         <View style={styles.separator} />
@@ -28,7 +28,7 @@ const AllTagsScreen = (props) => {
             <View style={styles.container} key={item.id} >
                 <View>
                     <Text style={styles.header} >
-                        Details:
+                        All Places:
                     </Text>
                 </View>
                 <Separator />
@@ -67,7 +67,7 @@ const AllTagsScreen = (props) => {
     }
 
     const handlePressClose = () => {
-        dispatch(getTagScreenStatus(tagScreenStatus)); // Changes the tagView status
+        dispatch(getAllTagsScreenStatus(tagsStatus)); // Changes the tagView status
     }
 
     const handlePressComments = (tagId) => {// Will have to build an individual component to display the comments
@@ -93,16 +93,16 @@ const AllTagsScreen = (props) => {
 
 
 const styles = StyleSheet.create({
-    backgroundScreen: {
-        width: "85%",
-        height: '45%',
-        marginLeft: 30,
-        position: 'absolute',
-        justifyContent: 'flex-start', // moves the content respective the main axis
-        alignItems: "center",
-        bottom: 50,
-        backgroundColor: 'blue',
-    },
+    // backgroundScreen: {
+    //     width: "85%",
+    //     height: '45%',
+    //     marginLeft: 30,
+    //     position: 'absolute',
+    //     justifyContent: 'flex-start', // moves the content respective the main axis
+    //     alignItems: "center",
+    //     bottom: 50,
+    //     backgroundColor: 'blue',
+    // },
     container: {
         backgroundColor: 'white',
         borderRadius: 8,
@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.75,
         shadowRadius: 4.65,
         elevation: 7,
+        bottom: 0,
     },
     image: {
         width: ITEM_WIDTH,

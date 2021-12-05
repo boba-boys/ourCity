@@ -23,7 +23,7 @@ const HomeScreen = (props) => {
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
-  const allTagsStatus = useSelector((state => {state.allTagsScreenStatus}))
+  const allTagsStatus = useSelector((state) => state.allTagsScreenStatus );
 
   // Local State
   const [tagId, setTagId] = useState(undefined);
@@ -77,9 +77,11 @@ const HomeScreen = (props) => {
         <Text style={styles.groupsText} onPress={onPressGroup}>
           {"My Groups"}
         </Text>
-        <Text style={styles.allPlacesText} onPress={onPressAllTags}>
-          {"All Places"}
-        </Text>
+        <View>
+          <Text style={styles.allPlacesText} onPress={onPressAllTags}>
+            {"All Places"}
+          </Text>
+        </View>
         <View>
           {
             CarouselStatus == true ?
@@ -90,6 +92,7 @@ const HomeScreen = (props) => {
               : null
           }
         </View>
+
         {tags.map((tag) => {
           return (
             <Marker
@@ -105,6 +108,7 @@ const HomeScreen = (props) => {
             />
           );
         })}
+
         <View style={styles.tagContainer}>
           {tagScreenStatus === true ?
             (
@@ -116,15 +120,17 @@ const HomeScreen = (props) => {
             : null
           }
         </View>
+
         <View>
-          {/*
-            something == true ?
+          {
+            allTagsStatus === true ?
               (
                 <AllTagsScreen />
               )
               : null
-              */}
+          }
         </View>
+
       </MapView>
     </>
   );
@@ -141,19 +147,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
-    width: '100%',
+    width: '25%',
     bottom: 0,
-
+    // backgroundColor:'blue',
   },
   allPlacesText: {
-    paddingTop: 25,
+    paddingTop: 50,
     marginLeft: 250,
     fontFamily: "Cochin",
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
     width: '100%',
-    bottom: 48,
+    bottom: 0,
     // backgroundColor:'red',
   },
   tagContainer: {
