@@ -9,11 +9,17 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { getStatus } from "../../redux/carouselStatus";
+
+const SLIDER_WIDTH = Dimensions.get("window").width;
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
+const SLIDER_HEIGHT = Dimensions.get("window").height;
+const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 
 const CreateGroup = () => {
   const userId = useSelector((state) => state.users.id);
@@ -80,6 +86,21 @@ const styles = StyleSheet.create({
   container: {
     // flex: 1,
     backgroundColor: "#fff",
+    width: ITEM_WIDTH,
+    height: ITEM_HEIGHT,
+    //marginLeft: 30,
+    alignSelf: "center",
+    padding: 20,
+    borderRadius: 10,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.75,
+    shadowRadius: 4.65,
+    elevation: 7,
+    marginTop: 20,
     //height: "50%",
   },
   form: {

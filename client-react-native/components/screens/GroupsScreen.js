@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  TextInput,
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getGroups } from "../../redux/groups";
@@ -54,6 +55,7 @@ const CarouselCards = (props) => {
         <Text style={styles.body} onPress={() => handlePress(item.id)}>
           {item.body}
         </Text>
+        <TextInput style={styles.input} placeholder='Add a user' />
       </ScrollView>
     );
   };
@@ -139,7 +141,9 @@ const styles = StyleSheet.create({
   body: {
     color: "#222",
     fontSize: 18,
-    alignSelf: "flex-start",
+    //alignSelf: "flex-start",
+    alignSelf: "center",
+    width: ITEM_WIDTH - 20,
   },
   separator: {
     marginVertical: 8,
@@ -151,6 +155,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     alignSelf: "center",
     fontWeight: "bold",
+  },
+  input: {
+    borderColor: "gray",
+    borderWidth: 1,
+    width: ITEM_WIDTH - 20,
+    height: 40,
+    marginTop: 10,
+    marginBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    //margin: 15,
+    alignSelf: "center",
   },
 });
 
