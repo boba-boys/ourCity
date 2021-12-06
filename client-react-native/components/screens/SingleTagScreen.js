@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Dimensions, Image, Button } from "react-native"
 import Carousel from "react-native-snap-carousel";
 import { getTagDetails } from "../../redux/tagDetails";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
+import Comments from "./Comments";
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -79,7 +80,10 @@ const TagScreen = (props) => {
     }
 
     const handlePressComments = (tagId) => {// Will have to build an individual component to display the comments
-        // dispatch(getStatus(CarouselStatus));
+        <View>
+
+            <Comments />
+        </View>
     }
 
     return (
@@ -95,6 +99,11 @@ const TagScreen = (props) => {
                 inactiveSlideShift={0}
                 useScrollView={true}
             />
+            <View style={styles.commentSection}>
+                <Text>
+                    Hello World
+                </Text>
+            </View>
         </View>
     );
 };
@@ -142,13 +151,17 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignSelf: 'center',
     },
-    // body: {
-    //     color: "rgb(31, 126, 160)",
-    //     fontSize: 18,
-    //     paddingLeft: 20,
-    //     paddingRight: 20,
-    //     fontWeight: "bold",
-    // },
+    commentSection: {
+        backgroundColor: 'white',
+        width: ITEM_WIDTH * 1.19,
+        height: ITEM_HEIGHT,
+        marginLeft: 35,
+        // paddingTop:50, // This affect affects the elements inside the view
+        position: 'absolute',
+        // bottom: 138,
+        top: -200,
+        opacity: .8,
+    },
     // close: {
     //     color: "#9B2F2F",
     //     fontSize: 18,

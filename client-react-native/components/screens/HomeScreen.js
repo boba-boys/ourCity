@@ -83,7 +83,7 @@ const HomeScreen = (props) => {
             {"All Places"}
           </Text>
         </View>
-        <View>
+        <View style={styles.allGroups}>
           {
             CarouselStatus == true ?
               (
@@ -164,6 +164,10 @@ const styles = StyleSheet.create({
     height: '30%',
     bottom: 0,
     // backgroundColor:'red',
+  },
+  allGroups:{
+    // backgroundColor:'grey',
+    top:-250,
   },
   tagContainer: {
     position: 'absolute',
