@@ -44,10 +44,9 @@ const CarouselCards = (props) => {
     try {
       const newGroup = await axios.post(
         "https://my-city-server.herokuapp.com/api/groups/adduser",
-        //"http://10.0.15.141:1337/api/groups/adduser",
         { userEmail: email, groupId: groupId }
       );
-      console.log("newGroup: ", newGroup);
+
       if (await newGroup.data) {
         alert("User added to group!");
         dispatch(getStatus(CarouselStatus));

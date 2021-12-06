@@ -40,7 +40,7 @@ router.post("/create", async (req, res, next) => {
 
 router.post("/adduser", async (req, res, next) => {
   try {
-    console.log("this is the req.body", req.body);
+    //console.log("this is the req.body", req.body);
     const { userEmail, groupId } = req.body;
     const user = await User.findOne({ where: { email: userEmail } });
     const comment = await Comment.create({ userId: user.id, groupId });
