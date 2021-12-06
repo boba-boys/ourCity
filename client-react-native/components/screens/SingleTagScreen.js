@@ -21,7 +21,10 @@ const TagScreen = (props) => {
     const usersTag = useSelector((state) => state.tagDetails);
     const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
 
-    console.log('This is the passed tag inside TAG_SCREEN:', props.tagId);
+    // Local State
+    const [commentStatus, setCommentStatus] = useState(false);
+
+    // console.log('This is the passed tag inside TAG_SCREEN:', props.tagId);
     //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
     useEffect(() => {
         console.log('---------------------ComponentDidMount in TagScreen :--------------------')
@@ -79,11 +82,8 @@ const TagScreen = (props) => {
         dispatch(getTagScreenStatus(tagScreenStatus)); // Changes the tagView status
     }
 
-    const handlePressComments = (tagId) => {// Will have to build an individual component to display the comments
-        <View>
-
-            <Comments />
-        </View>
+    const handlePressComments = () => {// Will have to build an individual component to display the comments
+        setCommentStatus(!commentStatus);
     }
 
     return (
@@ -99,11 +99,13 @@ const TagScreen = (props) => {
                 inactiveSlideShift={0}
                 useScrollView={true}
             />
-            <ScrollView style={styles.commentSection}>
-                <Text>
-                    Hello World
-                </Text>
-            </ScrollView>
+            {
+                (commentStatus) ?
+                    <Comments
+                        tagId={props.tagId}
+                    />
+                    : null
+            }
         </View>
     );
 };
@@ -150,17 +152,6 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontWeight: "bold",
         alignSelf: 'center',
-    },
-    commentSection: {
-        backgroundColor: 'white',
-        width: ITEM_WIDTH * 1.19,
-        height: ITEM_HEIGHT,
-        marginLeft: 35,
-        // paddingTop:50, // This affect affects the elements inside the view
-        position: 'absolute',
-        // bottom: 138,
-        top: -200,
-        opacity: .8,
     },
     // close: {
     //     color: "#9B2F2F",
