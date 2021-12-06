@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, "../App.js")));
 // });
 
 app.use("/api", require("./api")); // include our routes!
+app.use('/auth', require('./auth'))
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../App.js"));

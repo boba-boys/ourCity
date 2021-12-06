@@ -18,10 +18,9 @@ const Menu = (props) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.container}>
-      <Text>YEET</Text>
-      <Pressable>
-        <Text>Create Group</Text>
-      </Pressable>
+      <Text>Menu</Text>
+      <Text>User Settings</Text>
+      <Text>Leave Group</Text>
     </View>
   );
 };

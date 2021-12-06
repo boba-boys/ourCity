@@ -8,11 +8,13 @@ import {
   Image,
   ScrollView,
   TextInput,
+  Button,
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getGroups } from "../../redux/groups";
 import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
+import axios from "axios";
 import CreateGroup from "./CreateGroup";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
@@ -28,6 +30,7 @@ const CarouselCards = (props) => {
   const usersGroups = useSelector((state) => state.groups);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.users.id);
+  const [email, setEmail] = useState("");
 
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
   useEffect(() => {
@@ -36,6 +39,26 @@ const CarouselCards = (props) => {
     );
     dispatch(getGroups(userId)); // userId hard coded
   }, []);
+
+  const onAddToGroup = async (groupId) => {
+    try {
+      const newGroup = await axios.post(
+        "https://my-city-server.herokuapp.com/api/groups/adduser",
+        //"http://10.0.15.141:1337/api/groups/adduser",
+        { userEmail: email, groupId: groupId }
+      );
+      console.log("newGroup: ", newGroup);
+      if (await newGroup.data) {
+        alert("User added to group!");
+        dispatch(getStatus(CarouselStatus));
+      } else {
+        alert("User not added to group!");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("User not added to group!");
+    }
+  };
 
   const Separator = () => <View style={styles.separator} />;
   const CarouselCardItem = ({ index, item }) => {
@@ -55,7 +78,15 @@ const CarouselCards = (props) => {
         <Text style={styles.body} onPress={() => handlePress(item.id)}>
           {item.body}
         </Text>
-        <TextInput style={styles.input} placeholder='Add a user' />
+        <TextInput
+          style={styles.input}
+          placeholder='email'
+          name='email'
+          autoCapitalize='none'
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+        />
+        <Button title='Add to Group' onPress={() => onAddToGroup(item.id)} />
       </ScrollView>
     );
   };
