@@ -16,12 +16,12 @@ const _gotUser = (user) => {
 // thunks
 export const loadUserToState = (email) => async (dispatch) => {
   try {
-    console.log(email)
-    const user = await axios.get(
-      `https://my-city-server.herokuapp.com/api/users`, {email:email}
+
+    const user = await axios.post(
+      `https://my-city-server.herokuapp.com/api/users`, {email}
       );
-      console.log(user, 'yasssss')
-    dispatch(_gotUser(user));
+
+    dispatch(_gotUser(user.data));
   } catch (err) {
     console.log(err);
     return [];
@@ -29,7 +29,7 @@ export const loadUserToState = (email) => async (dispatch) => {
 };
 
 // Reducer
-export default function users(state = '', action) {
+export default function users(state = {}, action) {
   switch (action.type) {
     case GOT_USER:
       return action.user;
