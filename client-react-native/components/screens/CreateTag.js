@@ -23,6 +23,8 @@ const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 const CreateTag = () => {
   const userId = useSelector((state) => state.users.id);
   const coordinates = useSelector((state) => state.addTagCoordinates)
+  const [name, setName] = useState('')
+  const [searchResult, setSearchResult] = useState('')
   const dispatch = useDispatch();
 
 
@@ -37,12 +39,27 @@ const CreateTag = () => {
   console.log('these are the coordinates of our newly created tag and this is a clear console.log message!', coordinates)
 
   return (
-    <View>
-      <Text>
-      fuck you scott and fuck your console logs
-      and fuck your bar
-      </Text>
+    <ScrollView style={styles.container}>
+    <View style={styles.form}>
+      <Text style={styles.title}>Create a Pin</Text>
+      <TextInput
+        style={styles.input}
+        placeholder='Pin Name'
+        value={name}
+        onChangeText={setName}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder='Google Search Bar'
+        value={searchResult}
+        onChangeText={setSearchResult}
+      />
+      <TouchableOpacity style={styles.button} onPress={onSubmit}>
+        <Text style={styles.buttonText}>Create Pin</Text>
+      </TouchableOpacity>
     </View>
+  </ScrollView>
   );
 };
 
