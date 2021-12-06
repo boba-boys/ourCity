@@ -12,11 +12,15 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-
-//Need to figure out how to know which user is siged in
-const userId = 1;
+import { useSelector, useDispatch } from "react-redux";
+import { getStatus } from "../../redux/carouselStatus";
 
 const CreateGroup = () => {
+  const userId = useSelector((state) => state.users.id);
+  const dispatch = useDispatch();
+
+  const CarouselStatus = useSelector((state) => state.carouselStatus);
+
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
   const [groupImage, setGroupImage] = useState(
@@ -34,6 +38,7 @@ const CreateGroup = () => {
         userId: userId,
       }
     );
+    dispatch(getStatus(CarouselStatus));
   };
 
   return (

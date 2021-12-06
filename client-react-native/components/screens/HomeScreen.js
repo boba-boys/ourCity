@@ -26,15 +26,13 @@ import Menu from "./Menu";
 import { MaterialIcons } from "@expo/vector-icons";
 import CreateGroup from "./CreateGroup";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
+import { getGroupStatus } from "../../redux/groups";
 import AllTagsScreen from "./AllTagsScreen";
 import CarouselCards from "./GroupsScreen";
 import TagScreen from "./SingleTagScreen";
 
 const HomeScreen = (props) => {
-
-
   const userState = useSelector((state) => state.users);
-
 
   const dispatch = useDispatch();
   const mapReference = createRef();
@@ -44,6 +42,8 @@ const HomeScreen = (props) => {
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
+
+  const createGroupStatus = useSelector((state) => state.createGroupStatus);
 
   // Local State
   const [menuStatus, setMenuStatus] = useState(false);
@@ -116,10 +116,12 @@ const HomeScreen = (props) => {
             {"All Places"}
           </Text>
         </View>
-        <View style={styles.allGroups}>{CarouselStatus == true ? <CarouselCards /> : null}</View>
+        <View style={styles.allGroups}>
+          {CarouselStatus == true ? <CarouselCards /> : null}
+        </View>
         <View>
           {menuStatus === true ? (
-            <CreateGroup style={{ position: "absolute" }} />
+            <Menu style={{ position: "absolute" }} />
           ) : null}
         </View>
 
@@ -203,9 +205,9 @@ const styles = StyleSheet.create({
     top: 550,
     width: "85%",
   },
-  allGroups:{
+  allGroups: {
     // backgroundColor:'grey',
-    top:-250,
+    top: -250,
   },
 });
 
