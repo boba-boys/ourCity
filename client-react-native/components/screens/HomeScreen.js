@@ -27,11 +27,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CreateGroup from "./CreateGroup";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import { getGroupStatus } from "../../redux/groups";
+import {addTagCoordinatesFunc} from "../../redux/TagCoordinates"
 import AllTagsScreen from "./AllTagsScreen";
 import CarouselCards from "./GroupsScreen";
 import TagScreen from "./SingleTagScreen";
+import CreateTag from "./CreateTag"
 import axios from "axios";
 import  {addTagStatusFunc} from '../../redux/addTagStatus'
+
 
 const HomeScreen = (props) => {
   const userState = useSelector((state) => state.users);
@@ -75,17 +78,13 @@ const HomeScreen = (props) => {
   };
 
   const onPressMap = async (event) => {
-     console.log(event.nativeEvent.coordinate.latitude)
-    console.log("Inside onPressMap before pressing the MAP: ", addTagsStatus);
-    // let long = event.nativeEvent.coordinate.longitude
-    // let lat = event.nativeEvent.coordinate.latitude
-    // let name = 'mcdicks'
-    // await axios.post(
-    //   "https://my-city-server.herokuapp.com/api/tags/addTag",
-    //   { name, long, lat }
-    // );
+    let long = event.nativeEvent.coordinate.longitude;
+    let lat = event.nativeEvent.coordinate.latitude;
+    let coordinates = {long: long, lat: lat}
+
+    dispatch(addTagCoordinatesFunc(coordinates));
     dispatch(addTagStatusFunc(addTagsStatus));
-    console.log(addTagsStatus, 'dadadasdas')
+
     // Notice that this is always called when we interact with the map!!
     // setMenuStatus(false);
     // dispatch(getStatus(true));
@@ -94,7 +93,6 @@ const HomeScreen = (props) => {
     // setCreateGroupStatus(false);
 
   };
-  console.log(addTagsStatus, 'OUTSIDEEEEEE')
 
   const onPressTag = (tagId) => {
     console.log(
@@ -159,11 +157,11 @@ const HomeScreen = (props) => {
         <View style={styles.tagContainer}>
           {tagScreenStatus === true ? <TagScreen tagId={tagId} /> : null}
         </View>
-        {/* <View>
-          {menuStatus === true ? (
-            <Menu style={{ position: "absolute" }} />
+        <View>
+          {addTagsStatus === true ? (
+            <CreateTag style={{ position: "absolute" }} />
           ) : null}
-        </View> */}
+        </View>
 
         <View style={styles.tagContainer}>
           {allTagsStatus === true ? (
