@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
-import { StyleSheet, View, Text, Dimensions, Image, Button } from "react-native";
+import { StyleSheet, View, Text, Dimensions, Image, Button, ScrollView } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getTagDetails } from "../../redux/tagDetails";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
@@ -99,11 +99,11 @@ const TagScreen = (props) => {
                 inactiveSlideShift={0}
                 useScrollView={true}
             />
-            <View style={styles.commentSection}>
+            <ScrollView style={styles.commentSection}>
                 <Text>
                     Hello World
                 </Text>
-            </View>
+            </ScrollView>
         </View>
     );
 };
