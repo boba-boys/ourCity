@@ -16,7 +16,6 @@ const CarouselCardItem = ({ item, index }) => {
 
   const handleChange = (text) => {
     setUserEmail(text);
-    console.log(text);
   };
   return (
     <View style={styles.container} key={index}>

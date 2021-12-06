@@ -13,6 +13,7 @@ import ConfirmEmailScreen from './components/screens/ConfirmEmailScreen';
 import ForgotPasswordScreen from './components/screens/ForgotPasswordScreen';
 import ResetPasswordScreen from './components/screens/ResetPasswordScreen';
 import SingleTagScreen from './components/screens/SingleTagScreen';
+import CreateTag from './components/screens/CreateTag';
 
 
 
@@ -31,6 +32,7 @@ const Routes = (props) => {
             <Stack.Screen name='Reset Password' component={ResetPasswordScreen}/>
             <Stack.Screen name="My Groups" component={GroupsScreen} />
             <Stack.Screen name="Tag Screen" component={SingleTagScreen} />
+            <Stack.Screen name='Create Tag' component={CreateTag}/>
 
 
             </Stack.Navigator>
