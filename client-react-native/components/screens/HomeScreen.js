@@ -94,6 +94,7 @@ const HomeScreen = (props) => {
     // setCreateGroupStatus(false);
 
   };
+  console.log(addTagsStatus, 'OUTSIDEEEEEE')
 
   const onPressTag = (tagId) => {
     console.log(

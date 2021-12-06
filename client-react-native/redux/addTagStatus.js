@@ -22,7 +22,7 @@ export const addTagStatusFunc = (currentStatus) => async (dispatch) => {
 // Reducer
 export default function addTagsStatus(state = false, action) {
     switch (action.type) {
-        case _addTags:
+        case ADD_TAGS_STATUS:
             return action.addTagsState;
         default:
             return state;
