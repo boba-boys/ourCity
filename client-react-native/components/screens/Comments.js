@@ -26,7 +26,7 @@ const Comments = (props) => {
                 source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
                 style={styles.userPic}
             />
-
+            <Separator />
             <Text style={styles.user}>
                 {/* {user.email} */}
                 {text}
@@ -36,20 +36,39 @@ const Comments = (props) => {
         setText('');
     }
 
+    const Separator = () => (
+        <View style={styles.separator} />
+    );
+    const SeparatorNewMessage = () => (
+        <View style={styles.separatorNewMessage} />
+    );
+
     return (
-        <ScrollView style={styles.container}>
-            {/* <Text  style={styles.user} >
-                {(user.firstName)}
-            </Text> */}
-            <View>
-                {comments.map((comment) => {
-                    return (
-                        <View>
-                            {comment}
-                        </View>
-                    )
-                })}
-            </View>
+        <View style={styles.container}>
+            <Text style={styles.header}>
+                Comment section:
+            </Text>
+            <ScrollView >
+
+                <View>
+                    {comments.map((comment) => {
+                        return (
+                            <View style={styles.userProfile}>
+                                <Image
+                                    source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
+                                    style={styles.userPic}
+                                />
+                                <Separator />
+                                <Text style={styles.user}>
+                                    {/* {user.email} */}
+                                    {text}
+                                </Text>
+                            </View>
+                        )
+                    })}
+                </View>
+            </ScrollView>
+            <SeparatorNewMessage />
             <View style={styles.newMessage}>
                 <TextInput
                     style={styles.textBox}
@@ -62,7 +81,8 @@ const Comments = (props) => {
                     <Text style={styles.buttonText}>Add Comment</Text>
                 </TouchableOpacity>
             </View>
-        </ScrollView>
+        </View>
+
 
     )
 }
@@ -76,8 +96,14 @@ const styles = {
         // paddingTop:50, // This affect affects the elements inside the view
         position: 'absolute',
         // bottom: 138,
-        top: -200,
-        opacity: .8,
+        top: -310,
+        opacity: .9,
+    },
+    header: {
+        color: "#222",
+        fontSize: 20,
+        alignSelf: 'center',
+        fontWeight: "bold",
     },
     userProfile: {
 
@@ -94,32 +120,43 @@ const styles = {
     newMessage: {
         bottom: 0,
         flexDirection: 'row',
-        // alignItmes: 'space-between',
-        // justifyContent: 'space-between'
+        width: ITEM_WIDTH,
+        alignItmes: 'space-between',
+        justifyContent: 'space-between'
     },
     textBox: {
         width: '70%',
-        alignSelf: 'center',
+        // alignSelf: 'flex-start',
         // backgroundColor:'lightgrey',
         borderColor: 'black',
         // writingDirection:true,
         height: '50%',
-        margin: 12,
+        margin: 15,
         borderWidth: 1,
         // padding: 10,
     },
     button: {
         backgroundColor: "#4286f4",
-        padding: 3,
+        // padding: 3,
         marginTop: 10,
         width: '30%',
-        alignSelf: 'center',
+        height: '70%',
+        // alignSelf: 'flex-end',
     },
     buttonText: {
         color: "#fff",
         fontWeight: "bold",
         textAlign: "center",
         fontSize: 13,
+    },
+    separator: {
+        marginVertical: 8,
+        borderBottomColor: '#737373',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    separatorNewMessage: {
+        borderBottomColor: '#737373',
+        borderBottomWidth: StyleSheet.hairlineWidth,
     },
 }
 
