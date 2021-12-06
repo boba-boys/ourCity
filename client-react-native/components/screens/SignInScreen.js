@@ -6,6 +6,8 @@ import CustomInput from '../CustomInput'
 import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/core'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { loadUserToState } from '../../redux/user'
 
 
 const SignInScreen = () => {
@@ -14,13 +16,15 @@ const SignInScreen = () => {
 
   const{height} = useWindowDimensions();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
 
   const onSignInPressed =  async () =>{
 
 
       const user = await axios.post(`https://my-city-server.herokuapp.com/auth/login`, {email, password})
-
+      console.log(user.data)
+      dispatch(loadUserToState(email))
 
     if(user.data['token']){
     navigation.navigate('Home')
