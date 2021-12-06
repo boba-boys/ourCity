@@ -18,7 +18,7 @@ export const getTags = (groupId) => async (dispatch) => {
 
     const response = await axios.get(
       `https://my-city-server.herokuapp.com/api/tags/${groupId}`
-      // `http://localhost:1337//api/tags/${groupId}`
+
     );
 
     dispatch(_gotTags(response.data));

@@ -32,9 +32,8 @@ import TagScreen from "./SingleTagScreen";
 
 const HomeScreen = (props) => {
 
-  // const tags = useSelector((state) => state.tags);
-  // const carouselStatus = useSelector((state) => state.carouselStatus);
-  const userState = useSelector((state) => state.user);
+
+  const userState = useSelector((state) => state.users);
 
 
   const dispatch = useDispatch();
@@ -75,9 +74,9 @@ const HomeScreen = (props) => {
   const onPressMap = () => {
     console.log("Inside onPressMap before pressing the MAP: ", CarouselStatus); // Notice that this is always called when we interact with the map!!
     setMenuStatus(false);
-    dispatch(getStatus(true));
-    dispatch(getAllTagsScreenStatus(true));
-    dispatch(getTagScreenStatus(true));
+    // dispatch(getStatus(true));
+    // dispatch(getAllTagsScreenStatus(true));
+    // dispatch(getTagScreenStatus(true));
     //setCreateGroupStatus(false);
   };
 
@@ -117,7 +116,7 @@ const HomeScreen = (props) => {
             {"All Places"}
           </Text>
         </View>
-        <View>{CarouselStatus == true ? <CarouselCards /> : null}</View>
+        <View style={styles.allGroups}>{CarouselStatus == true ? <CarouselCards /> : null}</View>
         <View>
           {menuStatus === true ? (
             <CreateGroup style={{ position: "absolute" }} />
@@ -177,7 +176,7 @@ const styles = StyleSheet.create({
   allPlacesText: {
     paddingTop: 50,
     marginLeft: 250,
-    fontFamily: "Cochin",
+    // fontFamily: "Cochin",
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
@@ -203,6 +202,10 @@ const styles = StyleSheet.create({
   createGroup: {
     top: 550,
     width: "85%",
+  },
+  allGroups:{
+    // backgroundColor:'grey',
+    top:-250,
   },
 });
 

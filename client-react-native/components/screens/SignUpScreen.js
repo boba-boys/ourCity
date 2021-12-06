@@ -15,6 +15,9 @@ import CustomInput from "../CustomInput";
 import SocialSignInButtons from "../SocialSignInButtons/SocialSignInButtons";
 import { useNavigation } from "@react-navigation/core";
 import axios from "axios";
+import { loadUserToState } from '../../redux/user'
+import { useDispatch } from 'react-redux'
+
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -23,6 +26,7 @@ const SignUpScreen = () => {
   const [lastName, setLast] = useState("");
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const onSignInPressed = () => {
     console.warn("sign in");
@@ -36,6 +40,7 @@ const SignUpScreen = () => {
     );
 
     if (user.data.createdAt) {
+      dispatch(loadUserToState(email))
       navigation.navigate("Home");
     } else {
       console.warn(user.data);
