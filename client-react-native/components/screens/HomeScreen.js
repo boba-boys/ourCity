@@ -30,6 +30,8 @@ import { getGroupStatus } from "../../redux/groups";
 import AllTagsScreen from "./AllTagsScreen";
 import CarouselCards from "./GroupsScreen";
 import TagScreen from "./SingleTagScreen";
+import axios from "axios";
+import  {addTagStatusFunc} from '../../redux/addTagStatus'
 
 const HomeScreen = (props) => {
   const userState = useSelector((state) => state.users);
@@ -42,6 +44,7 @@ const HomeScreen = (props) => {
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
+  const addTagsStatus = useSelector((state) => state.addTagsStatus)
 
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
 
@@ -71,13 +74,25 @@ const HomeScreen = (props) => {
     dispatch(getStatus(CarouselStatus));
   };
 
-  const onPressMap = () => {
-    console.log("Inside onPressMap before pressing the MAP: ", CarouselStatus); // Notice that this is always called when we interact with the map!!
-    setMenuStatus(false);
+  const onPressMap = async (event) => {
+     console.log(event.nativeEvent.coordinate.latitude)
+    console.log("Inside onPressMap before pressing the MAP: ", addTagsStatus);
+    // let long = event.nativeEvent.coordinate.longitude
+    // let lat = event.nativeEvent.coordinate.latitude
+    // let name = 'mcdicks'
+    // await axios.post(
+    //   "https://my-city-server.herokuapp.com/api/tags/addTag",
+    //   { name, long, lat }
+    // );
+    dispatch(addTagStatusFunc(addTagsStatus));
+    console.log(addTagsStatus, 'dadadasdas')
+    // Notice that this is always called when we interact with the map!!
+    // setMenuStatus(false);
     // dispatch(getStatus(true));
     // dispatch(getAllTagsScreenStatus(true));
     // dispatch(getTagScreenStatus(true));
-    //setCreateGroupStatus(false);
+    // setCreateGroupStatus(false);
+
   };
 
   const onPressTag = (tagId) => {
@@ -143,6 +158,11 @@ const HomeScreen = (props) => {
         <View style={styles.tagContainer}>
           {tagScreenStatus === true ? <TagScreen tagId={tagId} /> : null}
         </View>
+        {/* <View>
+          {menuStatus === true ? (
+            <Menu style={{ position: "absolute" }} />
+          ) : null}
+        </View> */}
 
         <View style={styles.tagContainer}>
           {allTagsStatus === true ? (
