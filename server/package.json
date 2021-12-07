@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "node main.js",
-    "build" : "npm install",
+    "build": "npm install",
     "seed": "node seed.js"
   },
   "dependencies": {
@@ -12,7 +12,8 @@
     "morgan": "^1.10.0",
     "path": "^0.12.7",
     "pg": "^8.7.1",
-    "sequelize": "^6.12.0-alpha.1"
+    "sequelize": "^6.12.0-alpha.1",
+    "socket.io": "^4.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
