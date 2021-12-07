@@ -13,6 +13,7 @@ import tagDetails from '../tagDetails';
 import allTagsScreenStatus from '../allTagsScreenStatus';
 import addTagsStatus from '../addTagStatus';
 import addTagCoordinates from '../TagCoordinates'
+import setGroupIdOnState from '../groupState'
 
 
 
@@ -23,7 +24,7 @@ const reducer= combineReducers({
     carouselStatus,
     addTagsStatus,
     addTagCoordinates,
-
+    setGroupIdOnState,
     users,
 
     tagScreenStatus,

@@ -16,6 +16,7 @@ import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
 import axios from "axios";
 import CreateGroup from "./CreateGroup";
+import { _setGroupIdOnState } from "../../redux/groupState";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -37,7 +38,7 @@ const CarouselCards = (props) => {
     console.log(
       "---------------------ComponentDidMount in CarouselCards:--------------------"
     );
-    dispatch(getGroups(userId)); // userId hard coded
+    dispatch(getGroups(userId));
   }, []);
 
   const onAddToGroup = async (groupId) => {
@@ -61,6 +62,14 @@ const CarouselCards = (props) => {
 
   const Separator = () => <View style={styles.separator} />;
   const CarouselCardItem = ({ index, item }) => {
+    console.log(item.comments[0].groupId, 'this is the item')
+    dispatch(_setGroupIdOnState('2'))
+    // useEffect(() => {
+    //   // dispatch(getTags(1)); //Hard coded groupId <--might have to be this way
+    //    dispatch(setGroupIdOnState(item[0].groupId))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+    // }, []);
+
+
     return (
       <ScrollView style={styles.container} key={item.id}>
         <View>

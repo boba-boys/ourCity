@@ -14,6 +14,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import { addTagStatusFunc } from "../../redux/addTagStatus";
+import { getStatus } from "../../redux/carouselStatus";
+
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -26,17 +29,22 @@ const CreateTag = () => {
   const [name, setName] = useState('')
   const [searchResult, setSearchResult] = useState('')
   const dispatch = useDispatch();
+  const groupId = useSelector((state) => state.setGroupIdOnState)
 
+  const navigation = useNavigation();
 
   const onSubmit = async () => {
-    const response = await axios.post(
+
+    // console.log('this is theeee name daasdasdasdasda' , name, groupId, userId)
+    dispatch(addTagStatusFunc(true))
+    await axios.post(
           "https://my-city-server.herokuapp.com/api/tags/addTag",
-          { name, long, lat }
+          { name, long: coordinates.long, lat:coordinates.lat, groupId , userId}
         );
-    // dispatch()
+        dispatch(getStatus(false))
   };
 
-  console.log('these are the coordinates of our newly created tag and this is a clear console.log message!', coordinates)
+
 
   return (
     <ScrollView style={styles.container}>
@@ -46,7 +54,7 @@ const CreateTag = () => {
         style={styles.input}
         placeholder='Pin Name'
         value={name}
-        onChangeText={setName}
+        onChangeText={(name) => setName(name)}
       />
 
       <TextInput

@@ -24,7 +24,7 @@ const Routes = (props) => {
         <NavigationContainer>
 
             <Stack.Navigator screenOptions={{headerShown:false}}>
-            {/* <Stack.Screen name='signIn' component={SignInScreen}/> */}
+            <Stack.Screen name='signIn' component={SignInScreen}/>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name='signUp' component={SignUpScreen}/>
             <Stack.Screen name='Confirm Email' component={ConfirmEmailScreen}/>

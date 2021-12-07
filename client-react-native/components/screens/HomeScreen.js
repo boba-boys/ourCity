@@ -49,6 +49,7 @@ const HomeScreen = (props) => {
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const addTagsStatus = useSelector((state) => state.addTagsStatus)
 
+
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
 
   // Local State
@@ -65,7 +66,7 @@ const HomeScreen = (props) => {
   // ComponentDidMount
   useEffect(() => {
     dispatch(getTags(1)); //Hard coded groupId <--might have to be this way
-    // dispatch(getGroups(1))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+     dispatch(getGroups(1))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, []);
 
   const onPressGroup = () => {
