@@ -12,7 +12,7 @@ const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.5);
 
 const Comments = (props) => {
-    const [comments, setComment] = useState(["First Comment", "This works!", "Hurray!!"])
+    const [comments, setComment] = useState(["First Comment", "This works!", "Hurray!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!aaaaaaa Extra large commeennttntntntntntnnttn describing the whole experience at the restaurant aaaaaaaaaaaaaaaaaaaaaa"])
 
     const user = useSelector((state) => state.users);
 
@@ -43,43 +43,31 @@ const Comments = (props) => {
             <Text style={styles.header}>
                 Comment section:
             </Text>
+            <Separator />
             <ScrollView >
-                {comments.map((comment) => {
+                {comments.map((comment, index) => {
                     return (
-                        <View>
-                            {/* <View style={styles.userProfile}>
-                                <Image
-                                    source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
-                                    style={styles.userPic}
-                                />
-                                <Separator />
-                                <Text style={styles.user}>
-                                    {user.email}
-                                </Text>
-                            </View>
-                            <Text style={styles.bodyComment}>
-                                {comment}
-                            </Text> */}
+                        <View key={index}>
                             <View style={styles.commentContainer}>
                                 <View style={styles.lefContainer}>
-                                    <Image source={{ uri: "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png" }} style={styles.avatar} />
+                                    <Image source={{ uri: "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png" }} style={styles.profilePicture} />
 
                                     <View style={styles.midContainer}>
-                                        <Text style={styles.username}>Dont know what this is</Text>
+                                        <Text style={styles.username}>Username</Text>
                                         <Text
-                                            numberOfLines={2}
-                                            style={styles.lastMessage}>
+                                            // numberOfLines={2}
+                                            style={styles.commentBody}>
                                             {comment}
                                         </Text>
                                     </View>
-
                                 </View>
 
                                 <Text style={styles.time}>
                                     {/* {Get when the comment was created .format("DD/MM/YYYY")} */}
-                                    Created at
+                                    Created at:
                                 </Text>
                             </View>
+                            <Separator />
                         </View>
                     )
                 })}
@@ -114,25 +102,13 @@ const styles = {
         // position: 'absolute',
         // bottom: 138,
         // top: -310,
-        opacity: .9,
+        // opacity: .9,
     },
     header: {
         color: "#222",
         fontSize: 20,
         alignSelf: 'center',
         fontWeight: "bold",
-    },
-    userProfile: {
-
-    },
-    userPic: {
-
-    },
-    user: {
-
-    },
-    bodyComment: {
-
     },
     newMessage: {
         bottom: 0,
@@ -182,32 +158,39 @@ const styles = {
         flexDirection: 'row',
         width: "100%",
         justifyContent: 'space-between',
-        padding: 10,
-      },
-      lefContainer: {
+        // padding: 5,
+        flex:1,
+        // backgroundColor:'red',
+    },
+    lefContainer: {
         flexDirection: 'row',
-      },
-      midContainer: {
-        justifyContent: 'space-around'
-      },
-      avatar: {
-        width: 60,
-        height: 60,
+        // backgroundColor:'green',
+        flex:4,
+    },
+    midContainer: {
+        justifyContent: 'space-around',
+        // backgroundColor:'yellow',
+        width: '72%',
+    },
+    profilePicture: {
+        width: 50,
+        height: 50,
         borderRadius: 50,
         marginRight: 15,
-      },
-      username: {
+    },
+    username: {
         fontWeight: 'bold',
         fontSize: 16,
-      },
-      lastMessage: {
+    },
+    commentBody: {
         fontSize: 16,
-        color: 'grey',
-      },
-      time: {
+        color: 'black',
+    },
+    time: {
         fontSize: 14,
-        color: 'grey'
-      },
+        color: 'grey',
+        flex:1,
+    },
 }
 
 export default Comments;
