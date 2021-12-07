@@ -23,6 +23,22 @@ router.get("/:groupId", async (req, res, next) => {
   }
 });
 
+router.delete("/comment/:id", async (req, res, next) => {
+  try {
+    const comment = await Comment.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    await comment.destroy();
+
+    res.send(comment);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // /api/users/:groupId/userId
 // groupId and userId in params
 router.delete("/:groupId/:userId", async (req, res, next) => {

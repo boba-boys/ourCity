@@ -94,13 +94,16 @@ const HomeScreen = (props) => {
     const isTag = tags.filter((tag) => {
       if (
         tag.latitude === coordinates.lat &&
-        tag.longitude === coordinates.long &&
-        CarouselStatus === true
+        tag.longitude === coordinates.long
       ) {
-        return tag;
+        return true;
+      } else {
+        return null;
       }
     });
-    if (isTag.length < 1) {
+    console.log("isTag: ", isTag);
+    if (isTag.length === 0) {
+      console.log("inside of if tag.length", isTag.length);
       dispatch(addTagStatusFunc(addTagsStatus));
     }
     // Notice that this is always called when we interact with the map!!
