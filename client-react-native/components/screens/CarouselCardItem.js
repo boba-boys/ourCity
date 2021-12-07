@@ -13,7 +13,7 @@ export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 
 const CarouselCardItem = ({ item, index }) => {
   const { userEmail, setUserEmail } = useState("");
-
+console.log(item, 'this is the item')
   const handleChange = (text) => {
     setUserEmail(text);
   };
