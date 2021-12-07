@@ -59,12 +59,6 @@ const TagScreen = (props) => {
                 </View>
                 <Separator />
                 <View style={styles.commentSection}>
-                    {/* <Button
-                        style={styles.body}
-                        color={"rgb(31, 126, 160)"}
-                        title="See Comments"
-                        onPress={() => handlePressComments(item.id)}
-                    /> */}
                     {
                         (commentStatus) ?
                             <Comments
@@ -87,11 +81,7 @@ const TagScreen = (props) => {
     }
 
     const handlePressClose = () => {
-        dispatch(getTagScreenStatus(tagScreenStatus)); // Changes the tagView status
-    }
-
-    const handlePressComments = () => {// Will have to build an individual component to display the comments
-        setCommentStatus(!commentStatus);
+        dispatch(getTagScreenStatus(tagScreenStatus)); 
     }
 
     return (
