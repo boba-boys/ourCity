@@ -61,8 +61,6 @@ const CarouselCards = (props) => {
   };
 
   const handleDelete = async (groupId) => {
-    // console.log("handleDelete group: ", groupId);
-    // console.log("handleDelete userId: ", userId);
     try {
       const deleteGroup = await axios.delete(
         `https://my-city-server.herokuapp.com/api/users/${groupId}/${userId}`
@@ -81,14 +79,6 @@ const CarouselCards = (props) => {
 
   const Separator = () => <View style={styles.separator} />;
   const CarouselCardItem = ({ index, item }) => {
-    console.log(item.comments[0].groupId, 'this is the item')
-    dispatch(_setGroupIdOnState('2'))
-    // useEffect(() => {
-    //   // dispatch(getTags(1)); //Hard coded groupId <--might have to be this way
-    //    dispatch(setGroupIdOnState(item[0].groupId))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
-    // }, []);
-
-
     return (
       <ScrollView style={styles.container} key={item.id}>
         <View>
@@ -120,12 +110,13 @@ const CarouselCards = (props) => {
   };
 
   const handlePress = (groupId) => {
+    dispatch(_setGroupIdOnState(groupId));
     dispatch(getStatus(CarouselStatus));
     dispatch(getTags(groupId));
   };
 
   return (
-    <View /* style={styles.container} */>
+    <View style={styles.view} /* style={styles.container} */>
       <Carousel
         layout='tinder'
         layoutCardOffset={15}
@@ -164,6 +155,11 @@ const styles = StyleSheet.create({
     bottom: 50,
     backgroundColor: "blue",
   },
+  view: {
+    bottom: 1,
+    marginTop: 250,
+    //osition: "absolute",
+  },
   // container: {
   //   width: 350,
   //   height: 460,
@@ -186,6 +182,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.75,
     shadowRadius: 4.65,
     elevation: 7,
+    bottom: 0,
   },
   image: {
     width: ITEM_WIDTH,
