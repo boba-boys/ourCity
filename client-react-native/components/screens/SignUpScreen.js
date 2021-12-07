@@ -12,7 +12,6 @@ import {
 
 import CustomButton from "../CustomButton";
 import CustomInput from "../CustomInput";
-import SocialSignInButtons from "../SocialSignInButtons/SocialSignInButtons";
 import { useNavigation } from "@react-navigation/core";
 import axios from "axios";
 import { loadUserToState } from '../../redux/user'

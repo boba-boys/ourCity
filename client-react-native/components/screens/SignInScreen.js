@@ -3,7 +3,6 @@ import{View, Text, TextInput, Image, StyleSheet, useWindowDimensions, ScrollView
 import myCity from '../../assets/myCity.jpeg'
 import CustomButton from '../CustomButton'
 import CustomInput from '../CustomInput'
-import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/core'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -80,7 +79,6 @@ const SignInScreen = () => {
        /> */}
       <CustomButton text='Sign In' type='signIn' onPress={onSignInPressed}/>
       <CustomButton text='Forgot Password?' onPress={onForgotPassWordPressed} type="forgot"/>
-      <SocialSignInButtons/>
       <CustomButton text="Sign Up" onPress={onSignUpPressed} type="forgot"/>
     </View>
     </ScrollView>

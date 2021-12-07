@@ -42,7 +42,7 @@ const TagScreen = (props) => {
                 <Separator />
                 <View>
                     <Image
-                        source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
+                        source={{ uri: "https://assets3.thrillist.com/v1/image/2679747/2880x1620/crop;webp=auto;jpeg_quality=60;progressive.jpg" }}
                         style={styles.image}
                     />
                     {/*This images should come from the Google API places */}
