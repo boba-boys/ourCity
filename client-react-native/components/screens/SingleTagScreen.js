@@ -40,7 +40,7 @@ const TagScreen = (props) => {
             <View style={styles.container} key={item.id} >
                 <View>
                     <Text style={styles.header} >
-                        Details:
+                        Place Details:
                     </Text>
                 </View>
                 <Separator />

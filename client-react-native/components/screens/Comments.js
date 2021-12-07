@@ -46,14 +46,19 @@ const Comments = (props) => {
             <ScrollView >
                 {comments.map((comment) => {
                     return (
-                        <View style={styles.userProfile}>
-                            <Image
-                                source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
-                                style={styles.userPic}
-                            />
-                            <Separator />
-                            <Text style={styles.user}>
-                                {/* {user.email} */}
+                        <View>
+                            <View style={styles.userProfile}>
+                                <Image
+                                    source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
+                                    style={styles.userPic}
+                                />
+                                <Separator />
+                                <Text style={styles.user}>
+                                    {/* {user.email} */}
+                                    Hector
+                                </Text>
+                            </View>
+                            <Text style={styles.bodyComment}>
                                 {comment}
                             </Text>
                         </View>
@@ -107,7 +112,7 @@ const styles = {
     user: {
 
     },
-    testInput: {
+    bodyComment: {
 
     },
     newMessage: {
