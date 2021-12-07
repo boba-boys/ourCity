@@ -11,6 +11,8 @@ import carouselStatus from '../carouselStatus';
 import tagScreenStatus from '../tagScreenStatus';
 import tagDetails from '../tagDetails';
 import allTagsScreenStatus from '../allTagsScreenStatus';
+import addTagsStatus from '../addTagStatus';
+import addTagCoordinates from '../TagCoordinates'
 
 
 
@@ -19,6 +21,8 @@ const reducer= combineReducers({
     tagDetails,
     groups,
     carouselStatus,
+    addTagsStatus,
+    addTagCoordinates,
 
     users,
 

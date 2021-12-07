@@ -113,16 +113,6 @@ const TagScreen = (props) => {
 
 
 const styles = StyleSheet.create({
-    // backgroundScreen: {
-    //     width: "85%",
-    //     height: '45%',
-    //     marginLeft: 30,
-    //     position: 'absolute',
-    //     justifyContent: 'flex-start', // moves the content respective the main axis
-    //     alignItems: "center",
-    //     bottom: 50,
-    //     backgroundColor: 'blue',
-    // },
     container: {
         backgroundColor: 'white',
         borderRadius: 8,
@@ -156,14 +146,11 @@ const styles = StyleSheet.create({
     },
     commentSection: {
         // backgroundColor: "green",
-        // height: "51%",
         flex:1,
     },
     separator: {
         marginVertical: 8,
-        // borderBottomColor: '#737373',
         borderBottomColor: 'black',
-        // borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomWidth: 1.5,
     },
 })

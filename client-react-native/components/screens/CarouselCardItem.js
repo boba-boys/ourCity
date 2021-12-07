@@ -1,10 +1,22 @@
-import React from "react";
-import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  TextInput,
+} from "react-native";
 
 export const SLIDER_WIDTH = Dimensions.get("window").width + 80;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 
 const CarouselCardItem = ({ item, index }) => {
+  const { userEmail, setUserEmail } = useState("");
+
+  const handleChange = (text) => {
+    setUserEmail(text);
+  };
   return (
     <View style={styles.container} key={index}>
       <Image source={{ uri: item.imageUrl }} style={styles.image} />

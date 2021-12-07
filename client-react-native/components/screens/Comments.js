@@ -19,7 +19,7 @@ const Comments = (props) => {
 
     useEffect(() => {
         console.log('---------------------ComponentDidMount Comments Screen :--------------------');
-        let socket = io("https://my-city-server.herokuapp.com/");// Change this
+        let socket = io("https://my-city-server.herokuapp.com/");
         socket.on("comment message", msg => {
             setComment([...comments, msg]);
         });
@@ -116,9 +116,6 @@ const styles = {
     newMessage: {
         bottom: 0,
         flexDirection: 'row',
-        // width: ITEM_WIDTH,
-        // alignItmes: 'flex-end',
-        // justifyContent: 'space-between'
     },
     textBox: {
         flex: 4,
@@ -126,7 +123,6 @@ const styles = {
         alignSelf: 'flex-end',
         // backgroundColor:'lightgrey',
         borderColor: 'black',
-        // writingDirection:true,
         height: '100%',
         // margin: 5,
         borderWidth: 1,
@@ -135,10 +131,6 @@ const styles = {
     button: {
         flex: 1,
         backgroundColor: "#4286f4",
-        // padding: 3,
-        // margin: 5,
-        // width: '19%',
-        // height: '60%',
         alignSelf: 'flex-end',
     },
     buttonText: {
@@ -161,7 +153,6 @@ const styles = {
         flexDirection: 'row',
         width: "100%",
         justifyContent: 'space-between',
-        // padding: 5,
         flex:1,
         // backgroundColor:'red',
     },

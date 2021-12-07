@@ -7,11 +7,14 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  TextInput,
+  Button,
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getGroups } from "../../redux/groups";
 import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
+import axios from "axios";
 import CreateGroup from "./CreateGroup";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
@@ -27,6 +30,7 @@ const CarouselCards = (props) => {
   const usersGroups = useSelector((state) => state.groups);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.users.id);
+  const [email, setEmail] = useState("");
 
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
   useEffect(() => {
@@ -35,6 +39,44 @@ const CarouselCards = (props) => {
     );
     dispatch(getGroups(userId));
   }, []);
+
+  const onAddToGroup = async (groupId) => {
+    try {
+      const newGroup = await axios.post(
+        "https://my-city-server.herokuapp.com/api/groups/adduser",
+        { userEmail: email, groupId: groupId }
+      );
+
+      if (await newGroup.data) {
+        alert("User added to group!");
+        dispatch(getStatus(CarouselStatus));
+      } else {
+        alert("User not added to group!");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("User not added to group!");
+    }
+  };
+
+  const handleDelete = async (groupId) => {
+    // console.log("handleDelete group: ", groupId);
+    // console.log("handleDelete userId: ", userId);
+    try {
+      const deleteGroup = await axios.delete(
+        `https://my-city-server.herokuapp.com/api/users/${groupId}/${userId}`
+      );
+      if (await deleteGroup.data) {
+        alert("Group deleted!");
+        dispatch(getGroups(userId));
+      } else {
+        alert("Group not deleted!");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Group not deleted!");
+    }
+  };
 
   const Separator = () => <View style={styles.separator} />;
   const CarouselCardItem = ({ index, item }) => {
@@ -54,6 +96,16 @@ const CarouselCards = (props) => {
         <Text style={styles.body} onPress={() => handlePress(item.id)}>
           {item.body}
         </Text>
+        <TextInput
+          style={styles.input}
+          placeholder={`Put your friend's email here!`}
+          name='email'
+          autoCapitalize='none'
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+        />
+        <Button title='Add to Group' onPress={() => onAddToGroup(item.id)} />
+        <Button title='Leave Group' onPress={() => handleDelete(item.id)} />
       </ScrollView>
     );
   };
@@ -139,7 +191,9 @@ const styles = StyleSheet.create({
   body: {
     color: "#222",
     fontSize: 18,
-    alignSelf: "flex-start",
+    //alignSelf: "flex-start",
+    alignSelf: "center",
+    width: ITEM_WIDTH - 20,
   },
   separator: {
     marginVertical: 8,
@@ -151,6 +205,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     alignSelf: "center",
     fontWeight: "bold",
+  },
+  input: {
+    borderColor: "gray",
+    borderWidth: 1,
+    width: ITEM_WIDTH - 20,
+    height: 40,
+    marginTop: 10,
+    marginBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    //margin: 15,
+    alignSelf: "center",
   },
 });
 

@@ -14,71 +14,52 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { getStatus } from "../../redux/carouselStatus";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 const SLIDER_HEIGHT = Dimensions.get("window").height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 
-const CreateGroup = () => {
+const CreateTag = () => {
   const userId = useSelector((state) => state.users.id);
+  const coordinates = useSelector((state) => state.addTagCoordinates)
+  const [name, setName] = useState('')
+  const [searchResult, setSearchResult] = useState('')
   const dispatch = useDispatch();
 
-  const CarouselStatus = useSelector((state) => state.carouselStatus);
-
-  const [groupName, setGroupName] = useState("");
-  const [groupDescription, setGroupDescription] = useState("");
-  const [groupImage, setGroupImage] = useState(
-    "https://i.imgur.com/7k7nFm7.png"
-  );
-  const navigation = useNavigation();
 
   const onSubmit = async () => {
     const response = await axios.post(
-      "https://my-city-server.herokuapp.com/api/groups/create",
-      {
-        name: groupName,
-        body: groupDescription,
-        imageUrl: groupImage,
-        userId: userId,
-      }
-    );
-    dispatch(getStatus(CarouselStatus));
+          "https://my-city-server.herokuapp.com/api/tags/addTag",
+          { name, long, lat }
+        );
+    // dispatch()
   };
 
+  console.log('these are the coordinates of our newly created tag and this is a clear console.log message!', coordinates)
+
   return (
-    // <View
-    //   style={styles.container}
-    //   //behavior={Platform.OS === "ios" ? "padding" : "height"}
-    // >
     <ScrollView style={styles.container}>
-      <View style={styles.form}>
-        <Text style={styles.title}>Create a Group</Text>
-        <TextInput
-          style={styles.input}
-          placeholder='Group Name'
-          value={groupName}
-          onChangeText={setGroupName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder='Group Description'
-          value={groupDescription}
-          onChangeText={setGroupDescription}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder='Group Image'
-          value={groupImage}
-          onChangeText={setGroupImage}
-        />
-        <TouchableOpacity style={styles.button} onPress={onSubmit}>
-          <Text style={styles.buttonText}>Create Group</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
-    // </View>
+    <View style={styles.form}>
+      <Text style={styles.title}>Create a Pin</Text>
+      <TextInput
+        style={styles.input}
+        placeholder='Pin Name'
+        value={name}
+        onChangeText={setName}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder='Google Search Bar'
+        value={searchResult}
+        onChangeText={setSearchResult}
+      />
+      <TouchableOpacity style={styles.button} onPress={onSubmit}>
+        <Text style={styles.buttonText}>Create Pin</Text>
+      </TouchableOpacity>
+    </View>
+  </ScrollView>
   );
 };
 
@@ -129,4 +110,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateGroup;
+export default CreateTag;

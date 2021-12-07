@@ -27,9 +27,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CreateGroup from "./CreateGroup";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import { getGroupStatus } from "../../redux/groups";
+import {addTagCoordinatesFunc} from "../../redux/TagCoordinates"
 import AllTagsScreen from "./AllTagsScreen";
 import CarouselCards from "./GroupsScreen";
 import TagScreen from "./SingleTagScreen";
+import CreateTag from "./CreateTag"
+import axios from "axios";
+import  {addTagStatusFunc} from '../../redux/addTagStatus'
+
 
 const HomeScreen = (props) => {
   const userState = useSelector((state) => state.users);
@@ -42,6 +47,7 @@ const HomeScreen = (props) => {
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
+  const addTagsStatus = useSelector((state) => state.addTagsStatus)
 
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
 
@@ -71,13 +77,21 @@ const HomeScreen = (props) => {
     dispatch(getStatus(CarouselStatus));
   };
 
-  const onPressMap = () => {
-    console.log("Inside onPressMap before pressing the MAP: ", CarouselStatus); // Notice that this is always called when we interact with the map!!
-    setMenuStatus(false);
+  const onPressMap = async (event) => {
+    let long = event.nativeEvent.coordinate.longitude;
+    let lat = event.nativeEvent.coordinate.latitude;
+    let coordinates = {long: long, lat: lat}
+
+    dispatch(addTagCoordinatesFunc(coordinates));
+    dispatch(addTagStatusFunc(addTagsStatus));
+
+    // Notice that this is always called when we interact with the map!!
+    // setMenuStatus(false);
     // dispatch(getStatus(true));
     // dispatch(getAllTagsScreenStatus(true));
     // dispatch(getTagScreenStatus(true));
-    //setCreateGroupStatus(false);
+    // setCreateGroupStatus(false);
+
   };
 
   const onPressTag = (tagId) => {
@@ -142,6 +156,11 @@ const HomeScreen = (props) => {
         })}
         <View style={styles.tagContainer}>
           {tagScreenStatus === true ? <TagScreen tagId={tagId} /> : null}
+        </View>
+        <View>
+          {addTagsStatus === true ? (
+            <CreateTag style={{ position: "absolute" }} />
+          ) : null}
         </View>
 
         <View style={styles.tagContainer}>
