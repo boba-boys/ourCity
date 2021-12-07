@@ -5,10 +5,10 @@ import axios from "axios";
 const GOT_HOVER_TAG = "GOT_HOVER_TAG";
 
 // action creators
-const _gotHoverTag = (hoverTag) => {
+const _gotHoverTag = (tagId) => {
   return {
     type: GOT_HOVER_TAG,
-    hoverTag: hoverTag,
+    hoverTag: tagId,
   };
 };
 
@@ -23,7 +23,7 @@ export const HoverTagFunc = (hoverStatus) => async (dispatch) => {
 };
 
 // Reducer
-export default function hoverTag(state = {tagId: -1}, action) {
+export default function hoverTag(state = 0, action) {
   switch (action.type) {
     case GOT_HOVER_TAG:
       return action.hoverTag;

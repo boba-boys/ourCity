@@ -78,7 +78,7 @@ const AllTagsScreen = (props) => {
   const onCarouselItemChange = (index) => {
     let pin = userTags[index];
     // console.log('below is the pin you are on right now', pin)
-    console.log('below is what the global state now looks like', globalState)
+
     //create some redux stuff, add this pin to the global state.
     props.mapRef.current.animateToRegion({
       latitude: pin.latitude,
@@ -86,8 +86,9 @@ const AllTagsScreen = (props) => {
       latitudeDelta: 0.05,
       longitudeDelta: 0.05,
     });
-dispatch(HoverTagFunc(pin.tagId));
-console.log(globalState)
+    console.log('this is what pin looks like', pin)
+dispatch(HoverTagFunc(pin.id));
+console.log('is the hoverTag still equal to zero?', globalState)
   };
 
 
