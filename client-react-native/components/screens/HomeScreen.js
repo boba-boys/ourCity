@@ -210,15 +210,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     // backgroundColor:'red',
   },
+  allGroups: {
+    // backgroundColor:'grey',
+    top: -250,
+  },
   tagContainer: {
     position: "absolute",
-    bottom: 0,
-    marginBottom: 40,
-  },
-  megaButton: {
-    backgroundColor: "white",
-    width: 100,
-    shadowColor: "black",
+    bottom: 90,
+    // marginBottom: 40,
   },
   menu: {
     top: 550,
