@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Dimensions, Image, TextInput, ScrollView, Touch
 import Carousel from "react-native-snap-carousel";
 import { getTagDetails } from "../../redux/tagDetails";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
+import { io } from "socket.io-client";
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -11,29 +12,37 @@ const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.5);
 
 const Comments = (props) => {
-    const [text, setText] = useState(null);
+    // const [text, setText] = useState(null);
     const [comments, setComment] = useState([])
 
     const user = useSelector((state) => state.users);
-    console.log('---------------------Comments Screen :--------------------');
+
+    useEffect(() => {
+        console.log('---------------------ComponentDidMount Comments Screen :--------------------');
+        socket = io("http://192.168.0.27:3000");// Change this
+        socket.on("comment message", msg => {
+            setComment([...comments, msg]);
+        });
+    }, []);
 
     const onSubmit = (e) => {
         // e.preventDefault();
         // Function called after the submit button is pressed
-        setComment([...comments,
-        <View style={styles.userProfile}>
-            <Image
-                source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
-                style={styles.userPic}
-            />
-            <Separator />
-            <Text style={styles.user}>
-                {/* {user.email} */}
-                {text}
-            </Text>
-        </View>
-        ])
-        setText('');
+        socket.emit("comment message", comments);
+        // setComment([...comments,
+        // <View style={styles.userProfile}>
+        //     <Image
+        //         source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
+        //         style={styles.userPic}
+        //     />
+        //     <Separator />
+        //     <Text style={styles.user}>
+        //         {/* {user.email} */}
+        //         {text}
+        //     </Text>
+        // </View>
+        // ])
+        setComment('');
     }
 
     const Separator = () => (
@@ -61,7 +70,7 @@ const Comments = (props) => {
                                 <Separator />
                                 <Text style={styles.user}>
                                     {/* {user.email} */}
-                                    {text}
+                                    {comment}
                                 </Text>
                             </View>
                         )
@@ -73,8 +82,8 @@ const Comments = (props) => {
                 <TextInput
                     style={styles.textBox}
                     placeholder="Write a comment"
-                    onChangeText={setText}
-                    value={text}
+                    onChangeText={setComment}
+                    value={comments}
                 // onSubmitEditing={onSubmit}
                 />
                 <TouchableOpacity style={styles.button} onPress={onSubmit}>

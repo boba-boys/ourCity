@@ -33,7 +33,7 @@ const CarouselCards = (props) => {
     console.log(
       "---------------------ComponentDidMount in CarouselCards:--------------------"
     );
-    dispatch(getGroups(userId)); // userId hard coded
+    dispatch(getGroups(userId));
   }, []);
 
   const Separator = () => <View style={styles.separator} />;
