@@ -16,6 +16,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
 import { getStatus } from "../../redux/carouselStatus";
+import { getTags } from "../../redux/tags";
 
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
@@ -41,7 +42,8 @@ const CreateTag = () => {
           "https://my-city-server.herokuapp.com/api/tags/addTag",
           { name, long: coordinates.long, lat:coordinates.lat, groupId , userId}
         );
-        dispatch(getStatus(false))
+        // dispatch(getStatus(false))
+        dispatch(getTags(groupId))
   };
 
 
