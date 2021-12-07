@@ -48,6 +48,8 @@ const HomeScreen = (props) => {
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const addTagsStatus = useSelector((state) => state.addTagsStatus)
+   const groupId = useSelector((state) => state.setGroupIdOnState)
+
 
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
 
@@ -64,8 +66,10 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-    dispatch(getTags(1)); //Hard coded groupId <--might have to be this way
-    // dispatch(getGroups(1))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+     dispatch(getStatus(CarouselStatus))
+
+    dispatch(getTags(groupId)); //Hard coded groupId <--might have to be this way
+     dispatch(getGroups(1))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, []);
 
   const onPressGroup = () => {
