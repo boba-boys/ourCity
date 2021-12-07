@@ -127,7 +127,7 @@ const HomeScreen = (props) => {
         </Text>
         <View>
           <Text style={styles.allPlacesText} onPress={onPressAllTags}>
-            {"All Places"}
+            {"My Pins"}
           </Text>
         </View>
         <View style={styles.allGroups}>
@@ -185,10 +185,10 @@ const styles = StyleSheet.create({
   },
   groupsText: {
     paddingTop: 50,
-    marginLeft: 60,
-    fontFamily: "Cochin",
+    marginLeft: 30,
+    fontFamily: "Arial",
     alignItems: "center",
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     width: "25%",
     bottom: 0,
@@ -196,10 +196,10 @@ const styles = StyleSheet.create({
   },
   allPlacesText: {
     paddingTop: 50,
-    marginLeft: 250,
+    marginLeft: 290,
     // fontFamily: "Cochin",
     alignItems: "center",
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     width: "25%",
     height: "30%",

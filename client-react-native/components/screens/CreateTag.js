@@ -29,6 +29,8 @@ const CreateTag = () => {
 
 
   const onSubmit = async () => {
+    const long = coordinates.long;
+    const lat = coordinates.lat;
     const response = await axios.post(
           "https://my-city-server.herokuapp.com/api/tags/addTag",
           { name, long, lat }
