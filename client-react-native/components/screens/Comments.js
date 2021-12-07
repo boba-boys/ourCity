@@ -47,20 +47,39 @@ const Comments = (props) => {
                 {comments.map((comment) => {
                     return (
                         <View>
-                            <View style={styles.userProfile}>
+                            {/* <View style={styles.userProfile}>
                                 <Image
                                     source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
                                     style={styles.userPic}
                                 />
                                 <Separator />
                                 <Text style={styles.user}>
-                                    {/* {user.email} */}
-                                    Hector
+                                    {user.email}
                                 </Text>
                             </View>
                             <Text style={styles.bodyComment}>
                                 {comment}
-                            </Text>
+                            </Text> */}
+                            <View style={styles.commentContainer}>
+                                <View style={styles.lefContainer}>
+                                    <Image source={{ uri: "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png" }} style={styles.avatar} />
+
+                                    <View style={styles.midContainer}>
+                                        <Text style={styles.username}>Dont know what this is</Text>
+                                        <Text
+                                            numberOfLines={2}
+                                            style={styles.lastMessage}>
+                                            {comment}
+                                        </Text>
+                                    </View>
+
+                                </View>
+
+                                <Text style={styles.time}>
+                                    {/* {Get when the comment was created .format("DD/MM/YYYY")} */}
+                                    Created at
+                                </Text>
+                            </View>
                         </View>
                     )
                 })}
@@ -159,6 +178,36 @@ const styles = {
         borderBottomColor: '#737373',
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
+    commentContainer: {
+        flexDirection: 'row',
+        width: "100%",
+        justifyContent: 'space-between',
+        padding: 10,
+      },
+      lefContainer: {
+        flexDirection: 'row',
+      },
+      midContainer: {
+        justifyContent: 'space-around'
+      },
+      avatar: {
+        width: 60,
+        height: 60,
+        borderRadius: 50,
+        marginRight: 15,
+      },
+      username: {
+        fontWeight: 'bold',
+        fontSize: 16,
+      },
+      lastMessage: {
+        fontSize: 16,
+        color: 'grey',
+      },
+      time: {
+        fontSize: 14,
+        color: 'grey'
+      },
 }
 
 export default Comments;
