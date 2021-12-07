@@ -27,31 +27,31 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CreateGroup from "./CreateGroup";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import { getGroupStatus } from "../../redux/groups";
-import {addTagCoordinatesFunc} from "../../redux/TagCoordinates"
+import { addTagCoordinatesFunc } from "../../redux/TagCoordinates"
 import AllTagsScreen from "./AllTagsScreen";
 import CarouselCards from "./GroupsScreen";
 import TagScreen from "./SingleTagScreen";
 import CreateTag from "./CreateTag"
 import axios from "axios";
-import  {addTagStatusFunc} from '../../redux/addTagStatus'
+import { addTagStatusFunc } from '../../redux/addTagStatus'
 
 
 const HomeScreen = (props) => {
-  const userState = useSelector((state) => state.users);
-
+  
   const dispatch = useDispatch();
   const mapReference = createRef();
-
+  
   // Redux Store (useSelector is Hook!)
+  const userState = useSelector((state) => state.users);
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const addTagsStatus = useSelector((state) => state.addTagsStatus)
-   const groupId = useSelector((state) => state.setGroupIdOnState)
-
-
+  const groupId = useSelector((state) => state.setGroupIdOnState);
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
+
+
 
   // Local State
   const [menuStatus, setMenuStatus] = useState(false);
@@ -66,10 +66,9 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-     dispatch(getStatus(CarouselStatus))
-
+    dispatch(getStatus(CarouselStatus))
     dispatch(getTags(groupId)); //Hard coded groupId <--might have to be this way
-     dispatch(getGroups(1))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+    dispatch(getGroups(userState.id))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, []);
 
   const onPressGroup = () => {
@@ -84,7 +83,7 @@ const HomeScreen = (props) => {
   const onPressMap = async (event) => {
     let long = event.nativeEvent.coordinate.longitude;
     let lat = event.nativeEvent.coordinate.latitude;
-    let coordinates = {long: long, lat: lat}
+    let coordinates = { long: long, lat: lat }
 
     dispatch(addTagCoordinatesFunc(coordinates));
     dispatch(addTagStatusFunc(addTagsStatus));
@@ -103,6 +102,7 @@ const HomeScreen = (props) => {
       "Inside onPressTag before pressing the Marker/Tag: ",
       tagScreenStatus
     );
+    dispatch(addTagStatusFunc(true));
     // console.log('This trigers when pressed: ', event.nativeEvent);
     dispatch(getTagScreenStatus(tagScreenStatus));
     setTagId(tagId);
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     width: "25%",
     bottom: 0,
-    // backgroundColor:'blue',
+    backgroundColor: 'blue',
   },
   allPlacesText: {
     paddingTop: 50,
@@ -208,27 +208,32 @@ const styles = StyleSheet.create({
     width: "25%",
     height: "30%",
     bottom: 0,
-    // backgroundColor:'red',
+    backgroundColor: 'red',
   },
   allGroups: {
-    // backgroundColor:'grey',
+    backgroundColor: 'grey',
     top: -250,
   },
   tagContainer: {
     position: "absolute",
     bottom: 90,
     // marginBottom: 40,
+    backgroundColor: 'grey',
+
   },
   menu: {
     top: 550,
     width: "85%",
+    backgroundColor: 'grey',
+
   },
   createGroup: {
     top: 550,
     width: "85%",
+    backgroundColor: 'grey',
   },
   allGroups: {
-    // backgroundColor:'grey',
+    backgroundColor: 'grey',
     top: -250,
   },
 });

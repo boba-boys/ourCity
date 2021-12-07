@@ -14,23 +14,32 @@ const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.5);
 const Comments = (props) => {
     const [typedComment, setTypedComment] = useState('')
     const [comments, setComment] = useState(["First Comment", "This works!", "Hurray!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!aaaaaaa Extra large commeennttntntntntntnnttn describing the whole experience at the restaurant aaaaaaaaaaaaaaaaaaaaaa"])
-    
+
     const user = useSelector((state) => state.users);
+    const groupId = useSelector((state) => state.setGroupIdOnState);
+    const tagId = useSelector((state) => state.tagDetails);
+
 
     useEffect(() => {
         console.log('---------------------ComponentDidMount Comments Screen :--------------------');
         let socket = io("https://my-city-server.herokuapp.com/");
         socket.on("comment message", msg => {
-            setComment([...comments, msg]);
+            setComment([...comments, msg.bodyComment]);
         });
     }, []);
 
     const onSubmit = (e) => {
         // e.preventDefault();
         // Function called after the submit button is pressed
-        // socket.emit("comment message", typedComment);
-        let msg= typedComment;
-        setComment([...comments, msg]);
+        let socket = io("https://my-city-server.herokuapp.com/");
+        let commentObj = {
+            bodyComment: typedComment,
+            userId: user.id,
+            groupId: groupId,
+            tagId: tagId,
+        };
+        socket.emit("comment message", commentObj);
+        // setComment([...comments, msg]);
         setTypedComment('');
     }
 
@@ -153,13 +162,13 @@ const styles = {
         flexDirection: 'row',
         width: "100%",
         justifyContent: 'space-between',
-        flex:1,
+        flex: 1,
         // backgroundColor:'red',
     },
     lefContainer: {
         flexDirection: 'row',
         // backgroundColor:'green',
-        flex:4,
+        flex: 4,
     },
     midContainer: {
         justifyContent: 'space-around',
@@ -183,7 +192,7 @@ const styles = {
     time: {
         fontSize: 14,
         color: 'grey',
-        flex:1,
+        flex: 1,
     },
 }
 

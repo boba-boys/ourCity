@@ -26,10 +26,8 @@ const reducer= combineReducers({
     addTagCoordinates,
     setGroupIdOnState,
     users,
-
     tagScreenStatus,
     allTagsScreenStatus,
-
 });
 
 const middleware= composeWithDevTools(

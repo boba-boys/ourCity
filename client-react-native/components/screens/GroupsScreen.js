@@ -81,7 +81,8 @@ const CarouselCards = (props) => {
 
   const Separator = () => <View style={styles.separator} />;
   const CarouselCardItem = ({ index, item }) => {
-    console.log(item.comments[0].groupId, 'this is the item')
+    // console.log(item.comments[0].groupId, 'this is the item')
+    console.log(item.id, 'this is the groupId')
     dispatch(_setGroupIdOnState('2'))
     // useEffect(() => {
     //   // dispatch(getTags(1)); //Hard coded groupId <--might have to be this way
