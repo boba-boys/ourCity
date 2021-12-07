@@ -19,7 +19,7 @@ const Comments = (props) => {
 
     useEffect(() => {
         console.log('---------------------ComponentDidMount Comments Screen :--------------------');
-        let socket = io("http://192.168.0.27:3000");// Change this
+        let socket = io("https://my-city-server.herokuapp.com/");// Change this
         socket.on("comment message", msg => {
             setComment([...comments, msg]);
         });
