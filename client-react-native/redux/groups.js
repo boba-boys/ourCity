@@ -4,6 +4,7 @@ import axios from "axios";
 // action types
 const GOT_GROUPS = "GOT_GROUPS";
 const CREATE_GROUP = "CREATE_GROUP";
+const GROUP_STATUS = "GROUP_STATUS";
 
 // action creators
 const _gotGroups = (groups) => {
@@ -20,6 +21,13 @@ const _createGroup = (group) => {
   };
 };
 
+const _getGroupStatus = (status) => {
+  return{
+    type: GROUP_STATUS,
+    status: status,
+  }
+}
+
 // thunks
 export const getGroups = (userId) => async (dispatch) => {
   try {
@@ -32,6 +40,16 @@ export const getGroups = (userId) => async (dispatch) => {
     return [];
   }
 };
+
+export const getGroupStatus = (currentStatus) => async (dispatch) => {
+  try{
+    let newStatus=!currentStatus;
+    dispatch(_getGroupStatus(newStatus));
+  }catch(err){
+    console.log(err); 
+    return [];
+  }
+}
 
 export const createGroup = (group) => async (dispatch) => {
   try {
@@ -53,6 +71,8 @@ export default function groups(state = [], action) {
       return action.groupsArr;
     case CREATE_GROUP:
       return [...state, action.group];
+    case GROUP_STATUS:
+      return action.status;
     default:
       return state;
   }

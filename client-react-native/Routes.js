@@ -1,25 +1,24 @@
-import React from 'react';
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from './components/screens/HomeScreen';
+import HomeScreen from "./components/screens/HomeScreen";
 //  import { stack } from '../server/api';
-import SignInScreen from './components/screens/SignInScreen';
+import SignInScreen from "./components/screens/SignInScreen";
 
-import GroupsScreen from './components/screens/GroupsScreen';
+import GroupsScreen from "./components/screens/GroupsScreen";
 import { StyleSheet, SafeAreaView } from "react-native";
 
-import SignUpScreen from './components/screens/SignUpScreen';
-import ConfirmEmailScreen from './components/screens/ConfirmEmailScreen';
-import ForgotPasswordScreen from './components/screens/ForgotPasswordScreen';
-import ResetPasswordScreen from './components/screens/ResetPasswordScreen';
-import SingleTagScreen from './components/screens/SingleTagScreen';
-import CreateTag from './components/screens/CreateTag';
-
-
+import SignUpScreen from "./components/screens/SignUpScreen";
+import ConfirmEmailScreen from "./components/screens/ConfirmEmailScreen";
+import ForgotPasswordScreen from "./components/screens/ForgotPasswordScreen";
+import ResetPasswordScreen from "./components/screens/ResetPasswordScreen";
+import SingleTagScreen from "./components/screens/SingleTagScreen";
+import CreateTag from "./components/screens/CreateTag";
 
 const Stack = createNativeStackNavigator();
 
 const Routes = (props) => {
+
     return (
         <NavigationContainer>
 
@@ -39,5 +38,6 @@ const Routes = (props) => {
         </NavigationContainer >
     )
 }
+
 
 export default Routes;

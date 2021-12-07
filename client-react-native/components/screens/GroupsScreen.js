@@ -60,6 +60,25 @@ const CarouselCards = (props) => {
     }
   };
 
+  const handleDelete = async (groupId) => {
+    // console.log("handleDelete group: ", groupId);
+    // console.log("handleDelete userId: ", userId);
+    try {
+      const deleteGroup = await axios.delete(
+        `https://my-city-server.herokuapp.com/api/users/${groupId}/${userId}`
+      );
+      if (await deleteGroup.data) {
+        alert("Group deleted!");
+        dispatch(getGroups(userId));
+      } else {
+        alert("Group not deleted!");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Group not deleted!");
+    }
+  };
+
   const Separator = () => <View style={styles.separator} />;
   const CarouselCardItem = ({ index, item }) => {
     console.log(item.comments[0].groupId, 'this is the item')
@@ -88,13 +107,14 @@ const CarouselCards = (props) => {
         </Text>
         <TextInput
           style={styles.input}
-          placeholder='email'
+          placeholder={`Put your friend's email here!`}
           name='email'
           autoCapitalize='none'
           value={email}
           onChangeText={(email) => setEmail(email)}
         />
         <Button title='Add to Group' onPress={() => onAddToGroup(item.id)} />
+        <Button title='Leave Group' onPress={() => handleDelete(item.id)} />
       </ScrollView>
     );
   };
