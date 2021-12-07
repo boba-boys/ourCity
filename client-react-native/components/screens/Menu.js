@@ -10,6 +10,7 @@ import {
   Dimensions,
   FlatList,
   ActivityIndicator,
+  Linking,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { CustomButton } from "../CustomButton";
@@ -18,9 +19,45 @@ const Menu = (props) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.container}>
-      <Text>Menu</Text>
-      <Text>User Settings</Text>
-      <Text>Leave Group</Text>
+      <Text>Thank you for checking out our project!</Text>
+      <Text>Team Members: </Text>
+      <Text> Chase Holt </Text>
+      <Text
+        style={{ color: "blue" }}
+        onPress={() =>
+          Linking.openURL("https://www.linkedin.com/in/chase-holt/")
+        }
+      >
+        Chase's linkedin
+      </Text>
+      <Text> Hector Gomez </Text>
+      <Text
+        style={{ color: "blue" }}
+        onPress={() =>
+          Linking.openURL("https://www.linkedin.com/in/hector-nevarez/")
+        }
+      >
+        Hector's Linkedin
+      </Text>
+      <Text> Brad Plunkett </Text>
+      <Text
+        style={{ color: "blue" }}
+        onPress={() =>
+          Linking.openURL("https://www.linkedin.com/in/bradleyplunkett/")
+        }
+      >
+        Brad's Linkedin
+      </Text>
+      <Text> Scott Wilson </Text>
+      <Text
+        style={{ color: "blue" }}
+        onPress={() =>
+          Linking.openURL("https://www.linkedin.com/in/scottwilson91/")
+        }
+      >
+        {" "}
+        Scott's Linkedin{" "}
+      </Text>
     </View>
   );
 };
