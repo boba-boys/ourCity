@@ -12,8 +12,9 @@ const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.5);
 
 const Comments = (props) => {
+    const [typedComment, setTypedComment] = useState('')
     const [comments, setComment] = useState(["First Comment", "This works!", "Hurray!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!aaaaaaa Extra large commeennttntntntntntnnttn describing the whole experience at the restaurant aaaaaaaaaaaaaaaaaaaaaa"])
-
+    
     const user = useSelector((state) => state.users);
 
     useEffect(() => {
@@ -27,8 +28,10 @@ const Comments = (props) => {
     const onSubmit = (e) => {
         // e.preventDefault();
         // Function called after the submit button is pressed
-        socket.emit("comment message", comments);
-        setComment('');
+        // socket.emit("comment message", typedComment);
+        let msg= typedComment;
+        setComment([...comments, msg]);
+        setTypedComment('');
     }
 
     const Separator = () => (
@@ -77,8 +80,8 @@ const Comments = (props) => {
                 <TextInput
                     style={styles.textBox}
                     placeholder="Write a comment"
-                    onChangeText={setComment}
-                    value={comments}
+                    onChangeText={setTypedComment}
+                    value={typedComment}
                 // onSubmitEditing={onSubmit}
                 />
                 <TouchableOpacity style={styles.button} onPress={onSubmit}>
