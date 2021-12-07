@@ -34,6 +34,7 @@ import TagScreen from "./SingleTagScreen";
 import CreateTag from "./CreateTag"
 import axios from "axios";
 import  {addTagStatusFunc} from '../../redux/addTagStatus'
+import hoverTags from "../../redux/tagHover";
 
 
 const HomeScreen = (props) => {
@@ -50,6 +51,8 @@ const HomeScreen = (props) => {
   const addTagsStatus = useSelector((state) => state.addTagsStatus)
 
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
+  const hoverTag = useSelector((state) => state.hoverTag);
+
 
   // Local State
   const [menuStatus, setMenuStatus] = useState(false);
@@ -141,17 +144,42 @@ const HomeScreen = (props) => {
 
         {tags.map((tag) => {
           return (
+            //if we're on the selected tag make the marker YELLOW.  Otherwise return this one below.
+
+            <View>
+             {hoverTag.tagId === tag.tagId ? (
+               <Marker
+              key={`${tag.longitude}_${tag.latitude}`}
+              coordinate={{
+                latitude: tag.latitude,
+                longitude: tag.longitude,
+              }}
+              pinColor = 'yellow'
+
+              title={tag.name}
+              description={tag.description}
+              identifier={`${tag.id}`}
+              onPress={() => onPressTag(tag.id)}
+            />) :
+
+
+
+
             <Marker
               key={`${tag.longitude}_${tag.latitude}`}
               coordinate={{
                 latitude: tag.latitude,
                 longitude: tag.longitude,
               }}
+              pinColor='red'
+
+
               title={tag.name}
               description={tag.description}
               identifier={`${tag.id}`}
               onPress={() => onPressTag(tag.id)}
-            />
+            />}
+            </View>
           );
         })}
         <View style={styles.tagContainer}>
