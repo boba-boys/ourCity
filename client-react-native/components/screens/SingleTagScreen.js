@@ -7,9 +7,9 @@ import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import Comments from "./Comments";
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
-const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
 const SLIDER_HEIGHT = Dimensions.get('window').height;
-const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.5);
+const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.75);
 
 
 const TagScreen = (props) => {
@@ -22,7 +22,7 @@ const TagScreen = (props) => {
     const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
 
     // Local State
-    const [commentStatus, setCommentStatus] = useState(false);
+    const [commentStatus, setCommentStatus] = useState(true);
 
     // console.log('This is the passed tag inside TAG_SCREEN:', props.tagId);
     //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
@@ -58,13 +58,20 @@ const TagScreen = (props) => {
                     </Text>
                 </View>
                 <Separator />
-                <View>
-                    <Button
+                <View style={styles.commentSection}>
+                    {/* <Button
                         style={styles.body}
                         color={"rgb(31, 126, 160)"}
                         title="See Comments"
                         onPress={() => handlePressComments(item.id)}
-                    />
+                    /> */}
+                    {
+                        (commentStatus) ?
+                            <Comments
+                                tagId={props.tagId}
+                            />
+                            : "No comments yet... Perhaps I should go..."
+                    }
                 </View>
                 <Separator />
                 <View>
@@ -74,6 +81,7 @@ const TagScreen = (props) => {
                         onPress={handlePressClose}
                     />
                 </View>
+
             </View>
         )
     }
@@ -99,35 +107,28 @@ const TagScreen = (props) => {
                 inactiveSlideShift={0}
                 useScrollView={true}
             />
-            {
-                (commentStatus) ?
-                    <Comments
-                        tagId={props.tagId}
-                    />
-                    : null
-            }
         </View>
     );
 };
 
 
 const styles = StyleSheet.create({
-    backgroundScreen: {
-        width: "85%",
-        height: '45%',
-        marginLeft: 30,
-        position: 'absolute',
-        justifyContent: 'flex-start', // moves the content respective the main axis
-        alignItems: "center",
-        bottom: 50,
-        backgroundColor: 'blue',
-    },
+    // backgroundScreen: {
+    //     width: "85%",
+    //     height: '45%',
+    //     marginLeft: 30,
+    //     position: 'absolute',
+    //     justifyContent: 'flex-start', // moves the content respective the main axis
+    //     alignItems: "center",
+    //     bottom: 50,
+    //     backgroundColor: 'blue',
+    // },
     container: {
         backgroundColor: 'white',
         borderRadius: 8,
         width: ITEM_WIDTH,
         height: ITEM_HEIGHT,
-        paddingBottom: 10,
+        paddingBottom: 0,
         shadowColor: "black",
         shadowOffset: {
             width: 0,
@@ -153,17 +154,17 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignSelf: 'center',
     },
-    // close: {
-    //     color: "#9B2F2F",
-    //     fontSize: 18,
-    //     paddingLeft: 20,
-    //     paddingRight: 20,
-    //     fontWeight: "bold",
-    // },
+    commentSection: {
+        // backgroundColor: "green",
+        // height: "51%",
+        flex:1,
+    },
     separator: {
         marginVertical: 8,
-        borderBottomColor: '#737373',
-        borderBottomWidth: StyleSheet.hairlineWidth,
+        // borderBottomColor: '#737373',
+        borderBottomColor: 'black',
+        // borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomWidth: 1.5,
     },
 })
 

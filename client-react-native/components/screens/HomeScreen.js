@@ -193,13 +193,8 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     position: "absolute",
-    bottom: 0,
-    marginBottom: 40,
-  },
-  megaButton: {
-    backgroundColor: "white",
-    width: 100,
-    shadowColor: "black",
+    bottom: 90,
+    // marginBottom: 40,
   },
   menu: {
     top: 550,

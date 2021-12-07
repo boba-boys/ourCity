@@ -12,14 +12,13 @@ const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.5);
 
 const Comments = (props) => {
-    // const [text, setText] = useState(null);
-    const [comments, setComment] = useState([])
+    const [comments, setComment] = useState(["First Comment", "This works!", "Hurray!!"])
 
     const user = useSelector((state) => state.users);
 
     useEffect(() => {
         console.log('---------------------ComponentDidMount Comments Screen :--------------------');
-        socket = io("http://192.168.0.27:3000");// Change this
+        let socket = io("http://192.168.0.27:3000");// Change this
         socket.on("comment message", msg => {
             setComment([...comments, msg]);
         });
@@ -29,19 +28,6 @@ const Comments = (props) => {
         // e.preventDefault();
         // Function called after the submit button is pressed
         socket.emit("comment message", comments);
-        // setComment([...comments,
-        // <View style={styles.userProfile}>
-        //     <Image
-        //         source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
-        //         style={styles.userPic}
-        //     />
-        //     <Separator />
-        //     <Text style={styles.user}>
-        //         {/* {user.email} */}
-        //         {text}
-        //     </Text>
-        // </View>
-        // ])
         setComment('');
     }
 
@@ -58,24 +44,21 @@ const Comments = (props) => {
                 Comment section:
             </Text>
             <ScrollView >
-
-                <View>
-                    {comments.map((comment) => {
-                        return (
-                            <View style={styles.userProfile}>
-                                <Image
-                                    source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
-                                    style={styles.userPic}
-                                />
-                                <Separator />
-                                <Text style={styles.user}>
-                                    {/* {user.email} */}
-                                    {comment}
-                                </Text>
-                            </View>
-                        )
-                    })}
-                </View>
+                {comments.map((comment) => {
+                    return (
+                        <View style={styles.userProfile}>
+                            <Image
+                                source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
+                                style={styles.userPic}
+                            />
+                            <Separator />
+                            <Text style={styles.user}>
+                                {/* {user.email} */}
+                                {comment}
+                            </Text>
+                        </View>
+                    )
+                })}
             </ScrollView>
             <SeparatorNewMessage />
             <View style={styles.newMessage}>
@@ -98,14 +81,15 @@ const Comments = (props) => {
 
 const styles = {
     container: {
-        backgroundColor: 'white',
-        width: ITEM_WIDTH * 1.19,
-        height: ITEM_HEIGHT,
-        marginLeft: 35,
+        // backgroundColor: 'yellow',
+        flex: 1,
+        // width: ITEM_WIDTH * 1.19,
+        // height: "50%",
+        // marginLeft: 35,
         // paddingTop:50, // This affect affects the elements inside the view
-        position: 'absolute',
+        // position: 'absolute',
         // bottom: 138,
-        top: -310,
+        // top: -310,
         opacity: .9,
     },
     header: {
@@ -129,33 +113,36 @@ const styles = {
     newMessage: {
         bottom: 0,
         flexDirection: 'row',
-        width: ITEM_WIDTH,
-        alignItmes: 'space-between',
-        justifyContent: 'space-between'
+        // width: ITEM_WIDTH,
+        // alignItmes: 'flex-end',
+        // justifyContent: 'space-between'
     },
     textBox: {
-        width: '70%',
-        // alignSelf: 'flex-start',
+        flex: 4,
+        // width: '75%',
+        alignSelf: 'flex-end',
         // backgroundColor:'lightgrey',
         borderColor: 'black',
         // writingDirection:true,
-        height: '50%',
-        margin: 15,
+        height: '100%',
+        // margin: 5,
         borderWidth: 1,
         // padding: 10,
     },
     button: {
+        flex: 1,
         backgroundColor: "#4286f4",
         // padding: 3,
-        marginTop: 10,
-        width: '30%',
-        height: '70%',
-        // alignSelf: 'flex-end',
+        // margin: 5,
+        // width: '19%',
+        // height: '60%',
+        alignSelf: 'flex-end',
     },
     buttonText: {
         color: "#fff",
         fontWeight: "bold",
         textAlign: "center",
+        alignSelf: 'center',
         fontSize: 13,
     },
     separator: {
