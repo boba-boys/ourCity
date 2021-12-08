@@ -34,6 +34,7 @@ import TagScreen from "./SingleTagScreen";
 import CreateTag from "./CreateTag";
 import axios from "axios";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
+import hoverTags from "../../redux/tagHover";
 import SearchResultScreen from "./SearchResultsScreen";
 
 const HomeScreen = (props) => {
@@ -48,11 +49,15 @@ const HomeScreen = (props) => {
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const addTagsStatus = useSelector((state) => state.addTagsStatus);
+
+
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
 
 
+
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
+  const hoverTag = useSelector((state) => state.hoverTag);
 
   // Local State
   const [menuStatus, setMenuStatus] = useState(false);
@@ -138,68 +143,89 @@ const HomeScreen = (props) => {
   };
 
   return (
-    <MapView
-      onPress={onPressMap}
-      provider={PROVIDER_GOOGLE}
-      style={styles.map}
-      initialRegion={initialState}
-      ref={mapReference}
-      showUserLocation={true}
-    >
-      <Text style={styles.groupsText} onPress={onPressGroup}>
-        {"My Groups"}
-      </Text>
-      <Text style={styles.allPlacesText} onPress={onPressAllTags}>
-        {"All Places"}
-      </Text>
-      <View style={styles.allGroups}>
-        {CarouselStatus == true ? <CarouselCards /> : null}
-      </View>
-      <View>
-        {menuStatus === true ? <Menu style={{ position: "absolute" }} /> : null}
-      </View>
+    <>
+      <MapView
+        onPress={onPressMap}
+        provider={PROVIDER_GOOGLE}
+        style={styles.map}
+        initialRegion={initialState}
+        ref={mapReference}
+        showUserLocation={true}
+      >
+        <Text style={styles.groupsText} onPress={onPressGroup}>
+          {"My Groups"}
+        </Text>
+        <View>
+          <Text style={styles.allPlacesText} onPress={onPressAllTags}>
+            {"My Pins"}
+          </Text>
+        </View>
+        <View style={styles.allGroups}>
+          {CarouselStatus == true ? <CarouselCards /> : null}
+        </View>
+        <View>
+          {menuStatus === true ? (
+            <Menu style={{ position: "absolute" }} />
+          ) : null}
+        </View>
 
-      {tags.map((tag) => {
-        return (
-          <Marker
-            key={`${tag.longitude}_${tag.latitude}`}
-            coordinate={{
-              latitude: tag.latitude,
-              longitude: tag.longitude,
-            }}
-            title={tag.name}
-            description={tag.description}
-            identifier={`${tag.id}`}
-            onPress={() => onPressTag(tag.id)}
-          />
-        );
-      })}
-      <View style={styles.tagContainer}>
-        {tagScreenStatus === true ? <TagScreen tagId={tagId} /> : null}
-      </View>
-      <View>
-        {addTagsStatus === true ? (
-          <CreateTag style={{ position: "absolute" }} />
-        ) : null}
-      </View>
-      <View>
-        {searchResultStatus === true ? (
-          <SearchResultScreen style={{ position: "absolute" }} />
-        ) : null}
-      </View>
+        {tags.map((tag) => {
+          console.log(tag)
+          return (
+            <View>
+              {hoverTag === tag.id ? (
+                <Marker
+                  key={`${tag.longitude}_${tag.latitude}`}
+                  coordinate={{
+                    latitude: tag.latitude,
+                    longitude: tag.longitude,
+                  }}
+                  pinColor="blue"
+                  title={tag.name}
+                  description={tag.description}
+                  identifier={`${tag.id}`}
+                  onPress={() => onPressTag(tag.id)}
+                />
+              ) : (
+                <Marker
+                  key={`${tag.longitude}_${tag.latitude}`}
+                  coordinate={{
+                    latitude: tag.latitude,
+                    longitude: tag.longitude,
+                  }}
+                  pinColor="red"
+                  title={tag.name}
+                  description={tag.description}
+                  identifier={`${tag.id}`}
+                  onPress={() => onPressTag(tag.id)}
+                />
+              )}
+            </View>
+          );
+        })}
+        <View style={styles.tagContainer}>
+          {tagScreenStatus === true ? <TagScreen tagId={tagId} /> : null}
+        </View>
+        <View>
+          {addTagsStatus === true ? (
+            <CreateTag style={{ position: "absolute" }} />
+          ) : null}
+        </View>
 
-      <View style={styles.tagContainer}>
-        {allTagsStatus === true ? (
-          <AllTagsScreen mapRef={mapReference} />
-        ) : null}
-      </View>
-      <MaterialIcons
-        name='menu'
-        size={50}
-        onPress={onPressOpenMenu}
-        style={{ position: "absolute", bottom: 30, right: 35 }}
-      />
-    </MapView>
+        <View style={styles.tagContainer}>
+          {allTagsStatus === true ? (
+            <AllTagsScreen mapRef={mapReference} />
+          ) : null}
+        </View>
+        <MaterialIcons
+          name="menu"
+          size={50}
+          onPress={onPressOpenMenu}
+          style={{ position: "absolute", bottom: 30, right: 35 }}
+        />
+      </MapView>
+    </>
+
   );
 };
 
@@ -209,10 +235,10 @@ const styles = StyleSheet.create({
   },
   groupsText: {
     paddingTop: 50,
-    marginLeft: 60,
-    fontFamily: "Cochin",
+    marginLeft: 30,
+    fontFamily: "Arial",
     alignItems: "center",
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     width: "25%",
     bottom: 0,
@@ -221,10 +247,10 @@ const styles = StyleSheet.create({
   },
   allPlacesText: {
     paddingTop: 50,
-    //marginLeft: 250,
+    marginLeft: 290,
     // fontFamily: "Cochin",
     alignItems: "center",
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     width: "25%",
     height: "30%",
