@@ -8,6 +8,7 @@ import {
   Image,
   Button,
   ScrollView,
+  Separator
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getTagDetails } from "../../redux/tagDetails";

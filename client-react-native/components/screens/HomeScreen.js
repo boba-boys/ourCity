@@ -247,20 +247,14 @@ const styles = StyleSheet.create({
   },
   allPlacesText: {
     paddingTop: 50,
-    marginLeft: 290,
-    // fontFamily: "Cochin",
+    marginLeft: 300,
+    fontFamily: "Arial",
     alignItems: "center",
     fontSize: 16,
     fontWeight: "bold",
     width: "25%",
-    height: "30%",
-    //bottom: 0,
-    right: 25,
-    position: "absolute",
-    top: 0,
-
-    // backgroundColor:'red',
-  },
+    bottom: 0,
+    },
   allGroups: {
     //backgroundColor: "grey",
     //top: 0,
@@ -284,12 +278,7 @@ const styles = StyleSheet.create({
     top: 550,
     width: "85%",
     //backgroundColor: "red",
-  },
-  allGroups: {
-    // backgroundColor:'grey',
-    top: -250,
-    // backgroundColor: "red",
-  },
+  }
 });
 
 export default HomeScreen;
