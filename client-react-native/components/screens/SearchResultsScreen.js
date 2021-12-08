@@ -19,6 +19,8 @@ import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
 import { setSearchOnState } from "../../redux/searchResultsOnState";
 import { getSearchOnState } from "../../redux/pressedSearch";
+import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
+
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -40,6 +42,7 @@ const SearchResultScreen = () => {
   const onSubmit = (resultObj) => {
     console.log('OBJECCT INSIDE ON SUBMIT FOR THE ON PRESS SEARCH ', resultObj)
     dispatch(getSearchOnState(resultObj));
+    dispatch(setSearchScreenStatus(true))
   };
 
   console.log('WOOOOOOOOOOHOOOOOOOOOO', searchResults[0])
