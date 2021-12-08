@@ -54,6 +54,7 @@ const CreateTag = () => {
   };
 
   const onSearch = async () => {
+    // Call to GOOGLE API to get the AutoComplete array
     let formattedSearch = search.split(' ').join('');
     let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${formattedSearch}&types=establishment&location=${coordinates.lat}%2C${coordinates.long}&radius=1000&strictbounds=true&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
@@ -61,6 +62,13 @@ const CreateTag = () => {
     // setSearchResult(results.data.results)
     dispatch(setSearchOnState(results.data.predictions))
     dispatch(setSearchScreenStatus(false))
+
+    // // Call to GOOGLE API to get the Place Details array:
+    // let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJ_QfhyiJawokRk3oXMb-1chE&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
+
+    // // Call to GOOGLE API to get the PHOTOS array:
+    // let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=Aap_uECpmmp3ik8OhHd4AKgLgEfEBnErV084vi34X_kVzFBBGYroBF4dTP_tAjy0xWbIYngZ9Dkd4DjPNNpeb1ItX8YfUu2Jr9m28_QJ1RmkXn3RgWUgTn56IjtJzvJBqekuLyBhYRnQ0vpX_lnZmhp_xBm_YLSBPz7EwWXjmZx6Ba-5weKd&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
+
   }
 
   console.log('WOOOOOOOOOOHOOOOOOOOOO STATUS', searchResultStatus)
