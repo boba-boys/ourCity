@@ -20,7 +20,6 @@ const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.38);
 
 const AllTagsScreen = (props) => {
   // Hooks
-  const dispatch = useDispatch();
   const isCarousel = useRef(null);
 
   // Redux store
@@ -28,12 +27,11 @@ const AllTagsScreen = (props) => {
   const tagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const globalState = useSelector((state) => state);
 
-
-
+  const dispatch = useDispatch();
   const Separator = () => <View style={styles.separator} />;
 
   const CarouselCardItem = ({ index, item }) => {
-    console.log( 'this is the item', item)
+
     return (
       <ScrollView style={styles.container} key={item.id}>
         <View>
@@ -78,18 +76,17 @@ const AllTagsScreen = (props) => {
 
   const onCarouselItemChange = (index) => {
     let pin = userTags[index];
-    // console.log('below is the pin you are on right now', pin)
 
-    //create some redux stuff, add this pin to the global state.
     props.mapRef.current.animateToRegion({
       latitude: pin.latitude,
       longitude: pin.longitude,
       latitudeDelta: 0.05,
       longitudeDelta: 0.05,
     });
+
+    dispatch(HoverTagFunc(pin.id));
+
     // console.log('this is what pin looks like', pin)
-dispatch(HoverTagFunc(pin.id));
-console.log('this is what tags looks like', globalState.tags)
   };
 
 

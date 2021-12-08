@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+
+
 import {
   View,
   Text,
@@ -12,11 +14,13 @@ export const SLIDER_WIDTH = Dimensions.get("window").width + 80;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 
 const CarouselCardItem = ({ item, index }) => {
+  const dispatch = useDispatch();
   const { userEmail, setUserEmail } = useState("");
-console.log(item, 'this is the item')
   const handleChange = (text) => {
     setUserEmail(text);
   };
+
+
   return (
     <View style={styles.container} key={index}>
       <Image source={{ uri: item.imageUrl }} style={styles.image} />

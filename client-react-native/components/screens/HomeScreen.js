@@ -50,11 +50,9 @@ const HomeScreen = (props) => {
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const addTagsStatus = useSelector((state) => state.addTagsStatus);
 
-
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
   const hoverTag = useSelector((state) => state.hoverTag);
-
 
   // Local State
   const [menuStatus, setMenuStatus] = useState(false);
@@ -66,6 +64,8 @@ const HomeScreen = (props) => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
+  const [PinColor, setPinColor] = useState('');
+
 
   // ComponentDidMount
   useEffect(() => {
@@ -81,6 +81,53 @@ const HomeScreen = (props) => {
   // useEffect(() => {
   //   dispatch(getTags(groupId));
   // }, [tags]);
+
+    useEffect(() => {
+      let PinColorChanger = tags.map((tag) => {
+        {console.log('this is the hoverTag right now', hoverTag)}
+        {console.log(`this is the tagID right now for ${tag.name}`, tag.id)}
+
+        if (hoverTag === tag.id) {
+
+          return (
+            <View>
+              <Marker
+                key={`${tag.longitude}_${tag.latitude}`}
+                coordinate={{
+                  latitude: tag.latitude,
+                  longitude: tag.longitude,
+                }}
+                pinColor="red"
+                title={tag.name}
+                description={tag.description}
+                identifier={`${tag.id}`}
+                onPress={() => onPressTag(tag.id)}
+              />
+            </View>
+          );
+        }
+        else {
+          return (
+            <View>
+              <Marker
+                key={`${tag.longitude}_${tag.latitude}`}
+                coordinate={{
+                  latitude: tag.latitude,
+                  longitude: tag.longitude,
+                }}
+                pinColor="blue"
+                title={tag.name}
+                description={tag.description}
+                identifier={`${tag.id}`}
+                onPress={() => onPressTag(tag.id)}
+              />
+            </View>
+          )}
+
+      })
+      setPinColor(PinColorChanger)
+    }
+  , []);
 
   const onPressGroup = () => {
     console.log(
@@ -162,62 +209,31 @@ const HomeScreen = (props) => {
         {menuStatus === true ? <Menu style={{ position: "absolute" }} /> : null}
       </View>
 
-        {tags.map((tag) => {
-          console.log(tag)
-          return (
-            <View>
-              {hoverTag === tag.id ? (
-                <Marker
-                  key={`${tag.longitude}_${tag.latitude}`}
-                  coordinate={{
-                    latitude: tag.latitude,
-                    longitude: tag.longitude,
-                  }}
-                  pinColor="blue"
-                  title={tag.name}
-                  description={tag.description}
-                  identifier={`${tag.id}`}
-                  onPress={() => onPressTag(tag.id)}
-                />
-              ) : (
-                <Marker
-                  key={`${tag.longitude}_${tag.latitude}`}
-                  coordinate={{
-                    latitude: tag.latitude,
-                    longitude: tag.longitude,
-                  }}
-                  pinColor="red"
-                  title={tag.name}
-                  description={tag.description}
-                  identifier={`${tag.id}`}
-                  onPress={() => onPressTag(tag.id)}
-                />
-              )}
-            </View>
-          );
-        })}
-        <View style={styles.tagContainer}>
-          {tagScreenStatus === true ? <TagScreen tagId={tagId} /> : null}
-        </View>
-        <View>
-          {addTagsStatus === true ? (
-            <CreateTag style={{ position: "absolute" }} />
-          ) : null}
+      <View>
+        <PinColor/>
         </View>
 
-        <View style={styles.tagContainer}>
-          {allTagsStatus === true ? (
-            <AllTagsScreen mapRef={mapReference} />
-          ) : null}
-        </View>
-        <MaterialIcons
-          name="menu"
-          size={50}
-          onPress={onPressOpenMenu}
-          style={{ position: "absolute", bottom: 30, right: 35 }}
-        />
-      </MapView>
+      <View style={styles.tagContainer}>
+        {tagScreenStatus === true ? <TagScreen tagId={tagId} /> : null}
+      </View>
+      <View>
+        {addTagsStatus === true ? (
+          <CreateTag style={{ position: "absolute" }} />
+        ) : null}
+      </View>
 
+      <View style={styles.tagContainer}>
+        {allTagsStatus === true ? (
+          <AllTagsScreen mapRef={mapReference} />
+        ) : null}
+      </View>
+      <MaterialIcons
+        name="menu"
+        size={50}
+        onPress={onPressOpenMenu}
+        style={{ position: "absolute", bottom: 30, right: 35 }}
+      />
+    </MapView>
   );
 };
 
@@ -246,7 +262,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     width: "25%",
     bottom: 0,
-    },
+  },
   allGroups: {
     //backgroundColor: "grey",
     //top: 0,
@@ -270,7 +286,7 @@ const styles = StyleSheet.create({
     top: 550,
     width: "85%",
     //backgroundColor: "red",
-  }
+  },
 });
 
 export default HomeScreen;
