@@ -14,6 +14,8 @@ import allTagsScreenStatus from '../allTagsScreenStatus';
 import addTagsStatus from '../addTagStatus';
 import addTagCoordinates from '../TagCoordinates'
 import setGroupIdOnState from '../groupState'
+import setSearchResultsOnState from '../searchResultsOnState';
+import searchScreenStatus from '../SearchScreenStatus';
 
 
 
@@ -26,6 +28,8 @@ const reducer= combineReducers({
     addTagCoordinates,
     setGroupIdOnState,
     users,
+    setSearchResultsOnState,
+    searchScreenStatus,
 
     tagScreenStatus,
     allTagsScreenStatus,

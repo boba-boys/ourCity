@@ -34,6 +34,7 @@ import TagScreen from "./SingleTagScreen";
 import CreateTag from "./CreateTag";
 import axios from "axios";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
+import SearchResultScreen from "./SearchResultsScreen";
 
 const HomeScreen = (props) => {
   const userState = useSelector((state) => state.users);
@@ -48,6 +49,8 @@ const HomeScreen = (props) => {
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const addTagsStatus = useSelector((state) => state.addTagsStatus);
   const groupId = useSelector((state) => state.setGroupIdOnState);
+  const searchResultStatus = useSelector((state) => state.searchScreenStatus);
+
 
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
 
@@ -174,6 +177,11 @@ const HomeScreen = (props) => {
       <View>
         {addTagsStatus === true ? (
           <CreateTag style={{ position: "absolute" }} />
+        ) : null}
+      </View>
+      <View>
+        {searchResultStatus === true ? (
+          <SearchResultScreen style={{ position: "absolute" }} />
         ) : null}
       </View>
 

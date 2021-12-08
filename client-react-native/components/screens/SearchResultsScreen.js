@@ -17,15 +17,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
 import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
-import { setSearchOnState } from "../../redux/searchResultsOnState";
-import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 const SLIDER_HEIGHT = Dimensions.get("window").height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 
-const CreateTag = () => {
+const SearchResultScreen = () => {
   const userId = useSelector((state) => state.users.id);
   const coordinates = useSelector((state) => state.addTagCoordinates);
   const [name, setName] = useState("");
@@ -33,8 +31,7 @@ const CreateTag = () => {
   const [searchResult, setSearchResult] = useState("");
   const dispatch = useDispatch();
   const groupId = useSelector((state) => state.setGroupIdOnState);
-   const fuckk = useSelector((state) => state.setSearchResultsOnState);
-  const searchResultStatus = useSelector((state) => state.searchScreenStatus);
+  const searchResults = useSelector((state) => state.setSearchResultsOnState);
 
   const navigation = useNavigation();
 
@@ -55,38 +52,25 @@ const CreateTag = () => {
   const onSearch = async () => {
     let results = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${search}&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8&location=${coordinates.lat}, ${coordinates.long}`)
 
-    console.log( 'these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada' ,results.data.results[0])
+    // console.log( 'these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada' ,results.data.results[0])
     setSearchResult(results.data.results)
-     dispatch(setSearchOnState(results.data.results))
-     dispatch(setSearchScreenStatus(false))
+
   }
 
-console.log('WOOOOOOOOOOHOOOOOOOOOO' , searchResultStatus )
+ console.log('WOOOOOOOOOOHOOOOOOOOOO' , searchResults[0])
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.form}>
-        <Text style={styles.title}>Create a Pin</Text>
-        <TextInput
-          style={styles.input}
-          placeholder='Pin Name'
-          value={name}
-          onChangeText={(name) => setName(name)}
-        />
-
-        <TextInput
-          style={styles.input}
-          placeholder='Google Search Bar'
-          value={search}
-          onChangeText={setSearch}
-        />
-        <TouchableOpacity style={styles.button} onPress={onSearch}>
-          <Text style={styles.buttonText}>Search</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={onSubmit}>
-          <Text style={styles.buttonText}>Create Pin</Text>
-        </TouchableOpacity>
-      </View>
+      {searchResults.map((result) => {
+                    return (
+                        <View >
+                            <Text>
+                              {result.name}
+                              {result.formatted_address}
+                            </Text>
+                        </View>
+                    )
+                })}
     </ScrollView>
   );
 };
@@ -138,4 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateTag;
+export default SearchResultScreen;

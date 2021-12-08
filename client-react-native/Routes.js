@@ -14,6 +14,7 @@ import ForgotPasswordScreen from "./components/screens/ForgotPasswordScreen";
 import ResetPasswordScreen from "./components/screens/ResetPasswordScreen";
 import SingleTagScreen from "./components/screens/SingleTagScreen";
 import CreateTag from "./components/screens/CreateTag";
+import SearchResultScreen from "./components/screens/SearchResultsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ const Routes = (props) => {
             <Stack.Navigator screenOptions={{headerShown:false}}>
             <Stack.Screen name='signIn' component={SignInScreen}/>
             <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name='SearchResultScreen' component={SearchResultScreen}/>
             <Stack.Screen name='signUp' component={SignUpScreen}/>
             <Stack.Screen name='Confirm Email' component={ConfirmEmailScreen}/>
             <Stack.Screen name='Forgot Password' component={ForgotPasswordScreen}/>
