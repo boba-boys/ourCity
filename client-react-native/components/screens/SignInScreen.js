@@ -38,7 +38,7 @@ const SignInScreen = () => {
     if (user.data["token"]) {
       navigation.navigate("Home");
     } else {
-      console.warn("incorrect password");
+      alert("incorrect password");
     }
   };
 
@@ -72,7 +72,7 @@ const SignInScreen = () => {
           placeholder='password'
           name='password'
           autoCapitalize='none'
-          password
+          secureTextEntry={true}
           value={password}
           onChangeText={(password) => setPassword(password)}
         />
