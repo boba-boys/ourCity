@@ -21,7 +21,7 @@ export const getSearchOnState = (resultPressed) => async (dispatch) => {
 };
 
 // Reducer
-export default function setSearchResultsOnState(state = [], action) {
+export default function setPressedSearchResultsOnState(state = [], action) {
   switch (action.type) {
     case PRESSED_SEARCH_ON_STATE:
       return action.pressedResult;
