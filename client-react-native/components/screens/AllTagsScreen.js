@@ -7,7 +7,7 @@ import {
   Dimensions,
   Image,
   Button,
-  ScrollView,
+  ScrollView
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getAllTagsScreenStatus } from "../../redux/allTagsScreenStatus";
