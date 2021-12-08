@@ -1,13 +1,21 @@
-import React, {useState} from 'react'
-import{View, Text, TextInput, Image, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
-import myCity from '../../assets/myCity.jpeg'
-import CustomButton from '../CustomButton'
-import CustomInput from '../CustomInput'
-import { useNavigation } from '@react-navigation/core'
-import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { loadUserToState } from '../../redux/user'
-
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  StyleSheet,
+  useWindowDimensions,
+  ScrollView,
+} from "react-native";
+import myCity from "../../assets/myCity.jpeg";
+import CustomButton from "../CustomButton";
+import CustomInput from "../CustomInput";
+import SocialSignInButtons from "../SocialSignInButtons/SocialSignInButtons";
+import { useNavigation } from "@react-navigation/core";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loadUserToState } from "../../redux/user";
 
 const SignInScreen = () => {
   const [email, setEmail] = useState("");
@@ -75,11 +83,15 @@ const SignInScreen = () => {
         onChangeText={password => setPassword(password)}
        secureTextEntry
        /> */}
-      <CustomButton text='Sign In' type='signIn' onPress={onSignInPressed}/>
-      <CustomButton text='Forgot Password?' onPress={onForgotPassWordPressed} type="forgot"/>
-      <CustomButton text="Sign Up" onPress={onSignUpPressed} type="forgot"/>
-    </View>
-      
+        <CustomButton text='Sign In' type='signIn' onPress={onSignInPressed} />
+        <CustomButton
+          text='Forgot Password?'
+          onPress={onForgotPassWordPressed}
+          type='forgot'
+        />
+        <SocialSignInButtons />
+        <CustomButton text='Sign Up' onPress={onSignUpPressed} type='forgot' />
+      </View>
     </ScrollView>
   );
 };
@@ -94,12 +106,9 @@ const styles = StyleSheet.create({
     maxWidth: 300,
     maxHeight: 300,
   },
-  container:{
-    backgroundColor: 'white',
-    width: '100%',
-    height: '10%',
-    fontSize: 34,
-
+  container: {
+    backgroundColor: "white",
+    width: "100%",
 
     borderColor: "#e8e8e8",
     borderWidth: 1,

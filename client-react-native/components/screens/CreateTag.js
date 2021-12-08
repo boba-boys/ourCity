@@ -45,7 +45,6 @@ const CreateTag = () => {
 
   console.log('This should be the Coordinates', coordinates);
   const onSubmit = async () => {
-
     await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
       name: name,
       long: coordinates.long,
@@ -56,7 +55,6 @@ const CreateTag = () => {
     // dispatch(getStatus(false))
     dispatch(getTags(groupId));
     dispatch(addTagStatusFunc(true));
-
   };
 
   const onSearch = async () => {
