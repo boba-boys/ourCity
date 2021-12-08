@@ -33,6 +33,7 @@ const AllTagsScreen = (props) => {
   const Separator = () => <View style={styles.separator} />;
 
   const CarouselCardItem = ({ index, item }) => {
+    console.log( 'this is the item', item)
     return (
       <ScrollView style={styles.container} key={item.id}>
         <View>

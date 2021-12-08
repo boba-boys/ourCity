@@ -16,6 +16,7 @@ import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
 import axios from "axios";
 import CreateGroup from "./CreateGroup";
+import { _setGroupIdOnState } from "../../redux/groupState";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -37,7 +38,7 @@ const CarouselCards = (props) => {
     console.log(
       "---------------------ComponentDidMount in CarouselCards:--------------------"
     );
-    dispatch(getGroups(userId)); // userId hard coded
+    dispatch(getGroups(userId));
   }, []);
 
   const onAddToGroup = async (groupId) => {
@@ -56,6 +57,23 @@ const CarouselCards = (props) => {
     } catch (error) {
       console.log(error);
       alert("User not added to group!");
+    }
+  };
+
+  const handleDelete = async (groupId) => {
+    try {
+      const deleteGroup = await axios.delete(
+        `https://my-city-server.herokuapp.com/api/users/${groupId}/${userId}`
+      );
+      if (await deleteGroup.data) {
+        alert("Group deleted!");
+        dispatch(getGroups(userId));
+      } else {
+        alert("Group not deleted!");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Group not deleted!");
     }
   };
 
@@ -79,24 +97,26 @@ const CarouselCards = (props) => {
         </Text>
         <TextInput
           style={styles.input}
-          placeholder='email'
+          placeholder={`Put your friend's email here!`}
           name='email'
           autoCapitalize='none'
           value={email}
           onChangeText={(email) => setEmail(email)}
         />
         <Button title='Add to Group' onPress={() => onAddToGroup(item.id)} />
+        <Button title='Leave Group' onPress={() => handleDelete(item.id)} />
       </ScrollView>
     );
   };
 
   const handlePress = (groupId) => {
+    dispatch(_setGroupIdOnState(groupId));
     dispatch(getStatus(CarouselStatus));
     dispatch(getTags(groupId));
   };
 
   return (
-    <View /* style={styles.container} */>
+    <View style={styles.view} /* style={styles.container} */>
       <Carousel
         layout='tinder'
         layoutCardOffset={15}
@@ -135,6 +155,11 @@ const styles = StyleSheet.create({
     bottom: 50,
     backgroundColor: "blue",
   },
+  view: {
+    bottom: 1,
+    marginTop: 250,
+    //osition: "absolute",
+  },
   // container: {
   //   width: 350,
   //   height: 460,
@@ -157,6 +182,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.75,
     shadowRadius: 4.65,
     elevation: 7,
+    bottom: 0,
   },
   image: {
     width: ITEM_WIDTH,

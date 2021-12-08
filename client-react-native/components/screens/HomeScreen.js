@@ -35,6 +35,7 @@ import CreateTag from "./CreateTag";
 import axios from "axios";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
 import hoverTags from "../../redux/tagHover";
+import SearchResultScreen from "./SearchResultsScreen";
 
 const HomeScreen = (props) => {
   const userState = useSelector((state) => state.users);
@@ -48,6 +49,12 @@ const HomeScreen = (props) => {
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const addTagsStatus = useSelector((state) => state.addTagsStatus);
+
+
+  const groupId = useSelector((state) => state.setGroupIdOnState);
+  const searchResultStatus = useSelector((state) => state.searchScreenStatus);
+
+
 
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
   const hoverTag = useSelector((state) => state.hoverTag);
@@ -65,9 +72,17 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-    dispatch(getTags(1)); //Hard coded groupId <--might have to be this way
-    // dispatch(getGroups(1))// Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+    dispatch(getStatus(CarouselStatus));
+
+    console.log("USer State", userState);
+
+    dispatch(getTags(groupId)); //Hard coded groupId <--might have to be this way
+    dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, []);
+
+  useEffect(() => {
+    dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+  }, [userState]);
 
   const onPressGroup = () => {
     console.log(
@@ -84,8 +99,21 @@ const HomeScreen = (props) => {
     let coordinates = { long: long, lat: lat };
 
     dispatch(addTagCoordinatesFunc(coordinates));
-    dispatch(addTagStatusFunc(addTagsStatus));
-
+    const isTag = tags.filter((tag) => {
+      if (
+        tag.latitude === coordinates.lat &&
+        tag.longitude === coordinates.long
+      ) {
+        return true;
+      } else {
+        return null;
+      }
+    });
+    if (isTag.length === 0) {
+      console.log("inside of if(tag.length) HomeScreen", isTag.length);
+      dispatch(addTagStatusFunc(addTagsStatus));
+      dispatch(addTagCoordinatesFunc(coordinates));
+    }
     // Notice that this is always called when we interact with the map!!
     // setMenuStatus(false);
     // dispatch(getStatus(true));
@@ -100,8 +128,10 @@ const HomeScreen = (props) => {
       tagScreenStatus
     );
     // console.log('This trigers when pressed: ', event.nativeEvent);
+    //dispatch(addTagStatusFunc(true));
     dispatch(getTagScreenStatus(tagScreenStatus));
     setTagId(tagId);
+    dispatch(addTagStatusFunc(true));
   };
 
   const onPressAllTags = () => {
@@ -195,6 +225,7 @@ const HomeScreen = (props) => {
         />
       </MapView>
     </>
+
   );
 };
 
@@ -211,7 +242,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     width: "25%",
     bottom: 0,
-    // backgroundColor:'blue',
+
+    // backgroundColor: "blue",
   },
   allPlacesText: {
     paddingTop: 50,
@@ -222,30 +254,41 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     width: "25%",
     height: "30%",
-    bottom: 0,
+    //bottom: 0,
+    right: 25,
+    position: "absolute",
+    top: 0,
+
     // backgroundColor:'red',
+  },
+  allGroups: {
+    //backgroundColor: "grey",
+    //top: 0,
+    marginTop: 50,
+    bottom: 50,
+    position: "absolute",
+    // backgroundColor: "red",
   },
   tagContainer: {
     position: "absolute",
-    bottom: 0,
-    marginBottom: 40,
-  },
-  megaButton: {
-    backgroundColor: "white",
-    width: 100,
-    shadowColor: "black",
+    bottom: 90,
+    // marginBottom: 40,
+    // backgroundColor: "red",
   },
   menu: {
     top: 550,
     width: "85%",
+    // backgroundColor: "red",
   },
   createGroup: {
     top: 550,
     width: "85%",
+    //backgroundColor: "red",
   },
   allGroups: {
     // backgroundColor:'grey',
     top: -250,
+    // backgroundColor: "red",
   },
 });
 

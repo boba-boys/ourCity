@@ -19,7 +19,7 @@ export const getTagDetails = (tagId) => async (dispatch) => {
             `https://my-city-server.herokuapp.com/api/tags/details/${tagId}`
             // `http://localhost:1337/api/tags/${tagId}`
         );
-        console.log('tag from the server:', response.data);
+        // console.log('tag from the server:', response.data);
         dispatch(_gotSingleTag(response.data));
     } catch (err) {
         console.log(err);

@@ -16,11 +16,11 @@ const _gotUser = (user) => {
 // thunks
 export const loadUserToState = (email) => async (dispatch) => {
   try {
-
     const user = await axios.post(
-      `https://my-city-server.herokuapp.com/api/users`, {email}
-      );
-
+      `https://my-city-server.herokuapp.com/api/users`,
+      { email }
+    );
+    console.log("User in thunk", user.data);
     dispatch(_gotUser(user.data));
   } catch (err) {
     console.log(err);

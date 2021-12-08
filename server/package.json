@@ -7,6 +7,7 @@
     "seed": "node seed.js"
   },
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.7",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -14,11 +15,11 @@
     "morgan": "^1.10.0",
     "path": "^0.12.7",
     "pg": "^8.7.1",
-    "sequelize": "^6.12.0-alpha.1"
+    "sequelize": "^6.12.0-alpha.1",
+    "socket.io": "^4.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
   },
   "private": true
 }
-
