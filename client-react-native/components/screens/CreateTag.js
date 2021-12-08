@@ -43,10 +43,11 @@ const CreateTag = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  console.log('This should be the Coordinates', coordinates);
+  console.log('This should be the Coordinates', pressedResult.description);
   const onSubmit = async () => {
+
     await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
-      name: name,
+      name: pressedResult.description,
       long: coordinates.long,
       lat: coordinates.lat,
       groupId,
@@ -55,6 +56,7 @@ const CreateTag = () => {
     // dispatch(getStatus(false))
     dispatch(getTags(groupId));
     dispatch(addTagStatusFunc(true));
+
   };
 
   const onSearch = async () => {
@@ -81,12 +83,12 @@ const CreateTag = () => {
     <ScrollView style={styles.container}>
       <View style={styles.form}>
         <Text style={styles.title}>Create a Pin</Text>
-        <TextInput
+        {/* <TextInput
           style={styles.input}
           placeholder='Pin Name'
           onChangeText={setName}
           value={name}
-        />
+        /> */}
 
         <TextInput
           style={styles.input}

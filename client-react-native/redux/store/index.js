@@ -13,6 +13,8 @@ import tagDetails from '../tagDetails';
 import allTagsScreenStatus from '../allTagsScreenStatus';
 import addTagsStatus from '../addTagStatus';
 import addTagCoordinates from '../TagCoordinates'
+import hoverTag from '../tagHover'
+
 import setGroupIdOnState from '../groupState'
 import setSearchResultsOnState from '../searchResultsOnState';
 import searchScreenStatus from '../SearchScreenStatus';
@@ -27,6 +29,8 @@ const reducer= combineReducers({
     carouselStatus,
     addTagsStatus,
     addTagCoordinates,
+    hoverTag,
+
     setGroupIdOnState,
     users,
     setSearchResultsOnState,
