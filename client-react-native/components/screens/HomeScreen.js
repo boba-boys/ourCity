@@ -27,15 +27,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CreateGroup from "./CreateGroup";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import { getGroupStatus } from "../../redux/groups";
-import {addTagCoordinatesFunc} from "../../redux/TagCoordinates"
+import { addTagCoordinatesFunc } from "../../redux/TagCoordinates";
 import AllTagsScreen from "./AllTagsScreen";
 import CarouselCards from "./GroupsScreen";
 import TagScreen from "./SingleTagScreen";
-import CreateTag from "./CreateTag"
+import CreateTag from "./CreateTag";
 import axios from "axios";
-import  {addTagStatusFunc} from '../../redux/addTagStatus'
+import { addTagStatusFunc } from "../../redux/addTagStatus";
 import hoverTags from "../../redux/tagHover";
-
 
 const HomeScreen = (props) => {
   const userState = useSelector((state) => state.users);
@@ -48,11 +47,10 @@ const HomeScreen = (props) => {
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
-  const addTagsStatus = useSelector((state) => state.addTagsStatus)
+  const addTagsStatus = useSelector((state) => state.addTagsStatus);
 
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
   const hoverTag = useSelector((state) => state.hoverTag);
-
 
   // Local State
   const [menuStatus, setMenuStatus] = useState(false);
@@ -83,7 +81,7 @@ const HomeScreen = (props) => {
   const onPressMap = async (event) => {
     let long = event.nativeEvent.coordinate.longitude;
     let lat = event.nativeEvent.coordinate.latitude;
-    let coordinates = {long: long, lat: lat}
+    let coordinates = { long: long, lat: lat };
 
     dispatch(addTagCoordinatesFunc(coordinates));
     dispatch(addTagStatusFunc(addTagsStatus));
@@ -94,7 +92,6 @@ const HomeScreen = (props) => {
     // dispatch(getAllTagsScreenStatus(true));
     // dispatch(getTagScreenStatus(true));
     // setCreateGroupStatus(false);
-
   };
 
   const onPressTag = (tagId) => {
@@ -143,39 +140,36 @@ const HomeScreen = (props) => {
         </View>
 
         {tags.map((tag) => {
+          console.log(tag)
           return (
-            //if we're on the selected tag make the marker YELLOW.  Otherwise return this one below.
-
             <View>
-             {hoverTag === tag ? (
-               <Marker
-              key={`${tag.longitude}_${tag.latitude}`}
-              coordinate={{
-                latitude: tag.latitude,
-                longitude: tag.longitude,
-              }}
-              pinColor = 'black'
-
-              title={tag.name}
-              description={tag.description}
-              identifier={`${tag.id}`}
-              onPress={() => onPressTag(tag.id)}
-            />) :
-
-            <Marker
-              key={`${tag.longitude}_${tag.latitude}`}
-              coordinate={{
-                latitude: tag.latitude,
-                longitude: tag.longitude,
-              }}
-              pinColor='red'
-
-
-              title={tag.name}
-              description={tag.description}
-              identifier={`${tag.id}`}
-              onPress={() => onPressTag(tag.id)}
-            />}
+              {hoverTag === tag.id ? (
+                <Marker
+                  key={`${tag.longitude}_${tag.latitude}`}
+                  coordinate={{
+                    latitude: tag.latitude,
+                    longitude: tag.longitude,
+                  }}
+                  pinColor="blue"
+                  title={tag.name}
+                  description={tag.description}
+                  identifier={`${tag.id}`}
+                  onPress={() => onPressTag(tag.id)}
+                />
+              ) : (
+                <Marker
+                  key={`${tag.longitude}_${tag.latitude}`}
+                  coordinate={{
+                    latitude: tag.latitude,
+                    longitude: tag.longitude,
+                  }}
+                  pinColor="red"
+                  title={tag.name}
+                  description={tag.description}
+                  identifier={`${tag.id}`}
+                  onPress={() => onPressTag(tag.id)}
+                />
+              )}
             </View>
           );
         })}
@@ -194,7 +188,7 @@ const HomeScreen = (props) => {
           ) : null}
         </View>
         <MaterialIcons
-          name='menu'
+          name="menu"
           size={50}
           onPress={onPressOpenMenu}
           style={{ position: "absolute", bottom: 30, right: 35 }}

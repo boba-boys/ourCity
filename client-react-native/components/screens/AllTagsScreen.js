@@ -86,9 +86,9 @@ const AllTagsScreen = (props) => {
       latitudeDelta: 0.05,
       longitudeDelta: 0.05,
     });
-    console.log('this is what pin looks like', pin)
+    // console.log('this is what pin looks like', pin)
 dispatch(HoverTagFunc(pin.id));
-console.log('is the hoverTag still equal to zero?', globalState)
+console.log('this is what tags looks like', globalState.tags)
   };
 
 
