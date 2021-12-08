@@ -8,6 +8,7 @@ import {
   Image,
   Button,
   ScrollView,
+  Separator
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getTagDetails } from "../../redux/tagDetails";
@@ -44,7 +45,7 @@ const TagScreen = (props) => {
     dispatch(getTagDetails(props.tagId)); // tagId to render
   }, []);
 
-  const Separator = () => <View style={styles.separator} />;
+
 
   const CarouselCardItem = ({ index, item }) => {
     console.log('this is the item', item)
@@ -57,7 +58,9 @@ const TagScreen = (props) => {
         <Separator />
         <View>
           <Image
+
             source={{ uri: item.imageUrl }}
+
             style={styles.image}
           />
           {/*This images should come from the Google API places */}

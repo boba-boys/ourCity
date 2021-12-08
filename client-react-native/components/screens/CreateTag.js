@@ -47,6 +47,7 @@ const CreateTag = () => {
 
 
   const onSubmit = async () => {
+
     // console.log('This should be the Coordinates', pressedResult.place_id);
 
     let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
@@ -68,6 +69,7 @@ const CreateTag = () => {
     //  console.log('this is the placeeee of deataailslslslsslslslsllssl' , imageUrlFromPromise
     console.log('this is the photo from state', imageFromState),
 
+
     await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
       name: placeDetails.data.result.name,
       long: placeDetails.data.result.geometry.location.lng,
@@ -81,7 +83,9 @@ const CreateTag = () => {
 
     // dispatch(getStatus(false))
     dispatch(getTags(groupId));
+
      dispatch(addTagStatusFunc(true));
+
   };
 
   console.log('this is the photo from state', imageFromState)
@@ -97,22 +101,7 @@ const CreateTag = () => {
     dispatch(setSearchScreenStatus(false))
 
     // // Call to GOOGLE API to get the Place Details array:
-     let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
-
-
-     let photoArray = placeDetails.data.result.photos.map((photo) => {
-       return photo.photo_reference
-     })
-
-     const promisedPhotos = photoArray.map(async (photo) => {
-       return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`)
-     })
-    //  photos[0].config.url this is how to getr the photo
-    //  Promise.all(promisedPhotos).then(photos => console.log('thisssss isssss yheeee photossssss ', placeDetails))
-
-    // // Call to GOOGLE API to get the PHOTOS array:
-    // let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=Aap_uECpmmp3ik8OhHd4AKgLgEfEBnErV084vi34X_kVzFBBGYroBF4dTP_tAjy0xWbIYngZ9Dkd4DjPNNpeb1ItX8YfUu2Jr9m28_QJ1RmkXn3RgWUgTn56IjtJzvJBqekuLyBhYRnQ0vpX_lnZmhp_xBm_YLSBPz7EwWXjmZx6Ba-5weKd&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
-    // console.log('WOOOOOOOOOOHOOOOOOOOOO STATUS', promisedPhotos)
+    
   }
 
 
