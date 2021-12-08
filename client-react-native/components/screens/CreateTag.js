@@ -35,11 +35,12 @@ const CreateTag = () => {
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResults = useSelector((state) => state.setSearchResultsOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
+  const pressedResult = useSelector((state) => state.setPressedSearchResultsOnState);
 
   const navigation = useNavigation();
 
+  console.log('This should be the pressed Result', pressedResult);
   const onSubmit = async (event) => {
-    console.log('This should be the pressed Result', searchResults);
     dispatch(addTagStatusFunc(true));
     await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
       // name: queryResults.,
@@ -56,13 +57,13 @@ const CreateTag = () => {
     let formattedSearch = search.split(' ').join('');
     let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${formattedSearch}&types=establishment&location=${coordinates.lat}%2C${coordinates.long}&radius=1000&strictbounds=true&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
-    // console.log( 'these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada' ,results.data.predictions[0])
+    console.log('these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada', results.data.predictions[0])
     // setSearchResult(results.data.results)
     dispatch(setSearchOnState(results.data.predictions))
     dispatch(setSearchScreenStatus(false))
   }
 
-  console.log('WOOOOOOOOOOHOOOOOOOOOO', searchResultStatus)
+  console.log('WOOOOOOOOOOHOOOOOOOOOO STATUS', searchResultStatus)
 
   return (
     <ScrollView style={styles.container}>
