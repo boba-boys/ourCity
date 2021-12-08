@@ -16,6 +16,7 @@ import { getTagDetails } from "../../redux/tagDetails";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import { io } from "socket.io-client";
 import axios from "axios";
+import { getComments } from "../../redux/allComments";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -23,62 +24,59 @@ const SLIDER_HEIGHT = Dimensions.get("window").height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.5);
 
 const Comments = (props) => {
-  const [typedComment, setTypedComment] = useState("");
-  const [comments, setComments] = useState([]);
-
+  // Global State
   const groupId = useSelector((state) => state.setGroupIdOnState);
-  const tagId = props.tagId;
   const user = useSelector((state) => state.users);
+  const comments = useSelector((state) => state.allComments);
 
-  useEffect(async () => {
-    const getComments = await axios.get(
-      `https://my-city-server.herokuapp.com/api/tags/comments/${tagId}/${groupId}`
-    );
-    console.log("getComments right after axios", getComments.data);
-    const refinedComments = getComments.data.map((comment) => {
-      //console.log(comment.user);
-      return comment.description;
-    });
+  // Local State
+  const [typedComment, setTypedComment] = useState("");
+  const tagId = props.tagId;
 
-    //const refinedComments = [...getComments.data];
-    console.log("refinedComments", refinedComments);
-    setComments(refinedComments);
-    console.log("comments", comments);
+  const dispatch = useDispatch();
+
+
+  console.log("Comments from the global store in CommentScreen", comments);
+
+  useEffect(() => {
+    dispatch(getComments({ tagId, groupId }));
+    // console.log("getComments right after axios", comments);
   }, []);
 
-  const onSubmit = async (e) => {
+  const onSubmit = async () => {
     // e.preventDefault();
-    // const newComment = await axios.post(
-    //   `https://my-city-server.herokuapp.com/api/tags/comments/${tagId}/${groupId}`,
-    //   {
-    //     description: typedComment,
-    //     userId: user.id,
-    //   }
-    // );
-    // setComments([...comments, newComment]);
-    // Function called after the submit button is pressed
+    await axios.post(
+      `https://my-city-server.herokuapp.com/api/tags/comments/${tagId}/${groupId}`,
+      {
+        description: typedComment,
+        userId: user.id,
+      }
+    );
+    dispatch(getComments({ tagId, groupId }));
+    // // Function called after the submit button is pressed
     // socket.emit("comment message", typedComment);
     // let msg = typedComment;
     // setComment([...comments, msg]);
-    // setTypedComment("");
+    setTypedComment("");
   };
 
   const Separator = () => <View style={styles.separator} />;
   const SeparatorNewMessage = () => <View style={styles.separatorNewMessage} />;
 
-  const handleDelete = async (comment) => {
+  const handleDelete = async (commentId) => {
     //Just need to set ID of comment to be deleted
-    console.log("comment id to be deleted", comment);
+    console.log("comment id to be deleted", commentId);
     await axios.delete(
-      `https://my-city-server.herokuapp.com/api/users/comment/${comment.id}`
+      `https://my-city-server.herokuapp.com/api/users/comment/${commentId}`
     );
-    const getComments = await axios.get(
-      `https://my-city-server.herokuapp.com/api/tags/comments/${tagId}/${groupId}`
-    );
-    const refinedComments = getComments.data.map((comment) => {
-      comment.userId ? comment : null;
-    });
-    setComments(getComments.data);
+    dispatch(getComments({ tagId, groupId }));
+    // const getComments = await axios.get(
+    //   `https://my-city-server.herokuapp.com/api/tags/comments/${tagId}/${groupId}`
+    // );
+    // const refinedComments = getComments.data.map((comment) => {
+    //   comment.userId ? comment : null;
+    // });
+    // setComments(getComments.data);
     alert("Comment deleted");
   };
 
@@ -88,45 +86,41 @@ const Comments = (props) => {
       <Separator />
       <ScrollView>
         {comments.map((comment, index) => {
+          // console.log('Comment inside map function in Comment:', comment)
           return (
             <View key={index}>
               <View style={styles.commentContainer}>
                 <View style={styles.lefContainer}>
                   <Image
                     source={{
-                      uri: "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png",
+                      uri: comment.userPic,
                     }}
                     style={styles.profilePicture}
                   />
 
                   <View style={styles.midContainer}>
-                    <Text style={styles.username}>name</Text>
+                    <Text style={styles.username}>{comment.userWhoCommented}</Text>
                     <Text
                       // numberOfLines={2}
                       style={styles.commentBody}
                     >
-                      {comment}
+                      {comment.body}
                     </Text>
                   </View>
                 </View>
-
-                {
-                  /* <Text style={styles.time}>
-                /* {Get when the comment was created .format("DD/MM/YYYY")} */
-                  //Created at:
-                  //</Text> */}
-                  {
-                    /* Need to insert comment id instead of index */
-                  }
-                }
-                {user.id === (comment.user ? comment.user.id : 0) ? (
-                  <Text
-                    style={{ color: "red" }}
-                    onPress={() => handleDelete(comment)}
-                  >
-                    Delete
+                <View style={styles.rightContainer}>
+                  <Text style={styles.time}>
+                    {Date(comment.createdAt)}
                   </Text>
-                ) : null}
+                  {(user.id === comment.userIdWhoCommented) ? (
+                    <Text
+                      style={{ color: "red" }}
+                      onPress={() => handleDelete(comment.id)}
+                    >
+                      Delete
+                    </Text>
+                  ) : null}
+                </View>
               </View>
               <Separator />
             </View>
@@ -140,7 +134,7 @@ const Comments = (props) => {
           placeholder='Write a comment'
           onChangeText={setTypedComment}
           value={typedComment}
-          // onSubmitEditing={onSubmit}
+        // onSubmitEditing={onSubmit}
         />
         <TouchableOpacity style={styles.button} onPress={onSubmit}>
           <Text style={styles.buttonText}>Add Comment</Text>
@@ -235,6 +229,9 @@ const styles = {
   commentBody: {
     fontSize: 16,
     color: "black",
+  },
+  rightContainer: {
+    flex: 1,
   },
   time: {
     fontSize: 14,

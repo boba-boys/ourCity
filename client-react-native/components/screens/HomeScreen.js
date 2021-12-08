@@ -104,10 +104,10 @@ const HomeScreen = (props) => {
         return null;
       }
     });
-    console.log("isTag: ", isTag);
     if (isTag.length === 0) {
-      console.log("inside of if tag.length", isTag.length);
+      console.log("inside of if(tag.length) HomeScreen", isTag.length);
       dispatch(addTagStatusFunc(addTagsStatus));
+      dispatch(addTagCoordinatesFunc(coordinates));
     }
     // Notice that this is always called when we interact with the map!!
     // setMenuStatus(false);

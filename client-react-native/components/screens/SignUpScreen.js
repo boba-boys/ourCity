@@ -29,7 +29,7 @@ const SignUpScreen = () => {
   const dispatch = useDispatch();
 
   const onSignInPressed = () => {
-    console.warn("sign in");
+    console.warn("Glad you remember your password/email!");
     navigation.navigate("signIn");
   };
 
@@ -43,7 +43,7 @@ const SignUpScreen = () => {
       dispatch(loadUserToState(email))
       navigation.navigate("Home");
     } else {
-      console.warn(user.data);
+      alert(`${user.data}...Perhaps you already have an account?`);
 
     }
   };

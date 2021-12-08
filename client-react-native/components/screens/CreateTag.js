@@ -26,24 +26,27 @@ const SLIDER_HEIGHT = Dimensions.get("window").height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 
 const CreateTag = () => {
+  // Global state
   const userId = useSelector((state) => state.users.id);
   const coordinates = useSelector((state) => state.addTagCoordinates);
-  const [name, setName] = useState("");
-  const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState("");
-  const dispatch = useDispatch();
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResults = useSelector((state) => state.setSearchResultsOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
   const pressedResult = useSelector((state) => state.setPressedSearchResultsOnState);
 
+// Local state
+  const [name, setName] = useState("");
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState("");
+
+
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  console.log('This should be the pressed Result', pressedResult);
-  const onSubmit = async (event) => {
-    dispatch(addTagStatusFunc(true));
+  console.log('This should be the Coordinates', coordinates);
+  const onSubmit = async () => {
     await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
-      // name: queryResults.,
+      name: name,
       long: coordinates.long,
       lat: coordinates.lat,
       groupId,
@@ -51,6 +54,7 @@ const CreateTag = () => {
     });
     // dispatch(getStatus(false))
     dispatch(getTags(groupId));
+    dispatch(addTagStatusFunc(true));
   };
 
   const onSearch = async () => {
@@ -80,8 +84,8 @@ const CreateTag = () => {
         <TextInput
           style={styles.input}
           placeholder='Pin Name'
+          onChangeText={setName}
           value={name}
-          onChangeText={(name) => setName(name)}
         />
 
         <TextInput

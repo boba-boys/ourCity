@@ -17,6 +17,7 @@ import setGroupIdOnState from '../groupState'
 import setSearchResultsOnState from '../searchResultsOnState';
 import searchScreenStatus from '../SearchScreenStatus';
 import setPressedSearchResultsOnState from '../pressedSearch';
+import allComments from '../allComments';
 
 
 const reducer= combineReducers({
@@ -33,7 +34,7 @@ const reducer= combineReducers({
     setPressedSearchResultsOnState,
     tagScreenStatus,
     allTagsScreenStatus,
-
+    allComments,
 });
 
 const middleware= composeWithDevTools(

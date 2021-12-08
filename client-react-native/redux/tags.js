@@ -1,5 +1,4 @@
 import axios from "axios";
-// const TOKEN = "token"; // For the mobile token
 
 // action types
 const GOT_TAGS = "GOT_TAGS";
