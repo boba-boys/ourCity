@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
 import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
+import { getSearchOnState, setSearchOnState } from "../../redux/searchResultsOnState";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -35,42 +36,34 @@ const SearchResultScreen = () => {
 
   const navigation = useNavigation();
 
-  const onSubmit = async () => {
-
-    dispatch(addTagStatusFunc(true));
-    await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
-      name,
-      long: coordinates.long,
-      lat: coordinates.lat,
-      groupId,
-      userId,
-    });
-    // dispatch(getStatus(false))
-    dispatch(getTags(groupId));
+  const onSubmit = (resultObj) => {
+    dispatch(getSearchOnState(resultObj));
   };
 
   const onSearch = async () => {
-    let results = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${search}&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8&location=${coordinates.lat}, ${coordinates.long}`)
+    let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${search}&types=establishment&location=${coordinates.long}%2C${coordinates.lat}&radius=500&strictbounds=true&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
     // console.log( 'these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada' ,results.data.results[0])
-    setSearchResult(results.data.results)
-
+    // setSearchOnState(results.data.results)
   }
 
- console.log('WOOOOOOOOOOHOOOOOOOOOO' , searchResults[0])
+  console.log('WOOOOOOOOOOHOOOOOOOOOO', searchResults[0])
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} >
       {searchResults.map((result) => {
-                    return (
-                        <View >
-                            <Text>
-                              {result.name}
-                              {result.formatted_address}
-                            </Text>
-                        </View>
-                    )
-                })}
+        return (
+          <View >
+            <Text >
+              {result.description}
+              <TouchableOpacity style={styles.button} /* onPress={onSubmit(result)} */>
+                <Text style={styles.buttonText}>Choose location</Text>
+              </TouchableOpacity>
+            </Text>
+          </View>
+
+        )
+      })}
     </ScrollView>
   );
 };

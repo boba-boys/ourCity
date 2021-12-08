@@ -33,16 +33,16 @@ const CreateTag = () => {
   const [searchResult, setSearchResult] = useState("");
   const dispatch = useDispatch();
   const groupId = useSelector((state) => state.setGroupIdOnState);
-   const fuckk = useSelector((state) => state.setSearchResultsOnState);
+  const searchResults = useSelector((state) => state.setSearchResultsOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
 
   const navigation = useNavigation();
 
-  const onSubmit = async () => {
-
+  const onSubmit = async (event) => {
+    console.log('This should be the pressed Result', searchResults);
     dispatch(addTagStatusFunc(true));
     await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
-      name,
+      // name: queryResults.,
       long: coordinates.long,
       lat: coordinates.lat,
       groupId,
@@ -53,15 +53,16 @@ const CreateTag = () => {
   };
 
   const onSearch = async () => {
-    let results = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${search}&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8&location=${coordinates.lat}, ${coordinates.long}`)
+    let formattedSearch = search.split(' ').join('');
+    let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${formattedSearch}&types=establishment&location=${coordinates.lat}%2C${coordinates.long}&radius=1000&strictbounds=true&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
-    console.log( 'these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada' ,results.data.results[0])
-    setSearchResult(results.data.results)
-     dispatch(setSearchOnState(results.data.results))
-     dispatch(setSearchScreenStatus(false))
+    // console.log( 'these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada' ,results.data.predictions[0])
+    // setSearchResult(results.data.results)
+    dispatch(setSearchOnState(results.data.predictions))
+    dispatch(setSearchScreenStatus(false))
   }
 
-console.log('WOOOOOOOOOOHOOOOOOOOOO' , searchResultStatus )
+  console.log('WOOOOOOOOOOHOOOOOOOOOO', searchResultStatus)
 
   return (
     <ScrollView style={styles.container}>
