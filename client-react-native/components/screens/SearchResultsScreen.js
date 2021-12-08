@@ -17,7 +17,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
 import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
-import { getSearchOnState, setSearchOnState } from "../../redux/searchResultsOnState";
+import { setSearchOnState } from "../../redux/searchResultsOnState";
+import { getSearchOnState } from "../../redux/pressedSearch";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -37,26 +38,21 @@ const SearchResultScreen = () => {
   const navigation = useNavigation();
 
   const onSubmit = (resultObj) => {
+    console.log('OBJECCT INSIDE ON SUBMIT FOR THE ON PRESS SEARCH ', resultObj)
     dispatch(getSearchOnState(resultObj));
   };
-
-  const onSearch = async () => {
-    let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${search}&types=establishment&location=${coordinates.long}%2C${coordinates.lat}&radius=500&strictbounds=true&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
-
-    // console.log( 'these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada' ,results.data.results[0])
-    // setSearchOnState(results.data.results)
-  }
 
   console.log('WOOOOOOOOOOHOOOOOOOOOO', searchResults[0])
 
   return (
+    ( !searchResults) ? <Text>Selected!</Text> :
     <ScrollView style={styles.container} >
       {searchResults.map((result) => {
         return (
           <View >
             <Text >
               {result.description}
-              <TouchableOpacity style={styles.button} /* onPress={onSubmit(result)} */>
+              <TouchableOpacity style={styles.button} onPress={() => onSubmit(result)} >
                 <Text style={styles.buttonText}>Choose location</Text>
               </TouchableOpacity>
             </Text>

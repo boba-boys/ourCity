@@ -16,7 +16,7 @@ import addTagCoordinates from '../TagCoordinates'
 import setGroupIdOnState from '../groupState'
 import setSearchResultsOnState from '../searchResultsOnState';
 import searchScreenStatus from '../SearchScreenStatus';
-
+import setPressedSearchResultsOnState from '../pressedSearch';
 
 
 const reducer= combineReducers({
@@ -30,7 +30,7 @@ const reducer= combineReducers({
     users,
     setSearchResultsOnState,
     searchScreenStatus,
-
+    setPressedSearchResultsOnState,
     tagScreenStatus,
     allTagsScreenStatus,
 
