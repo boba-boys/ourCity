@@ -18,12 +18,14 @@ import setSearchResultsOnState from '../searchResultsOnState';
 import searchScreenStatus from '../SearchScreenStatus';
 import setPressedSearchResultsOnState from '../pressedSearch';
 import allComments from '../allComments';
+import setPhotoOnStateReducer from '../setPhotoOnState';
 
 
 const reducer= combineReducers({
     tags,
     tagDetails,
     groups,
+    setPhotoOnStateReducer,
     carouselStatus,
     addTagsStatus,
     addTagCoordinates,
