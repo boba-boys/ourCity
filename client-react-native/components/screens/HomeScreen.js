@@ -53,6 +53,7 @@ const HomeScreen = (props) => {
 
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
+  const hoverTag = useSelector((state) => state.hoverTag);
 
 
   // Local State
@@ -216,7 +217,6 @@ const HomeScreen = (props) => {
           style={{ position: "absolute", bottom: 30, right: 35 }}
         />
       </MapView>
-    </>
 
   );
 };
