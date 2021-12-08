@@ -30,7 +30,7 @@ const CreateGroup = () => {
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
   const [groupImage, setGroupImage] = useState(
-    "https://rockymountevents.com/wp-content/uploads/2018/09/birthday_celebration.jpg"
+    "https://i.imgur.com/7k7nFm7.png"
   );
   const navigation = useNavigation();
 
