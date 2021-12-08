@@ -29,7 +29,10 @@ const TagScreen = (props) => {
   const usersTag = useSelector((state) => state.tagDetails);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const groupId = useSelector((state) => state.setGroupIdOnState);
+  // const imageFromState = useSelector((state) => state.setPhotoOnStateReducer)
 
+  // let imageFromStateNotJson = JSON.parse(imageFromState)
+  // console.log('this is the image from state in the tag view', imageFromState)
   // Local State
   const [commentStatus, setCommentStatus] = useState(true);
 
@@ -45,6 +48,8 @@ const TagScreen = (props) => {
 
 
   const CarouselCardItem = ({ index, item }) => {
+    console.log('this is the item', item)
+
     return (
       <View style={styles.container} key={item.id}>
         <View>
@@ -53,7 +58,9 @@ const TagScreen = (props) => {
         <Separator />
         <View>
           <Image
-            source={{ uri: "https://assets3.thrillist.com/v1/image/2679747/2880x1620/crop;webp=auto;jpeg_quality=60;progressive.jpg" }}
+
+            source={{ uri: item.imageUrl }}
+
             style={styles.image}
           />
           {/*This images should come from the Google API places */}
