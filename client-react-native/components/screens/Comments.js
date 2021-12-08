@@ -24,42 +24,61 @@ const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.5);
 
 const Comments = (props) => {
   const [typedComment, setTypedComment] = useState("");
-  const [comments, setComment] = useState([
-    "First Comment",
-    "This works!",
-    "Hurray!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!aaaaaaa Extra large commeennttntntntntntnnttn describing the whole experience at the restaurant aaaaaaaaaaaaaaaaaaaaaa",
-  ]);
+  const [comments, setComments] = useState([]);
 
+  const groupId = useSelector((state) => state.setGroupIdOnState);
+  const tagId = props.tagId;
   const user = useSelector((state) => state.users);
 
-  useEffect(() => {
-    console.log(
-      "---------------------ComponentDidMount Comments Screen :--------------------"
+  useEffect(async () => {
+    const getComments = await axios.get(
+      `https://my-city-server.herokuapp.com/api/tags/comments/${tagId}/${groupId}`
     );
-    let socket = io("https://my-city-server.herokuapp.com/");
-    socket.on("comment message", (msg) => {
-      setComment([...comments, msg]);
+    console.log("getComments right after axios", getComments.data);
+    const refinedComments = getComments.data.map((comment) => {
+      //console.log(comment.user);
+      return comment.description;
     });
+
+    //const refinedComments = [...getComments.data];
+    console.log("refinedComments", refinedComments);
+    setComments(refinedComments);
+    console.log("comments", comments);
   }, []);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     // e.preventDefault();
+    // const newComment = await axios.post(
+    //   `https://my-city-server.herokuapp.com/api/tags/comments/${tagId}/${groupId}`,
+    //   {
+    //     description: typedComment,
+    //     userId: user.id,
+    //   }
+    // );
+    // setComments([...comments, newComment]);
     // Function called after the submit button is pressed
     // socket.emit("comment message", typedComment);
-    let msg = typedComment;
-    setComment([...comments, msg]);
-    setTypedComment("");
+    // let msg = typedComment;
+    // setComment([...comments, msg]);
+    // setTypedComment("");
   };
 
   const Separator = () => <View style={styles.separator} />;
   const SeparatorNewMessage = () => <View style={styles.separatorNewMessage} />;
 
-  const handleDelete = async (index) => {
+  const handleDelete = async (comment) => {
     //Just need to set ID of comment to be deleted
-    // await axios.delete(
-    //   `https://my-city-server.herokuapp.com/api/users/comment/${index}`
-    // );
-    //console.log("Comment deleted", index);
+    console.log("comment id to be deleted", comment);
+    await axios.delete(
+      `https://my-city-server.herokuapp.com/api/users/comment/${comment.id}`
+    );
+    const getComments = await axios.get(
+      `https://my-city-server.herokuapp.com/api/tags/comments/${tagId}/${groupId}`
+    );
+    const refinedComments = getComments.data.map((comment) => {
+      comment.userId ? comment : null;
+    });
+    setComments(getComments.data);
     alert("Comment deleted");
   };
 
@@ -81,7 +100,7 @@ const Comments = (props) => {
                   />
 
                   <View style={styles.midContainer}>
-                    <Text style={styles.username}>Username</Text>
+                    <Text style={styles.username}>name</Text>
                     <Text
                       // numberOfLines={2}
                       style={styles.commentBody}
@@ -91,17 +110,23 @@ const Comments = (props) => {
                   </View>
                 </View>
 
-                <Text style={styles.time}>
-                  {/* {Get when the comment was created .format("DD/MM/YYYY")} */}
-                  Created at:
-                </Text>
-                {/* Need to insert comment id instead of index */}
-                <Text
-                  style={{ color: "red" }}
-                  onPress={(comment) => handleDelete(comment)}
-                >
-                  Delete
-                </Text>
+                {
+                  /* <Text style={styles.time}>
+                /* {Get when the comment was created .format("DD/MM/YYYY")} */
+                  //Created at:
+                  //</Text> */}
+                  {
+                    /* Need to insert comment id instead of index */
+                  }
+                }
+                {user.id === (comment.user ? comment.user.id : 0) ? (
+                  <Text
+                    style={{ color: "red" }}
+                    onPress={() => handleDelete(comment)}
+                  >
+                    Delete
+                  </Text>
+                ) : null}
               </View>
               <Separator />
             </View>
