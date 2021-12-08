@@ -29,7 +29,7 @@ import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import { getGroupStatus } from "../../redux/groups";
 import { addTagCoordinatesFunc } from "../../redux/TagCoordinates";
 import AllTagsScreen from "./AllTagsScreen";
-import CarouselCards from "./GroupsScreen";
+import GroupScreen from "./GroupsScreen";
 import TagScreen from "./SingleTagScreen";
 import CreateTag from "./CreateTag";
 import axios from "axios";
@@ -37,12 +37,12 @@ import { addTagStatusFunc } from "../../redux/addTagStatus";
 import SearchResultScreen from "./SearchResultsScreen";
 
 const HomeScreen = (props) => {
-  const userState = useSelector((state) => state.users);
-
+  // React Hooks
   const dispatch = useDispatch();
   const mapReference = createRef();
 
   // Redux Store (useSelector is Hook!)
+  const userState = useSelector((state) => state.users);
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
@@ -51,8 +51,6 @@ const HomeScreen = (props) => {
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
 
-
-  const createGroupStatus = useSelector((state) => state.createGroupStatus);
 
   // Local State
   const [menuStatus, setMenuStatus] = useState(false);
@@ -68,16 +66,17 @@ const HomeScreen = (props) => {
   // ComponentDidMount
   useEffect(() => {
     dispatch(getStatus(CarouselStatus));
-
-    console.log("USer State", userState);
-
-    dispatch(getTags(groupId)); //Hard coded groupId <--might have to be this way
+    dispatch(getTags(groupId));
     dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, []);
 
   useEffect(() => {
     dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, [userState]);
+
+  // useEffect(() => {
+  //   dispatch(getTags(groupId));
+  // }, [tags]);
 
   const onPressGroup = () => {
     console.log(
@@ -153,7 +152,7 @@ const HomeScreen = (props) => {
         {"All Places"}
       </Text>
       <View style={styles.allGroups}>
-        {CarouselStatus == true ? <CarouselCards /> : null}
+        {CarouselStatus == true ? <GroupScreen /> : null}
       </View>
       <View>
         {menuStatus === true ? <Menu style={{ position: "absolute" }} /> : null}
