@@ -45,10 +45,11 @@ const SearchResultScreen = () => {
   const navigation = useNavigation();
 
   const onSubmit = async (resultObj) => {
+    console.log('this is the result object over in the sumbit of the sreach results', resultObj)
 
     let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${resultObj.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
-    console.log(placeDetails)
+     console.log(placesArray, 'adasdjhdasjhkasdjhasjhdasljkasdjklasdjklajsdklasdjkljaksdljkasdljkasdljklasd')
 
     let photoArray = placeDetails.data.result.photos.map((photo) => {
       return photo.photo_reference

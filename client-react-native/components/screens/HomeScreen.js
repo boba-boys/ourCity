@@ -212,6 +212,12 @@ const HomeScreen = (props) => {
             <CreateTag style={{ position: "absolute" }} />
           ) : null}
         </View>
+        <View>
+          {searchResultStatus === true ? (
+            <SearchResultScreen style={{ position: "absolute" }} />
+          ) : null}
+        </View>
+
 
         <View style={styles.tagContainer}>
           {allTagsStatus === true ? (
