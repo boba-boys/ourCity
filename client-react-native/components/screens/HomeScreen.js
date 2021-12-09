@@ -35,6 +35,7 @@ import CreateTag from "./CreateTag";
 import axios from "axios";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
 import SearchResultScreen from "./SearchResultsScreen";
+import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 
 const HomeScreen = (props) => {
   const userState = useSelector((state) => state.users);
@@ -50,6 +51,7 @@ const HomeScreen = (props) => {
   const addTagsStatus = useSelector((state) => state.addTagsStatus);
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
+
 
 
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
@@ -111,10 +113,12 @@ const HomeScreen = (props) => {
     }
     // Notice that this is always called when we interact with the map!!
     // setMenuStatus(false);
-    // dispatch(getStatus(true));
-    // dispatch(getAllTagsScreenStatus(true));
-    // dispatch(getTagScreenStatus(true));
-    // setCreateGroupStatus(false);
+    //  dispatch(getStatus(true));
+    //  dispatch(getAllTagsScreenStatus(true));
+    //  dispatch(getTagScreenStatus(true));
+     dispatch(setSearchScreenStatus(true))
+    //  setCreateGroupStatus(false);
+
   };
 
   const onPressTag = (tagId) => {

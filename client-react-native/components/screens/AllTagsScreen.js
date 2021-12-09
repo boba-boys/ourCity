@@ -38,7 +38,7 @@ const AllTagsScreen = (props) => {
         <Separator />
         <View>
           <Image
-            source={{ uri: "https://i.imgur.com/7k7nFm7.png" }}
+            source={{ uri: item.imageUrl }}
             style={styles.image}
           />
           {/*This images should come from the Google API places */}

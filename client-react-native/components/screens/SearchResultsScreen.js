@@ -20,6 +20,7 @@ import { getTags } from "../../redux/tags";
 import { setSearchOnState } from "../../redux/searchResultsOnState";
 import { getSearchOnState } from "../../redux/pressedSearch";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
+import { setPhotoOnState } from "../../redux/setPhotoOnState";
 
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
@@ -30,6 +31,10 @@ const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 const SearchResultScreen = () => {
   const userId = useSelector((state) => state.users.id);
   const coordinates = useSelector((state) => state.addTagCoordinates);
+  const placesArray = useSelector((state) => state.setPlacesArrayOnStateReducer);
+
+
+
   const [name, setName] = useState("");
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState("");
@@ -39,22 +44,50 @@ const SearchResultScreen = () => {
 
   const navigation = useNavigation();
 
-  const onSubmit = (resultObj) => {
-    console.log('OBJECCT INSIDE ON SUBMIT FOR THE ON PRESS SEARCH ', resultObj)
+  const onSubmit = async (resultObj) => {
+
+    let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${resultObj.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
+
+    console.log(placeDetails)
+
+    let photoArray = placeDetails.data.result.photos.map((photo) => {
+      return photo.photo_reference
+    })
+
+
+    const promisedPhotos = photoArray.map(async (photo) => {
+      return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`)
+    })
+
+    Promise.all(promisedPhotos).then(photos =>
+      dispatch(setPhotoOnState(photos[0].config.url)))
+
+
+
+
     dispatch(getSearchOnState(resultObj));
     dispatch(setSearchScreenStatus(true))
   };
 
-  console.log('WOOOOOOOOOOHOOOOOOOOOO', searchResults[0])
 
+// console.log('this is the places array all the way over in the search results screen!!!!',placesArray[0])
   return (
-    ( !searchResults) ? <Text>Selected!</Text> :
+    ( !placesArray) ? <Text>Selected!</Text> :
     <ScrollView style={styles.container} >
-      {searchResults.map((result) => {
+      {placesArray.map((result) => {
         return (
           <View >
             <Text >
-              {result.description}
+              {result.data.result.name}
+              {/* <Image
+            source={{ uri: .imageUrl }}
+            style={styles.image}
+          /> */}
+
+              {result.data.result.formatted_address}
+              {result.data.result.formatted_phone_number}
+
+
               <TouchableOpacity style={styles.button} onPress={() => onSubmit(result)} >
                 <Text style={styles.buttonText}>Choose location</Text>
               </TouchableOpacity>
@@ -71,7 +104,7 @@ const styles = StyleSheet.create({
   container: {
     // flex: 1,
     backgroundColor: "#fff",
-    width: ITEM_WIDTH,
+    width: 350,
     height: ITEM_HEIGHT,
     //marginLeft: 30,
     alignSelf: "center",

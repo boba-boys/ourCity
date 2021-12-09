@@ -19,6 +19,7 @@ import searchScreenStatus from '../SearchScreenStatus';
 import setPressedSearchResultsOnState from '../pressedSearch';
 import allComments from '../allComments';
 import setPhotoOnStateReducer from '../setPhotoOnState';
+import setPlacesArrayOnStateReducer from '../setPlacesArrayOnState'
 
 
 const reducer= combineReducers({
@@ -27,6 +28,7 @@ const reducer= combineReducers({
     groups,
     setPhotoOnStateReducer,
     carouselStatus,
+    setPlacesArrayOnStateReducer,
     addTagsStatus,
     addTagCoordinates,
     setGroupIdOnState,

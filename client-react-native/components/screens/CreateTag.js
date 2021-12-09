@@ -20,6 +20,7 @@ import { getTags } from "../../redux/tags";
 import { setSearchOnState } from "../../redux/searchResultsOnState";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 import { setPhotoOnState } from "../../redux/setPhotoOnState";
+import { setPlacesArrayOnStateFunc } from "../../redux/setPlacesArrayOnState";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -46,27 +47,15 @@ const CreateTag = () => {
 
 
 
+
   const onSubmit = async () => {
     // console.log('This should be the Coordinates', pressedResult.place_id);
 
-    let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
+     let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
 
 
-    let photoArray = placeDetails.data.result.photos.map((photo) => {
-      return photo.photo_reference
-    })
-
-    const promisedPhotos = photoArray.map(async (photo) => {
-      return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`)
-    })
-   //  photos[0].config.url this is how to getr the photo
-  //  setImageUrlFromPromise(photos[0].config.url)
-     Promise.all(promisedPhotos).then(photos =>
-      dispatch(setPhotoOnState(photos[0].config.url)))
-
-    //  console.log('this is the placeeee of deataailslslslsslslslsllssl' , imageUrlFromPromise
-    console.log('this is the photo from state', imageFromState),
+    // console.log('this is the photo from state', imageFromState),
 
     await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
       name: placeDetails.data.result.name,
@@ -84,35 +73,29 @@ const CreateTag = () => {
      dispatch(addTagStatusFunc(true));
   };
 
-  console.log('this is the photo from state', imageFromState)
+  // console.log('this is the photo from state', imageFromState)
 
   const onSearch = async () => {
     // Call to GOOGLE API to get the AutoComplete array
     let formattedSearch = search.split(' ').join('');
     let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${formattedSearch}&types=establishment&location=${coordinates.lat}%2C${coordinates.long}&radius=100000&strictbounds=true&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
-    // console.log('these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada', results.data.predictions[0])
+      console.log('these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada', results.data.predictions[0])
+
+     const promisedKeys = results.data.predictions.map(async (place) => {
+      return await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
+    })
+
+    Promise.all(promisedKeys).then(places =>
+      dispatch(setPlacesArrayOnStateFunc(places)))
+
+
+    // console.log('these are the place id keys maped from places calls', placeIdKeys)
+
     // setSearchResult(results.data.results)
     dispatch(setSearchOnState(results.data.predictions))
     dispatch(setSearchScreenStatus(false))
 
-    // // Call to GOOGLE API to get the Place Details array:
-     let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
-
-
-     let photoArray = placeDetails.data.result.photos.map((photo) => {
-       return photo.photo_reference
-     })
-
-     const promisedPhotos = photoArray.map(async (photo) => {
-       return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`)
-     })
-    //  photos[0].config.url this is how to getr the photo
-    //  Promise.all(promisedPhotos).then(photos => console.log('thisssss isssss yheeee photossssss ', placeDetails))
-
-    // // Call to GOOGLE API to get the PHOTOS array:
-    // let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=Aap_uECpmmp3ik8OhHd4AKgLgEfEBnErV084vi34X_kVzFBBGYroBF4dTP_tAjy0xWbIYngZ9Dkd4DjPNNpeb1ItX8YfUu2Jr9m28_QJ1RmkXn3RgWUgTn56IjtJzvJBqekuLyBhYRnQ0vpX_lnZmhp_xBm_YLSBPz7EwWXjmZx6Ba-5weKd&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
-    // console.log('WOOOOOOOOOOHOOOOOOOOOO STATUS', promisedPhotos)
   }
 
 
