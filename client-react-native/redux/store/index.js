@@ -18,6 +18,7 @@ import setPressedSearchResultsOnState from '../pressedSearch';
 import allComments from '../allComments';
 import setPhotoOnStateReducer from '../setPhotoOnState';
 import setPlacesArrayOnStateReducer from '../setPlacesArrayOnState'
+import setSearchResultsPhotosArrayOnStateReducer from '../setSearchResultPhotosOnState'
 
 
 const reducer= combineReducers({
@@ -25,6 +26,8 @@ const reducer= combineReducers({
     tagDetails,
     groups,
     setPhotoOnStateReducer,
+    setSearchResultsPhotosArrayOnStateReducer,
+    carouselStatus,
     groupStatus,
     setPlacesArrayOnStateReducer,
     addTagsStatus,
