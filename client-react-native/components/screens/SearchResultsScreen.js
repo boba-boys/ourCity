@@ -45,6 +45,9 @@ const SearchResultScreen = () => {
 
   const navigation = useNavigation();
 
+  const Separator = () => <View style={styles.separator} />;
+  const SeparatorNewMessage = () => <View style={styles.separatorNewMessage} />;
+
   const onSubmit = async (resultObj) => {
 
 
@@ -77,82 +80,155 @@ const SearchResultScreen = () => {
 
  return (
   ( !placesArray) ? <Text>Selected!</Text> :
-  <ScrollView style={styles.container} >
-    {placesArray.map((result, index) => {
-      return (
-        <View >
-          <Image
-            source={{ uri:  placesPhotosArray[index]}}
-            style={styles.image}
-          />
-          <Text >
-            {result.data.result.name}
-            {result.data.result.formatted_address}
-            {result.data.result.formatted_phone_number}
+  <ScrollView  >
+   <View style={styles.container} >
+      <Text style={styles.header}>Search Results:</Text>
+      <Separator />
+      <ScrollView>
+        {placesArray.map((place, index) => {
+          // console.log('Comment inside map function in Comment:', comment)
+          return (
+            <TouchableOpacity key={index} onPress={() => onSubmit(place)} >
+            <View   >
+              <View style={styles.commentContainer}>
+                <View style={styles.lefContainer}>
+                  <Image
+                    source={{
+                      uri: placesPhotosArray[index]
+                    }}
+                    style={styles.profilePicture}
+                  />
 
-            <TouchableOpacity style={styles.button} onPress={() => onSubmit(result)} >
+                  <View style={styles.midContainer}>
+                    <Text style={styles.username}>{place.data.result.name}</Text>
+                    <Text
+                      // numberOfLines={2}
+                      style={styles.commentBody}
+                    >
+                      {place.data.result.formatted_address}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.time}>
+                    {(place.data.result.formatted_phone_number)}
+                  </Text>
+
+                </View>
+                {/* <TouchableOpacity style={styles.button} onPress={() => onSubmit(place)} >
               <Text style={styles.buttonText}>Choose location</Text>
+            </TouchableOpacity> */}
+              </View>
+              <Separator />
+            </View>
             </TouchableOpacity>
-          </Text>
-        </View>
+          );
+        })}
+      </ScrollView>
+      <SeparatorNewMessage />
 
-      )
-    })}
+    </View>
   </ScrollView>
 );
 
 };
 
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
-    // flex: 1,
-    backgroundColor: "#fff",
-    width: 350,
-    height: ITEM_HEIGHT,
-    //marginLeft: 30,
-    alignSelf: "center",
-    padding: 20,
+     backgroundColor: 'white',
+    flex: 1,
+     width: ITEM_WIDTH * 1.19,
+    // height: "50%",
+    marginLeft: 35,
     borderRadius: 10,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.75,
-    shadowRadius: 4.65,
-    elevation: 7,
-    marginTop: 20,
-    //height: "50%",
+    // paddingTop:50, // This affect affects the elements inside the view
+    // position: 'absolute',
+    // bottom: 138,
+    // top: -310,
+    // opacity: .9,
   },
-  form: {
-    margin: 20,
-  },
-  title: {
-    fontSize: 25,
+  header: {
+    color: "#222",
+    fontSize: 20,
+    alignSelf: "center",
     fontWeight: "bold",
-    marginBottom: 10,
   },
-  input: {
-    borderBottomColor: "#bbb",
-    borderBottomWidth: 1,
-    marginBottom: 10,
-    padding: 5,
+  newMessage: {
+    bottom: 0,
+    flexDirection: "row",
+  },
+  textBox: {
+    flex: 4,
+    // width: '75%',
+    alignSelf: "flex-end",
+    // backgroundColor:'lightgrey',
+    borderColor: "black",
+    height: "100%",
+    // margin: 5,
+    borderWidth: 1,
+    // padding: 10,
   },
   button: {
+    flex: 1,
     backgroundColor: "#4286f4",
-    padding: 10,
-    marginTop: 10,
+    alignSelf: "flex-end",
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
+    alignSelf: "center",
+    fontSize: 13,
   },
-  image: {
-    width: ITEM_WIDTH,
-    height: 125,
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: "#737373",
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
-});
+  separatorNewMessage: {
+    borderBottomColor: "#737373",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  commentContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    flex: 1,
+    // backgroundColor:'red',
+  },
+  lefContainer: {
+    flexDirection: "row",
+    // backgroundColor:'green',
+    flex: 4,
+  },
+  midContainer: {
+    justifyContent: "space-around",
+    // backgroundColor:'yellow',
+    width: "72%",
+  },
+  profilePicture: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    marginRight: 15,
+  },
+  username: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  commentBody: {
+    fontSize: 16,
+    color: "black",
+  },
+  rightContainer: {
+    flex: 1,
+  },
+  time: {
+    fontSize: 18,
+    color: "black",
+    flex: 1,
+  },
+};
 
 export default SearchResultScreen;

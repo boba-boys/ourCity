@@ -27,7 +27,7 @@ const reducer= combineReducers({
     groups,
     setPhotoOnStateReducer,
     setSearchResultsPhotosArrayOnStateReducer,
-    carouselStatus,
+
     groupStatus,
     setPlacesArrayOnStateReducer,
     addTagsStatus,

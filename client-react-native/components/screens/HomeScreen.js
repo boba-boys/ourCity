@@ -34,7 +34,7 @@ const HomeScreen = (props) => {
   // Hooks
   const dispatch = useDispatch();
   const mapReference = createRef();
-  
+
   // Redux Store (useSelector is Hook!)
   const userState = useSelector((state) => state.users); // Has all the user info
   const tags = useSelector((state) => state.tags);
@@ -129,6 +129,7 @@ const HomeScreen = (props) => {
   };
 
   return (
+
     <MapView
       onPress={onPressMap}
       provider={PROVIDER_GOOGLE}
@@ -137,6 +138,7 @@ const HomeScreen = (props) => {
       ref={mapReference}
       showUserLocation={true}
     >
+
       <Text style={styles.groupsText} onPress={onPressGroup}>
         {"My Groups"}
       </Text>
