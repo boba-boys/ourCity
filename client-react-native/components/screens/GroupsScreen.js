@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getGroups } from "../../redux/groups";
-import { getStatus } from "../../redux/carouselStatus";
+import { getGroupStatus } from "../../redux/groupStatus";
 import { getTags } from "../../redux/tags";
 import axios from "axios";
 import CreateGroup from "./CreateGroup";
@@ -27,7 +27,7 @@ const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 
 const CarouselCards = (props) => {
   const isCarousel = useRef(null);
-  const CarouselStatus = useSelector((state) => state.carouselStatus);
+  const groupStatus = useSelector((state) => state.groupStatus);
   const usersGroups = useSelector((state) => state.groups);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.users.id);
@@ -50,7 +50,7 @@ const CarouselCards = (props) => {
 
       if (await newGroup.data) {
         alert("User added to group!");
-        dispatch(getStatus(CarouselStatus));
+        dispatch(getGroupStatus(groupStatus));
       } else {
         alert("User not added to group!");
       }
@@ -112,7 +112,7 @@ const CarouselCards = (props) => {
 
   const handlePress = (groupId) => {
     dispatch(_setGroupIdOnState(groupId));
-    dispatch(getStatus(CarouselStatus));
+    dispatch(getGroupStatus(groupStatus));
     dispatch(getTags(groupId));
   };
 

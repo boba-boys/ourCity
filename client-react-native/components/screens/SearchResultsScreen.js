@@ -14,10 +14,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addTagStatusFunc } from "../../redux/addTagStatus";
-import { getStatus } from "../../redux/carouselStatus";
-import { getTags } from "../../redux/tags";
-import { setSearchOnState } from "../../redux/searchResultsOnState";
 import { getSearchOnState } from "../../redux/pressedSearch";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 import { setPhotoOnState } from "../../redux/setPhotoOnState";
@@ -44,11 +40,13 @@ const SearchResultScreen = () => {
   const [searchResult, setSearchResult] = useState("");
   const dispatch = useDispatch();
   const groupId = useSelector((state) => state.setGroupIdOnState);
+  const searchResultStatus = useSelector((state) => state.searchScreenStatus);
   const searchResults = useSelector((state) => state.setSearchResultsOnState);
 
   const navigation = useNavigation();
 
   const onSubmit = async (resultObj) => {
+
 
     if(resultObj.data.result.photos){
     let photoArray = resultObj.data.result.photos.map((photo) => {
@@ -73,7 +71,6 @@ const SearchResultScreen = () => {
     dispatch(getSearchOnState(resultObj));
     dispatch(setSearchScreenStatus(true))
   };
-
 
 
 
@@ -103,6 +100,7 @@ const SearchResultScreen = () => {
     })}
   </ScrollView>
 );
+
 };
 
 

@@ -4,10 +4,8 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import tags from '../tags'
 import groups from '../groups'
-
 import users from '../user';
-
-import carouselStatus from '../carouselStatus';
+import groupStatus from '../groupStatus';
 import tagScreenStatus from '../tagScreenStatus';
 import tagDetails from '../tagDetails';
 import allTagsScreenStatus from '../allTagsScreenStatus';
@@ -30,6 +28,7 @@ const reducer= combineReducers({
     setPhotoOnStateReducer,
     setSearchResultsPhotosArrayOnStateReducer,
     carouselStatus,
+    groupStatus,
     setPlacesArrayOnStateReducer,
     addTagsStatus,
     addTagCoordinates,

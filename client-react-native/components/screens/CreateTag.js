@@ -15,7 +15,6 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
-import { getStatus } from "../../redux/carouselStatus";
 import { getTags } from "../../redux/tags";
 import { setSearchOnState } from "../../redux/searchResultsOnState";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
@@ -38,7 +37,7 @@ const CreateTag = () => {
   const pressedResult = useSelector((state) => state.setPressedSearchResultsOnState);
   const imageFromState = useSelector((state) => state.setPhotoOnStateReducer)
 
-// Local state
+  // Local state
   const [name, setName] = useState("");
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState("");
@@ -50,6 +49,7 @@ const CreateTag = () => {
 
 
   const onSubmit = async () => {
+
     // console.log('This should be the Coordinates',pressedResult );
 
     //  let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
@@ -65,13 +65,14 @@ const CreateTag = () => {
       address: pressedResult.data.result.formatted_address,
       phoneNumber: pressedResult.data.result.formatted_phone_number,
        imageUrl: imageFromState,
+  
       groupId,
       userId,
     })
 
     // dispatch(getStatus(false))
     dispatch(getTags(groupId));
-     dispatch(addTagStatusFunc(true));
+    dispatch(addTagStatusFunc(true));
   };
 
   // console.log('this is the photo from state', imageFromState)
@@ -81,9 +82,9 @@ const CreateTag = () => {
     let formattedSearch = search.split(' ').join('');
     let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${formattedSearch}&types=establishment&location=${coordinates.lat}%2C${coordinates.long}&radius=100000&strictbounds=true&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
-      console.log('these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada', results.data.predictions[1])
 
-     const promisedKeys = results.data.predictions.map(async (place) => {
+
+    const promisedKeys = results.data.predictions.map(async (place) => {
       return await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
     })
 
@@ -145,7 +146,7 @@ const CreateTag = () => {
 
     // setSearchResult(results.data.results)
     dispatch(setSearchOnState(results.data.predictions))
-    dispatch(setSearchScreenStatus(false))
+    dispatch(setSearchScreenStatus(false)); // This pops the SearchResultsScreen
 
   }
 
