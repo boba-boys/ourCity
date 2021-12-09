@@ -64,6 +64,7 @@ const SignInScreen = () => {
           placeholder='username'
           name='username'
           autoCapitalize='none'
+          keyboardType='email-address'
           value={email}
           onChangeText={(email) => setEmail(email)}
         />
