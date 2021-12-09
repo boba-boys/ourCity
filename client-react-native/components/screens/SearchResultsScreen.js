@@ -40,16 +40,17 @@ const SearchResultScreen = () => {
   const [searchResult, setSearchResult] = useState("");
   const dispatch = useDispatch();
   const groupId = useSelector((state) => state.setGroupIdOnState);
+  const searchResultStatus = useSelector((state) => state.searchScreenStatus);
   const searchResults = useSelector((state) => state.setSearchResultsOnState);
 
   const navigation = useNavigation();
 
   const onSubmit = async (resultObj) => {
-    console.log('adaadsadasdaskdjsakjdasdasdasasd', resultObj.place_id,'adaadsadasdaskdjsakjdasdasdasasd')
+    // console.log('adaadsadasdaskdjsakjdasdasdasasd', resultObj.place_id,'adaadsadasdaskdjsakjdasdasdasasd')
 
     let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${resultObj.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
-    console.log('thiss is the place details!!!!!!', placesArray[2], 'thiss is the place details!!!!!!')
+    // console.log('thiss is the place details!!!!!!', placesArray[2], 'thiss is the place details!!!!!!')
 
     let photoArray = placeDetails.data.result.photos.map((photo) => {
       return photo.photo_reference
@@ -71,25 +72,25 @@ const SearchResultScreen = () => {
   };
 
 
- console.log('this is the places array all the way over in the search results screen!!!',searchResults[0])
- return (
-  ( !searchResults) ? <Text>Selected!</Text> :
-  <ScrollView style={styles.container} >
-    {searchResults.map((result) => {
-      return (
-        <View >
-          <Text >
-            {result.description}
-            <TouchableOpacity style={styles.button} onPress={() => onSubmit(result)} >
-              <Text style={styles.buttonText}>Choose location</Text>
-            </TouchableOpacity>
-          </Text>
-        </View>
+  //  console.log('this is the places array all the way over in the search results screen!!!',searchResults[0])
+  return (
+    (!searchResults) ? <Text>Selected!</Text> :
+      <ScrollView style={styles.container} >
+        {searchResults.map((result, index) => {
+          return (
+            <View key={index} >
+              <Text >
+                {result.description}
+                <TouchableOpacity style={styles.button} onPress={() => onSubmit(result)} >
+                  <Text style={styles.buttonText}>Choose location</Text>
+                </TouchableOpacity>
+              </Text>
+            </View>
 
-      )
-    })}
-  </ScrollView>
-);
+          )
+        })}
+      </ScrollView>
+  );
 };
 
 

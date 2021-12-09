@@ -37,7 +37,7 @@ const CreateTag = () => {
   const pressedResult = useSelector((state) => state.setPressedSearchResultsOnState);
   const imageFromState = useSelector((state) => state.setPhotoOnStateReducer)
 
-// Local state
+  // Local state
   const [name, setName] = useState("");
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState("");
@@ -49,13 +49,11 @@ const CreateTag = () => {
 
 
   const onSubmit = async () => {
-    console.log('This should be the Coordinates', pressedResult.place_id);
+    // console.log('This should be the Coordinates', pressedResult.place_id);
 
-     let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
+    let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
-
-
-     console.log('this is the photo from state', placeDetails),
+    // console.log('this is the photo from state', placeDetails);
 
     await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
       name: placeDetails.data.result.name,
@@ -63,14 +61,14 @@ const CreateTag = () => {
       lat: placeDetails.data.result.geometry.location.lat,
       address: placeDetails.data.result.formatted_address,
       phoneNumber: placeDetails.data.result.formatted_phone_number,
-       imageUrl: imageFromState,
+      imageUrl: imageFromState,
       groupId,
       userId,
     })
 
     // dispatch(getStatus(false))
     dispatch(getTags(groupId));
-     dispatch(addTagStatusFunc(true));
+    dispatch(addTagStatusFunc(true));
   };
 
   // console.log('this is the photo from state', imageFromState)
@@ -80,9 +78,9 @@ const CreateTag = () => {
     let formattedSearch = search.split(' ').join('');
     let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${formattedSearch}&types=establishment&location=${coordinates.lat}%2C${coordinates.long}&radius=100000&strictbounds=true&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
-      console.log('these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada', results.data.predictions[0])
+    // console.log('these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada', results.data.predictions[0])
 
-     const promisedKeys = results.data.predictions.map(async (place) => {
+    const promisedKeys = results.data.predictions.map(async (place) => {
       return await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
     })
 
@@ -94,7 +92,7 @@ const CreateTag = () => {
 
     // setSearchResult(results.data.results)
     dispatch(setSearchOnState(results.data.predictions))
-    dispatch(setSearchScreenStatus(false))
+    dispatch(setSearchScreenStatus(false)); // This pops the SearchResultsScreen
 
   }
 
