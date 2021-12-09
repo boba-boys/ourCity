@@ -7,10 +7,11 @@ import {
   Dimensions,
   Image,
   Button,
-  ScrollView,
+  ScrollView
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getAllTagsScreenStatus } from "../../redux/allTagsScreenStatus";
+import { HoverTagFunc } from "../../redux/tagHover";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -25,6 +26,9 @@ const AllTagsScreen = (props) => {
   // Redux store
   const userTags = useSelector((state) => state.tags);
   const tagsStatus = useSelector((state) => state.allTagsScreenStatus);
+  const globalState = useSelector((state) => state);
+
+
 
   const Separator = () => <View style={styles.separator} />;
 
@@ -38,7 +42,10 @@ const AllTagsScreen = (props) => {
         <Separator />
         <View>
           <Image
+
             source={{ uri: item.imageUrl }}
+
+           
             style={styles.image}
           />
           {/*This images should come from the Google API places */}
@@ -73,14 +80,21 @@ const AllTagsScreen = (props) => {
   };
 
   const onCarouselItemChange = (index) => {
-    let location = userTags[index];
+    let pin = userTags[index];
+    // console.log('below is the pin you are on right now', pin)
+
+    //create some redux stuff, add this pin to the global state.
     props.mapRef.current.animateToRegion({
-      latitude: location.latitude,
-      longitude: location.longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+      latitude: pin.latitude,
+      longitude: pin.longitude,
+      latitudeDelta: 0.05,
+      longitudeDelta: 0.05,
     });
+    // console.log('this is what pin looks like', pin)
+dispatch(HoverTagFunc(pin.id));
+console.log('this is what tags looks like', globalState.tags)
   };
+
 
   return (
     <View>
@@ -139,7 +153,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   tagName: {
-    color: "#222",
+    color: "black",
     fontSize: 28,
     fontWeight: "bold",
     alignSelf: "center",

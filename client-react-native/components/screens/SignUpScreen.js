@@ -12,7 +12,6 @@ import {
 
 import CustomButton from "../CustomButton";
 import CustomInput from "../CustomInput";
-import SocialSignInButtons from "../SocialSignInButtons/SocialSignInButtons";
 import { useNavigation } from "@react-navigation/core";
 import axios from "axios";
 import { loadUserToState } from '../../redux/user'
@@ -49,11 +48,11 @@ const SignUpScreen = () => {
   };
 
   const onTermsPressed = () => {
-    console.warn("uve been warned");
+    console.warn("We will sell your personal data");
   };
 
   const onPrivacyPressed = () => {
-    console.warn("uve been warned");
+    console.warn("YOU are the product.");
   };
 
   return (
@@ -148,6 +147,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     width: "100%",
+    height: '10%',
+    fontSize: 34,
 
     borderColor: "#e8e8e8",
     borderWidth: 1,

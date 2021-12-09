@@ -29,32 +29,38 @@ import { getTagScreenStatus } from "../../redux/tagScreenStatus";
 import { getGroupStatus } from "../../redux/groups";
 import { addTagCoordinatesFunc } from "../../redux/TagCoordinates";
 import AllTagsScreen from "./AllTagsScreen";
-import CarouselCards from "./GroupsScreen";
+import GroupScreen from "./GroupsScreen";
 import TagScreen from "./SingleTagScreen";
 import CreateTag from "./CreateTag";
 import axios from "axios";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
+import hoverTags from "../../redux/tagHover";
 import SearchResultScreen from "./SearchResultsScreen";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 
 const HomeScreen = (props) => {
-  const userState = useSelector((state) => state.users);
-
+  // React Hooks
   const dispatch = useDispatch();
   const mapReference = createRef();
 
   // Redux Store (useSelector is Hook!)
+  const userState = useSelector((state) => state.users);
   const tags = useSelector((state) => state.tags);
   const CarouselStatus = useSelector((state) => state.carouselStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const addTagsStatus = useSelector((state) => state.addTagsStatus);
+
+
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
+  const hoverTag = useSelector((state) => state.hoverTag);
+
 
 
 
   const createGroupStatus = useSelector((state) => state.createGroupStatus);
+
 
   // Local State
   const [menuStatus, setMenuStatus] = useState(false);
@@ -70,16 +76,17 @@ const HomeScreen = (props) => {
   // ComponentDidMount
   useEffect(() => {
     dispatch(getStatus(CarouselStatus));
-
-    console.log("USer State", userState);
-
-    dispatch(getTags(groupId)); //Hard coded groupId <--might have to be this way
+    dispatch(getTags(groupId));
     dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, []);
 
   useEffect(() => {
     dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, [userState]);
+
+  // useEffect(() => {
+  //   dispatch(getTags(groupId));
+  // }, [tags]);
 
   const onPressGroup = () => {
     console.log(
@@ -157,53 +164,68 @@ const HomeScreen = (props) => {
         {"All Places"}
       </Text>
       <View style={styles.allGroups}>
-        {CarouselStatus == true ? <CarouselCards /> : null}
+        {CarouselStatus == true ? <GroupScreen /> : null}
       </View>
       <View>
         {menuStatus === true ? <Menu style={{ position: "absolute" }} /> : null}
       </View>
 
-      {tags.map((tag) => {
-        return (
-          <Marker
-            key={`${tag.longitude}_${tag.latitude}`}
-            coordinate={{
-              latitude: tag.latitude,
-              longitude: tag.longitude,
-            }}
-            title={tag.name}
-            description={tag.description}
-            identifier={`${tag.id}`}
-            onPress={() => onPressTag(tag.id)}
-          />
-        );
-      })}
-      <View style={styles.tagContainer}>
-        {tagScreenStatus === true ? <TagScreen tagId={tagId} /> : null}
-      </View>
-      <View>
-        {addTagsStatus === true ? (
-          <CreateTag style={{ position: "absolute" }} />
-        ) : null}
-      </View>
-      <View>
-        {searchResultStatus === true ? (
-          <SearchResultScreen style={{ position: "absolute" }} />
-        ) : null}
-      </View>
+        {tags.map((tag) => {
+          console.log(tag)
+          return (
+            <View>
+              {hoverTag === tag.id ? (
+                <Marker
+                  key={`${tag.longitude}_${tag.latitude}`}
+                  coordinate={{
+                    latitude: tag.latitude,
+                    longitude: tag.longitude,
+                  }}
+                  pinColor="blue"
+                  title={tag.name}
+                  description={tag.description}
+                  identifier={`${tag.id}`}
+                  onPress={() => onPressTag(tag.id)}
+                />
+              ) : (
+                <Marker
+                  key={`${tag.longitude}_${tag.latitude}`}
+                  coordinate={{
+                    latitude: tag.latitude,
+                    longitude: tag.longitude,
+                  }}
+                  pinColor="red"
+                  title={tag.name}
+                  description={tag.description}
+                  identifier={`${tag.id}`}
+                  onPress={() => onPressTag(tag.id)}
+                />
+              )}
+            </View>
+          );
+        })}
+        <View style={styles.tagContainer}>
+          {tagScreenStatus === true ? <TagScreen tagId={tagId} /> : null}
+        </View>
+        <View>
+          {addTagsStatus === true ? (
+            <CreateTag style={{ position: "absolute" }} />
+          ) : null}
+        </View>
 
-      <View style={styles.tagContainer}>
-        {allTagsStatus === true ? (
-          <AllTagsScreen mapRef={mapReference} />
-        ) : null}
-      </View>
-      <MaterialIcons
-        name='menu'
-        size={50}
-        onPress={onPressOpenMenu}
-        style={{ position: "absolute", bottom: 30, right: 35 }}
-      />
-    </MapView>
+        <View style={styles.tagContainer}>
+          {allTagsStatus === true ? (
+            <AllTagsScreen mapRef={mapReference} />
+          ) : null}
+        </View>
+        <MaterialIcons
+          name="menu"
+          size={50}
+          onPress={onPressOpenMenu}
+          style={{ position: "absolute", bottom: 30, right: 35 }}
+        />
+      </MapView>
+
   );
 };
 
@@ -213,10 +235,10 @@ const styles = StyleSheet.create({
   },
   groupsText: {
     paddingTop: 50,
-    marginLeft: 60,
-    fontFamily: "Cochin",
+    marginLeft: 30,
+    fontFamily: "Arial",
     alignItems: "center",
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     width: "25%",
     bottom: 0,
@@ -225,20 +247,14 @@ const styles = StyleSheet.create({
   },
   allPlacesText: {
     paddingTop: 50,
-    //marginLeft: 250,
-    // fontFamily: "Cochin",
+    marginLeft: 300,
+    fontFamily: "Arial",
     alignItems: "center",
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     width: "25%",
-    height: "30%",
-    //bottom: 0,
-    right: 25,
-    position: "absolute",
-    top: 0,
-
-    // backgroundColor:'red',
-  },
+    bottom: 0,
+    },
   allGroups: {
     //backgroundColor: "grey",
     //top: 0,
@@ -262,12 +278,7 @@ const styles = StyleSheet.create({
     top: 550,
     width: "85%",
     //backgroundColor: "red",
-  },
-  allGroups: {
-    // backgroundColor:'grey',
-    top: -250,
-    // backgroundColor: "red",
-  },
+  }
 });
 
 export default HomeScreen;

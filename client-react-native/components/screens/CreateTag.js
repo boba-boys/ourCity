@@ -49,6 +49,7 @@ const CreateTag = () => {
 
 
   const onSubmit = async () => {
+
     // console.log('This should be the Coordinates', pressedResult.place_id);
 
      let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
@@ -56,6 +57,7 @@ const CreateTag = () => {
 
 
     // console.log('this is the photo from state', imageFromState),
+
 
     await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
       name: placeDetails.data.result.name,
@@ -70,7 +72,9 @@ const CreateTag = () => {
 
     // dispatch(getStatus(false))
     dispatch(getTags(groupId));
+
      dispatch(addTagStatusFunc(true));
+
   };
 
   // console.log('this is the photo from state', imageFromState)
@@ -81,6 +85,7 @@ const CreateTag = () => {
     let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${formattedSearch}&types=establishment&location=${coordinates.lat}%2C${coordinates.long}&radius=100000&strictbounds=true&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
 
       console.log('these are themadasdasdasdasdasdasdasdadadasdasdadadadasdadadada', results.data.predictions[0])
+
 
      const promisedKeys = results.data.predictions.map(async (place) => {
       return await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`);
@@ -96,6 +101,9 @@ const CreateTag = () => {
     dispatch(setSearchOnState(results.data.predictions))
     dispatch(setSearchScreenStatus(false))
 
+
+    // // Call to GOOGLE API to get the Place Details array:
+    
   }
 
 
