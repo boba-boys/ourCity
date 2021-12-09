@@ -25,7 +25,7 @@ const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 
 //We can add pagination so users can skip to a certain item in the carousel without having to swipe continuously.  Below I create a state to store the current pagination index.
 
-const CarouselCards = (props) => {
+const GroupScreen = (props) => {
   const isCarousel = useRef(null);
   const groupStatus = useSelector((state) => state.groupStatus);
   const usersGroups = useSelector((state) => state.groups);
@@ -36,7 +36,7 @@ const CarouselCards = (props) => {
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
   useEffect(() => {
     console.log(
-      "---------------------ComponentDidMount in CarouselCards:--------------------"
+      "---------------------ComponentDidMount in GroupScreen:--------------------"
     );
     dispatch(getGroups(userId));
   }, []);
@@ -118,18 +118,22 @@ const CarouselCards = (props) => {
 
   return (
     <View style={styles.view} /* style={styles.container} */>
-      <Carousel
-        layout='tinder'
-        layoutCardOffset={15}
-        ref={isCarousel}
-        data={usersGroups}
-        renderItem={CarouselCardItem}
-        sliderWidth={SLIDER_WIDTH}
-        itemWidth={ITEM_WIDTH}
-        inactiveSlideShift={0}
-        useScrollView={true}
-      />
-      <CreateGroup />
+      {/* <View style={styles.carouselContainer}> */}
+        <Carousel
+          layout='tinder'
+          layoutCardOffset={15}
+          ref={isCarousel}
+          data={usersGroups}
+          renderItem={CarouselCardItem}
+          sliderWidth={SLIDER_WIDTH}
+          itemWidth={ITEM_WIDTH}
+          inactiveSlideShift={0}
+        // useScrollView={true}
+        />
+      {/* </View> */}
+      {/* <View style={{flex:1}}> */}
+        <CreateGroup />
+      {/* </View> */}
     </View>
   );
 };
@@ -146,20 +150,22 @@ const styles = StyleSheet.create({
   //   //   opacity:100,
   //   //   marginBottom:305,
   // },
-  backgroundScreen: {
-    width: "85%",
-    height: "45%",
-    marginLeft: 30,
-    position: "absolute",
-    justifyContent: "flex-start", // moves the content respective the main axis
-    alignItems: "center",
-    bottom: 50,
-    backgroundColor: "blue",
-  },
+  // backgroundScreen: {
+  //   width: "85%",
+  //   height: "45%",
+  //   marginLeft: 30,
+  //   position: "absolute",
+  //   justifyContent: "flex-start", // moves the content respective the main axis
+  //   alignItems: "center",
+  //   bottom: 50,
+  //   backgroundColor: "blue",
+  // },
   view: {
-    bottom: 1,
-    marginTop: 250,
-    //osition: "absolute",
+    // width: ITEM_WIDTH*9,
+    // height: ITEM_HEIGHT*2,
+    // bottom: 1,
+    // marginTop: 250,
+    // position: "absolute",
   },
   // container: {
   //   width: 350,
@@ -227,4 +233,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CarouselCards;
+export default GroupScreen;

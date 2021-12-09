@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Dimensions,
   Alert,
   TouchableOpacity,
   Pressable,
@@ -30,11 +31,16 @@ import { addTagStatusFunc } from "../../redux/addTagStatus";
 import SearchResultScreen from "./SearchResultsScreen";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 
+const SLIDER_WIDTH = Dimensions.get("window").width;
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
+const SLIDER_HEIGHT = Dimensions.get("window").height;
+const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT);
+
 const HomeScreen = (props) => {
   // Hooks
   const dispatch = useDispatch();
   const mapReference = createRef();
-  
+
   // Redux Store (useSelector is Hook!)
   const userState = useSelector((state) => state.users); // Has all the user info
   const tags = useSelector((state) => state.tags);
@@ -129,6 +135,7 @@ const HomeScreen = (props) => {
   };
 
   return (
+
     <MapView
       onPress={onPressMap}
       provider={PROVIDER_GOOGLE}
@@ -137,6 +144,7 @@ const HomeScreen = (props) => {
       ref={mapReference}
       showUserLocation={true}
     >
+
       <Text style={styles.groupsText} onPress={onPressGroup}>
         {"My Groups"}
       </Text>
@@ -196,6 +204,8 @@ const HomeScreen = (props) => {
 
 const styles = StyleSheet.create({
   map: {
+    width: ITEM_WIDTH,
+    height: ITEM_HEIGHT,
     ...StyleSheet.absoluteFillObject,
   },
   groupsText: {
@@ -227,12 +237,15 @@ const styles = StyleSheet.create({
     // backgroundColor:'red',
   },
   allGroups: {
-    //backgroundColor: "grey",
-    //top: 0,
-    marginTop: 50,
-    bottom: 50,
-    position: "absolute",
-    // backgroundColor: "red",
+    backgroundColor: "grey",
+    // width: ITEM_WIDTH * .8,
+    // height: ITEM_HEIGHT*.3,
+    // // top: 0,
+    // // marginTop: 80,
+    // // bottom: 50,
+    // position: "absolute",
+    // // alignSelf: "center",
+    // flex:1,
   },
   tagContainer: {
     position: "absolute",
@@ -250,11 +263,11 @@ const styles = StyleSheet.create({
     width: "85%",
     //backgroundColor: "red",
   },
-  allGroups: {
+  // allGroups: {
     // backgroundColor:'grey',
-    top: -250,
+    // top: -250,
     // backgroundColor: "red",
-  },
+  // },
 });
 
 export default HomeScreen;
