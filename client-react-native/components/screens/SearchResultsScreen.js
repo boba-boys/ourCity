@@ -71,7 +71,7 @@ const SearchResultScreen = () => {
   };
 
 
- console.log('this is the places array all the way over in the search results screen!!!!',searchResults[0])
+ console.log('this is the places array all the way over in the search results screen!!!',searchResults[0])
  return (
   ( !searchResults) ? <Text>Selected!</Text> :
   <ScrollView style={styles.container} >
