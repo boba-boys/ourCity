@@ -69,7 +69,7 @@ const AllTagsScreen = (props) => {
 
   const handlePressComments = (tagId) => {
     // Will have to build an individual component to display the comments
-    // dispatch(getStatus(CarouselStatus));
+    // dispatch(getStatus(groupStatus));
   };
 
   const onCarouselItemChange = (index) => {

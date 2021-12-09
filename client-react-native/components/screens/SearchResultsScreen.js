@@ -14,10 +14,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addTagStatusFunc } from "../../redux/addTagStatus";
-import { getStatus } from "../../redux/carouselStatus";
-import { getTags } from "../../redux/tags";
-import { setSearchOnState } from "../../redux/searchResultsOnState";
 import { getSearchOnState } from "../../redux/pressedSearch";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 import { setPhotoOnState } from "../../redux/setPhotoOnState";

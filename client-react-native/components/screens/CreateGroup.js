@@ -14,7 +14,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { getStatus } from "../../redux/carouselStatus";
+import { getGroupStatus } from "../../redux/groupStatus";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -25,7 +25,7 @@ const CreateGroup = () => {
   const userId = useSelector((state) => state.users.id);
   const dispatch = useDispatch();
 
-  const CarouselStatus = useSelector((state) => state.carouselStatus);
+  const groupStatus = useSelector((state) => state.groupStatus);
 
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
@@ -44,7 +44,7 @@ const CreateGroup = () => {
         userId: userId,
       }
     );
-    dispatch(getStatus(CarouselStatus));
+    dispatch(getGroupStatus(groupStatus));
   };
 
   return (
