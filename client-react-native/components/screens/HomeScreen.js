@@ -36,6 +36,7 @@ import axios from "axios";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
 import hoverTags from "../../redux/tagHover";
 import SearchResultScreen from "./SearchResultsScreen";
+import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 
 const HomeScreen = (props) => {
   // React Hooks
@@ -54,6 +55,11 @@ const HomeScreen = (props) => {
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
   const hoverTag = useSelector((state) => state.hoverTag);
+
+
+
+
+  const createGroupStatus = useSelector((state) => state.createGroupStatus);
 
 
   // Local State
@@ -114,10 +120,12 @@ const HomeScreen = (props) => {
     }
     // Notice that this is always called when we interact with the map!!
     // setMenuStatus(false);
-    // dispatch(getStatus(true));
-    // dispatch(getAllTagsScreenStatus(true));
-    // dispatch(getTagScreenStatus(true));
-    // setCreateGroupStatus(false);
+    //  dispatch(getStatus(true));
+    //  dispatch(getAllTagsScreenStatus(true));
+    //  dispatch(getTagScreenStatus(true));
+     dispatch(setSearchScreenStatus(true))
+    //  setCreateGroupStatus(false);
+
   };
 
   const onPressTag = (tagId) => {
