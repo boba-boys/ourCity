@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import {
   View,
@@ -15,9 +13,8 @@ import CustomInput from "../CustomInput";
 import SocialSignInButtons from "../SocialSignInButtons/SocialSignInButtons";
 import { useNavigation } from "@react-navigation/core";
 import axios from "axios";
-import { loadUserToState } from '../../redux/user'
-import { useDispatch } from 'react-redux'
-
+import { loadUserToState } from "../../redux/user";
+import { useDispatch } from "react-redux";
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -40,11 +37,10 @@ const SignUpScreen = () => {
     );
 
     if (user.data.createdAt) {
-      dispatch(loadUserToState(email))
+      dispatch(loadUserToState(email));
       navigation.navigate("Home");
     } else {
       alert(`${user.data}...Perhaps you already have an account?`);
-
     }
   };
 
@@ -66,6 +62,7 @@ const SignUpScreen = () => {
           placeholder='email'
           name='email'
           autoCapitalize='none'
+          keyboardType='email-address'
           value={email}
           onChangeText={(email) => setEmail(email)}
         />

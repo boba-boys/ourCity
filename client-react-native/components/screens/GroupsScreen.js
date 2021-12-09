@@ -101,6 +101,7 @@ const CarouselCards = (props) => {
           name='email'
           autoCapitalize='none'
           value={email}
+          keyboardType='email-address'
           onChangeText={(email) => setEmail(email)}
         />
         <Button title='Add to Group' onPress={() => onAddToGroup(item.id)} />
