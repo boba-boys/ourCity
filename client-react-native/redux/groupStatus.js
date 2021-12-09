@@ -11,7 +11,7 @@ const _gotCarouselStatus = (status) => {
 };
 
 // thunks
-export const getStatus = (currentStatus) => async (dispatch) => {
+export const getGroupStatus = (currentStatus) => async (dispatch) => {
   try {
     let newStatus=!currentStatus;
     dispatch(_gotCarouselStatus(newStatus));
@@ -22,7 +22,7 @@ export const getStatus = (currentStatus) => async (dispatch) => {
 };
 
 // Reducer
-export default function carouselStatus(state = false, action) {
+export default function groupStatus(state = false, action) {
   switch (action.type) {
     case GOT_CAROUSEL_STATUS:
       return action.carouselState;

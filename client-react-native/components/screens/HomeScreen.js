@@ -1,7 +1,4 @@
-import { CurrentRenderContext } from "@react-navigation/core";
-import { StatusBar } from "expo-status-bar";
 import React, {
-  Component,
   createRef,
   useEffect,
   useRef,
@@ -11,7 +8,6 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   Alert,
   TouchableOpacity,
   Pressable,
@@ -19,42 +15,35 @@ import {
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
 import { getAllTagsScreenStatus } from "../../redux/allTagsScreenStatus";
-import { getStatus } from "../../redux/carouselStatus";
+import { getGroupStatus } from "../../redux/groupStatus";
 import { getGroups } from "../../redux/groups";
 import { getTags } from "../../redux/tags";
 import Menu from "./Menu";
 import { MaterialIcons } from "@expo/vector-icons";
-import CreateGroup from "./CreateGroup";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
-import { getGroupStatus } from "../../redux/groups";
 import { addTagCoordinatesFunc } from "../../redux/TagCoordinates";
 import AllTagsScreen from "./AllTagsScreen";
-import CarouselCards from "./GroupsScreen";
+import GroupsScreen from "./GroupsScreen";
 import TagScreen from "./SingleTagScreen";
 import CreateTag from "./CreateTag";
-import axios from "axios";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
 import SearchResultScreen from "./SearchResultsScreen";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 
 const HomeScreen = (props) => {
-  const userState = useSelector((state) => state.users);
-
+  // Hooks
   const dispatch = useDispatch();
   const mapReference = createRef();
-
+  
   // Redux Store (useSelector is Hook!)
+  const userState = useSelector((state) => state.users); // Has all the user info
   const tags = useSelector((state) => state.tags);
-  const CarouselStatus = useSelector((state) => state.carouselStatus);
+  const groupStatus = useSelector((state) => state.groupStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const addTagsStatus = useSelector((state) => state.addTagsStatus);
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
-
-
-
-  const createGroupStatus = useSelector((state) => state.createGroupStatus);
 
   // Local State
   const [menuStatus, setMenuStatus] = useState(false);
@@ -69,10 +58,8 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-    dispatch(getStatus(CarouselStatus));
-
-    console.log("USer State", userState);
-
+    dispatch(getGroupStatus(groupStatus));
+    // console.log("USer State", userState);
     dispatch(getTags(groupId)); //Hard coded groupId <--might have to be this way
     dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, []);
@@ -84,10 +71,10 @@ const HomeScreen = (props) => {
   const onPressGroup = () => {
     console.log(
       "Inside onPressGroup before pressing the Group text: ",
-      CarouselStatus
+      groupStatus
     );
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    dispatch(getStatus(CarouselStatus));
+    dispatch(getGroupStatus(groupStatus));
   };
 
   const onPressMap = async (event) => {
@@ -113,7 +100,7 @@ const HomeScreen = (props) => {
     }
     // Notice that this is always called when we interact with the map!!
     // setMenuStatus(false);
-    //  dispatch(getStatus(true));
+    //  dispatch(getGroupStatus(true));
     //  dispatch(getAllTagsScreenStatus(true));
     //  dispatch(getTagScreenStatus(true));
      dispatch(setSearchScreenStatus(true))
@@ -122,10 +109,10 @@ const HomeScreen = (props) => {
   };
 
   const onPressTag = (tagId) => {
-    console.log(
-      "Inside onPressTag before pressing the Marker/Tag: ",
-      tagScreenStatus
-    );
+    // console.log(
+    //   "Inside onPressTag before pressing the Marker/Tag: ",
+    //   tagScreenStatus
+    // );
     // console.log('This trigers when pressed: ', event.nativeEvent);
     //dispatch(addTagStatusFunc(true));
     dispatch(getTagScreenStatus(tagScreenStatus));
@@ -157,7 +144,7 @@ const HomeScreen = (props) => {
         {"All Places"}
       </Text>
       <View style={styles.allGroups}>
-        {CarouselStatus == true ? <CarouselCards /> : null}
+        {groupStatus == true ? <GroupsScreen /> : null}
       </View>
       <View>
         {menuStatus === true ? <Menu style={{ position: "absolute" }} /> : null}
