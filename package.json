@@ -1,3 +1,0 @@
-"scripts"{
- "start": "cd client-react-native & npm install & npm run start"
-}
