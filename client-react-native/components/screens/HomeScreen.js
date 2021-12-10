@@ -142,7 +142,7 @@ const HomeScreen = (props) => {
     >
 
       <Text style={styles.groupsText} onPress={onPressGroup}>
-        {"My Groups"}
+        {"Groups"}
       </Text>
       <Text style={styles.allPlacesText} onPress={onPressAllTags}>
         {"All Places"}
