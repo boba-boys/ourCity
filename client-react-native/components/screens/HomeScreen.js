@@ -64,6 +64,7 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
+    console.log('This is the groupId inside HomeScreen ----ComponentDidMount:', groupId)
     dispatch(getGroupStatus(groupStatus));
     // console.log("USer State", userState);
     dispatch(getTags(groupId)); //Hard coded groupId <--might have to be this way
@@ -74,11 +75,16 @@ const HomeScreen = (props) => {
     dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, [userState]);
 
+  useEffect(() => {
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@ComponentDidUpdate inde HomeScreen@@@@@@@@@@@@', groupId)
+    dispatch(getTags(groupId));
+  }, [groupId]);
+
   const onPressGroup = () => {
-    console.log(
-      "Inside onPressGroup before pressing the Group text: ",
-      groupStatus
-    );
+    // console.log(
+    //   "Inside onPressGroup before pressing the Group text: ",
+    //   groupStatus
+    // );
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
     dispatch(getGroupStatus(groupStatus));
   };
@@ -109,7 +115,7 @@ const HomeScreen = (props) => {
     //  dispatch(getGroupStatus(true));
     //  dispatch(getAllTagsScreenStatus(true));
     //  dispatch(getTagScreenStatus(true));
-     dispatch(setSearchScreenStatus(true))
+    dispatch(setSearchScreenStatus(true))
     //  setCreateGroupStatus(false);
 
   };
@@ -239,7 +245,7 @@ const styles = StyleSheet.create({
   allGroups: {
     // backgroundColor: "grey",
     width: '74%',
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center',
     // height: '70%',
     // // top: 0,
@@ -266,9 +272,9 @@ const styles = StyleSheet.create({
     //backgroundColor: "red",
   },
   // allGroups: {
-    // backgroundColor:'grey',
-    // top: -250,
-    // backgroundColor: "red",
+  // backgroundColor:'grey',
+  // top: -250,
+  // backgroundColor: "red",
   // },
 });
 

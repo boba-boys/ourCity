@@ -16,7 +16,9 @@ import { getGroupStatus } from "../../redux/groupStatus";
 import { getTags } from "../../redux/tags";
 import axios from "axios";
 import CreateGroup from "./CreateGroup";
+import { _setGroupIndexOnState } from "../../redux/groupIndexState";
 import { _setGroupIdOnState } from "../../redux/groupState";
+
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -27,11 +29,15 @@ const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 
 const GroupScreen = (props) => {
   const isCarousel = useRef(null);
+  const dispatch = useDispatch();
+
   const groupStatus = useSelector((state) => state.groupStatus);
   const usersGroups = useSelector((state) => state.groups);
-  const dispatch = useDispatch();
   const userId = useSelector((state) => state.users.id);
+  const indexOfSelectedGroup = useSelector((state) => state.setGroupIndexOnState);
+
   const [email, setEmail] = useState("");
+  // const [indexOfSelectedGroup, setIndexOfSelectedGroup] = useState(0);
 
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
   useEffect(() => {
@@ -88,11 +94,11 @@ const GroupScreen = (props) => {
         <Image source={{ uri: item.imageUrl }} style={styles.image} />
         <Separator />
 
-        <Text style={styles.header} onPress={() => handlePress(item.id)}>
+        <Text style={styles.header} onPress={() => handlePress(item.id, index)}>
           {item.name}
         </Text>
         <Separator />
-        <Text style={styles.body} onPress={() => handlePress(item.id)}>
+        <Text style={styles.body} onPress={() => handlePress(item.id, index)}>
           {item.body}
         </Text>
         <Separator />
@@ -111,12 +117,16 @@ const GroupScreen = (props) => {
     );
   };
 
-  const handlePress = (groupId) => {
+  const handlePress = (groupId, index) => {
+    console.log('Thiis the index when pressed the carousel ', index);
+    console.log('Thiis the GROUPID when pressed the carousel ', groupId);
+    dispatch(_setGroupIndexOnState(index));
     dispatch(_setGroupIdOnState(groupId));
     dispatch(getGroupStatus(groupStatus));
     dispatch(getTags(groupId));
+    // setIndexOfSelectedGroup(index)
   };
-
+  // console.log('Thiis the index of the slected group', indexOfSelectedGroup);
   return (
     <View style={styles.view} /* style={styles.container} */>
       <View style={styles.carouselContainer}>
@@ -129,7 +139,8 @@ const GroupScreen = (props) => {
           sliderWidth={SLIDER_WIDTH}
           itemWidth={ITEM_WIDTH}
           inactiveSlideShift={0}
-          // contentContainerCustomStyle={{marginRight: 20,}}
+          firstItem={indexOfSelectedGroup}
+          // loop
           useScrollView={true}
         />
       </View>
@@ -166,7 +177,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.75,
     shadowRadius: 4.65,
     elevation: 7,
-    bottom: 0,
+    // bottom: 0,
   },
   image: {
     width: ITEM_WIDTH,
@@ -182,7 +193,7 @@ const styles = StyleSheet.create({
     color: "#222",
     fontSize: 18,
     alignSelf: "center",
-    width: ITEM_WIDTH - 20,
+    // width: ITEM_WIDTH - 20,
   },
   separator: {
     marginVertical: 8,
