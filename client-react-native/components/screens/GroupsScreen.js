@@ -88,7 +88,7 @@ const GroupScreen = (props) => {
     return (
       <ScrollView style={styles.container} key={item.id}>
         <View>
-          <Text style={styles.headerGroup}>Groups:</Text>
+          <Text style={styles.headerGroup}>Select a group:</Text>
         </View>
         <Separator />
         <Image source={{ uri: item.imageUrl }} style={styles.image} />
@@ -102,6 +102,9 @@ const GroupScreen = (props) => {
           {item.body}
         </Text>
         <Separator />
+        <View>
+          <Text style={styles.headerGroup}>Add to group:</Text>
+        </View>
         <TextInput
           style={styles.input}
           placeholder={`Put your friend's email here!`}
@@ -166,6 +169,8 @@ const styles = StyleSheet.create({
     // width: ITEM_WIDTH, // This fixes the background but moves the carousel
   },
   container: {
+    borderColor:'black',
+    borderWidth: .5,
     backgroundColor: "white",
     borderRadius: 8,
     width: ITEM_WIDTH,

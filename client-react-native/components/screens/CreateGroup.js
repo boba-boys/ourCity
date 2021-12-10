@@ -90,6 +90,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginTop: 20,
+    borderWidth: .5,
+    borderColor: 'black'
     // height: "70%",
   },
   title: {
@@ -97,6 +99,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     textAlign: "center",
+
   },
   input: {
     borderBottomColor: "#bbb",
@@ -108,11 +111,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#4286f4",
     padding: 10,
     marginTop: 10,
+    borderWidth: .5,
+    borderColor: 'black',
+    borderRadius: 9,
+    width: 150,
+    alignSelf: "center",
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
+
   },
 });
 

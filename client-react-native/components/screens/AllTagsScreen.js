@@ -48,6 +48,16 @@ const AllTagsScreen = (props) => {
           <Text style={styles.tagName}>{item.name}</Text>
         </View>
         <Separator />
+        <Separator />
+        <View>
+          <Text style={styles.tagAddy}>{item.address}</Text>
+        </View>
+        <Separator />
+        <Separator />
+        <View>
+          <Text style={styles.tagAddy}>{item.phoneNumber}</Text>
+        </View>
+        <Separator />
         <View>
           <Button
             style={styles.body}
@@ -113,6 +123,9 @@ const styles = StyleSheet.create({
   // },
   container: {
     backgroundColor: "white",
+    borderWidth: .5,
+    borderColor: 'black',
+
     borderRadius: 8,
     width: ITEM_WIDTH,
     height: ITEM_HEIGHT,
@@ -163,6 +176,12 @@ const styles = StyleSheet.create({
     borderBottomColor: "#737373",
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
+  tagAddy:{
+    color: "#222",
+    fontSize: 15,
+
+    alignSelf: "center",
+  }
 });
 
 export default AllTagsScreen;
