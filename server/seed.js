@@ -11,10 +11,6 @@ const {
 
 const dummyUsers = [
   {
-    email: "nonadmin@gmail.com",
-    password: "123",
-  },
-  {
     email: "brad@gmail.com",
     password: "123",
     isAdmin: true,
@@ -87,77 +83,82 @@ const dummyGroups = [
     imageUrl: "https://cdn.vox-cdn.com/thumbor/Odg9mBuKUScF3_K4sgVuEzYrFi0=/0x0:1050x700/1200x900/filters:focal(441x266:609x434)/cdn.vox-cdn.com/uploads/chorus_image/image/55983431/18209165_10155411067543606_7677092082494155012_o.0.jpg",
   },
   {
-    name: "Best Rooftop Bars",
+    name: "Summertime Rooftop Bars",
     body: "Check out New York City's finest rooftop bars this summer",
     imageUrl: "https://i.pinimg.com/originals/31/51/17/315117520e1df7b5583a828bf0774c7b.jpg",
   },
+  {
+    name: "Nightlife",
+    body: "The ultimate list of the BEST spots to go out!",
+    imageUrl: "https://images.squarespace-cdn.com/content/v1/597a8b3920099e0bff668154/1547504701847-YAORVBL8RFU2LP0VKIZI/DRAKE_BROOKLYNMIRAGE-5816.jpg",
+  },
 ];
 
-const dummyComments = [
-  {
-    tagId: 1,
-    userId: 2,
-    groupId: 1,
-    description: "I don't go to mcdonalds",
-    rating: 1,
-  },
-  {
-    tagId: 1,
-    userId: 3,
-    groupId: 1,
-    description: "I love the big macs here",
-    rating: 5,
-  },
-  {
-    tagId: 1,
-    userId: 4,
-    groupId: 1,
-    description: "I love fries",
-    rating: 2,
-  },
-  {
-    tagId: 1,
-    userId: 5,
-    groupId: 1,
-    description: "I like the fast service",
-    rating: 4,
-  },
-  {
-    tagId: 1,
-    userId: 1,
-    groupId: 2,
-    description: "I like soda",
-    rating: 2,
-  },
-  {
-    tagId: 2,
-    userId: 1,
-    groupId: 2,
-    description: "I like the nuggets",
-    rating: 4,
-  },
-  {
-    tagId: 3,
-    userId: 2,
-    groupId: 1,
-    description: "I don't go to mcdonalds",
-    rating: 1,
-  },
-  {
-    tagId: 4,
-    userId: 2,
-    groupId: 1,
-    description: "I don't go to mcdonalds",
-    rating: 1,
-  },
-  {
-    tagId: 5,
-    userId: 2,
-    groupId: 1,
-    description: "I don't go to mcdonalds",
-    rating: 1,
-  },
-];
+// const dummyComments = [
+//   {
+//     tagId: 1,
+//     userId: 2,
+//     groupId: 1,
+//     description: "",
+//     rating: 1,
+//   },
+//   {
+//     tagId: 1,
+//     userId: 3,
+//     groupId: 1,
+//     description: "I love the big macs here",
+//     rating: 5,
+//   },
+//   {
+//     tagId: 1,
+//     userId: 4,
+//     groupId: 1,
+//     description: "I love fries",
+//     rating: 2,
+//   },
+//   {
+//     tagId: 1,
+//     userId: 5,
+//     groupId: 1,
+//     description: "I like the fast service",
+//     rating: 4,
+//   },
+//   {
+//     tagId: 1,
+//     userId: 1,
+//     groupId: 2,
+//     description: "I like soda",
+//     rating: 2,
+//   },
+//   {
+//     tagId: 2,
+//     userId: 1,
+//     groupId: 2,
+//     description: "I like the nuggets",
+//     rating: 4,
+//   },
+//   {
+//     tagId: 3,
+//     userId: 2,
+//     groupId: 1,
+//     description: "I don't go to mcdonalds",
+//     rating: 1,
+//   },
+//   {
+//     tagId: 4,
+//     userId: 2,
+//     groupId: 1,
+//     description: "I don't go to mcdonalds",
+//     rating: 1,
+//   },
+//   {
+//     tagId: 5,
+//     userId: 2,
+//     groupId: 1,
+//     description: "I don't go to mcdonalds",
+//     rating: 1,
+//   },
+// ];
 
 const seed = async () => {
   try {
@@ -182,11 +183,11 @@ const seed = async () => {
       })
     );
 
-    let comments = await Promise.all(
-      dummyComments.map((comment) => {
-        return Comment.create(comment);
-      })
-    );
+    // let comments = await Promise.all(
+    //   dummyComments.map((comment) => {
+    //     return Comment.create(comment);
+    //   })
+    // );
 
     console.log("Database synced!");
     console.log(`seeded successfully`);
