@@ -1,9 +1,4 @@
-import React, {
-  createRef,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -109,7 +104,7 @@ const HomeScreen = (props) => {
       dispatch(addTagStatusFunc(addTagsStatus));
       dispatch(addTagCoordinatesFunc(coordinates));
     }
-    dispatch(setSearchScreenStatus(true))
+    dispatch(setSearchScreenStatus(true));
   };
 
   const onPressTag = (tagId) => {
@@ -131,7 +126,6 @@ const HomeScreen = (props) => {
   };
 
   return (
-
     <MapView
       onPress={onPressMap}
       provider={PROVIDER_GOOGLE}
@@ -140,9 +134,8 @@ const HomeScreen = (props) => {
       ref={mapReference}
       showUserLocation={true}
     >
-
       <Text style={styles.groupsText} onPress={onPressGroup}>
-        {"My Groups"}
+        {"Groups"}
       </Text>
       <Text style={styles.allPlacesText} onPress={onPressAllTags}>
         {"All Places"}
@@ -230,9 +223,9 @@ const styles = StyleSheet.create({
   },
   allGroups: {
     // backgroundColor: "grey",
-    width: '74%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    width: "74%",
+    justifyContent: "space-between",
+    alignItems: "center",
     alignSelf: "center",
   },
   tagContainer: {
