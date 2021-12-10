@@ -95,6 +95,7 @@ const GroupScreen = (props) => {
         <Text style={styles.body} onPress={() => handlePress(item.id)}>
           {item.body}
         </Text>
+        <Separator />
         <TextInput
           style={styles.input}
           placeholder={`Put your friend's email here!`}
@@ -105,7 +106,7 @@ const GroupScreen = (props) => {
           onChangeText={(email) => setEmail(email)}
         />
         <Button title='Add to Group' onPress={() => onAddToGroup(item.id)} />
-        <Button title='Leave Group' onPress={() => handleDelete(item.id)} />
+        <Button title='Leave Group' color='red' onPress={() => handleDelete(item.id)} />
       </ScrollView>
     );
   };
@@ -118,7 +119,7 @@ const GroupScreen = (props) => {
 
   return (
     <View style={styles.view} /* style={styles.container} */>
-      {/* <View style={styles.carouselContainer}> */}
+      <View style={styles.carouselContainer}>
         <Carousel
           layout='tinder'
           layoutCardOffset={15}
@@ -128,59 +129,35 @@ const GroupScreen = (props) => {
           sliderWidth={SLIDER_WIDTH}
           itemWidth={ITEM_WIDTH}
           inactiveSlideShift={0}
-        // useScrollView={true}
+          // contentContainerCustomStyle={{marginRight: 20,}}
+          useScrollView={true}
         />
-      {/* </View> */}
-      {/* <View style={{flex:1}}> */}
+      </View>
+      <View >
         <CreateGroup />
-      {/* </View> */}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   //   width: 350,
-  //   //   height: 400,
-  //   backgroundColor: 'white',
-  //   //   alignItems: 'center',
-  //   //   justifyContent: 'center',
-  //   //   padding: 25,
-  //   //   opacity:100,
-  //   //   marginBottom:305,
-  // },
-  // backgroundScreen: {
-  //   width: "85%",
-  //   height: "45%",
-  //   marginLeft: 30,
-  //   position: "absolute",
-  //   justifyContent: "flex-start", // moves the content respective the main axis
-  //   alignItems: "center",
-  //   bottom: 50,
-  //   backgroundColor: "blue",
-  // },
   view: {
-    // width: ITEM_WIDTH*9,
-    // height: ITEM_HEIGHT*2,
-    // bottom: 1,
-    // marginTop: 250,
-    // position: "absolute",
+    width: ITEM_WIDTH,
+    height: '66%',
+    justifyContent: 'space-between',
+    // backgroundColor: 'green',
   },
-  // container: {
-  //   width: 350,
-  //   height: 460,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   padding: 0,
-  //   opacity: 100,
-  //   marginBottom: 0,
-  // },
+  carouselContainer: {
+    marginTop: 5,
+    height: '90%',
+    // backgroundColor: 'red',
+    alignSelf: 'center',
+    // width: ITEM_WIDTH, // This fixes the background but moves the carousel
+  },
   container: {
     backgroundColor: "white",
     borderRadius: 8,
     width: ITEM_WIDTH,
-    height: ITEM_HEIGHT,
     shadowColor: "black",
     shadowOffset: {
       width: 0,
@@ -204,7 +181,6 @@ const styles = StyleSheet.create({
   body: {
     color: "#222",
     fontSize: 18,
-    //alignSelf: "flex-start",
     alignSelf: "center",
     width: ITEM_WIDTH - 20,
   },
@@ -228,7 +204,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    //margin: 15,
     alignSelf: "center",
   },
 });

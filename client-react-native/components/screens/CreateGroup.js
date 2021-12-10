@@ -53,7 +53,7 @@ const CreateGroup = () => {
     //   //behavior={Platform.OS === "ios" ? "padding" : "height"}
     // >
     <ScrollView style={styles.container}>
-      <View style={styles.form}>
+      <View >
         <Text style={styles.title}>Create a Group</Text>
         <TextInput
           style={styles.input}
@@ -84,32 +84,19 @@ const CreateGroup = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     backgroundColor: "#fff",
-    width: ITEM_WIDTH,
-    height: ITEM_HEIGHT*.8,
-    // marginLeft: 30,
-    alignSelf: "center",
-    padding: 20,
+    // width: '100%',
+    // alignSelf: "center",
+    padding: 10,
     borderRadius: 10,
-    // shadowColor: "black",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 3,
-    // },
-    // shadowOpacity: 0.75,
-    // shadowRadius: 4.65,
-    elevation: 7,
     marginTop: 20,
-    //height: "50%",
-  },
-  form: {
-    // margin: 20,
+    // height: "70%",
   },
   title: {
     fontSize: 25,
     fontWeight: "bold",
     marginBottom: 10,
+    textAlign: "center",
   },
   input: {
     borderBottomColor: "#bbb",
