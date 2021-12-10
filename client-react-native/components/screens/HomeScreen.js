@@ -105,7 +105,7 @@ const HomeScreen = (props) => {
       }
     });
     if (isTag.length === 0) {
-      console.log("inside of if(tag.length) HomeScreen", isTag.length);
+      // console.log("inside of if(tag.length) HomeScreen", isTag.length);
       dispatch(addTagStatusFunc(addTagsStatus));
       dispatch(addTagCoordinatesFunc(coordinates));
     }

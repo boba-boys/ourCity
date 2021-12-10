@@ -38,16 +38,16 @@ const TagScreen = (props) => {
   // console.log('This is the passed tag inside TAG_SCREEN:', props.tagId);
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
   useEffect(() => {
-    console.log(
-      "---------------------ComponentDidMount in SingleTagScreen :--------------------"
-    );
+    // console.log(
+    //   "---------------------ComponentDidMount in SingleTagScreen :--------------------"
+    // );
     dispatch(getTagDetails(props.tagId)); // tagId to render
   }, []);
 
   const Separator = () => <View style={styles.separator} />;
 
   const CarouselCardItem = ({ index, item }) => {
-    console.log('this is the item', item)
+    // console.log('this is the item', item)
 
     return (
       <View style={styles.container} key={item.id}>

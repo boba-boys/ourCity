@@ -118,8 +118,8 @@ const GroupScreen = (props) => {
   };
 
   const handlePress = (groupId, index) => {
-    console.log('Thiis the index when pressed the carousel ', index);
-    console.log('Thiis the GROUPID when pressed the carousel ', groupId);
+    // console.log('Thiis the index when pressed the carousel ', index);
+    // console.log('Thiis the GROUPID when pressed the carousel ', groupId);
     dispatch(_setGroupIndexOnState(index));
     dispatch(_setGroupIdOnState(groupId));
     dispatch(getGroupStatus(groupStatus));
