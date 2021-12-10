@@ -20,7 +20,8 @@
       "supportsTablet": true,
       "config": {
         "googleMapsApiKey": "AIzaSyDFz_fWvKyV8hbC0tzTUbQDlCf91VvercI"
-      }
+      },
+      "bundleIdentifier": "com.chaseholt.myCityExpo"
     },
     "android": {
       "adaptiveIcon": {
