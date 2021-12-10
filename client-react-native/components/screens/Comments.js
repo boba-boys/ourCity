@@ -35,7 +35,7 @@ const Comments = (props) => {
 
   const dispatch = useDispatch();
 
-  // console.log("Comments from the global store in CommentScreen", comments);
+  console.log("Comments from the global store in CommentScreen", comments);
 
   useEffect(() => {
     dispatch(getComments({ tagId, groupId }));
@@ -123,9 +123,9 @@ const Comments = (props) => {
                     </View>
                   </View>
                   <View style={styles.rightContainer}>
-                    <Text style={styles.time}>
+                    {/* <Text style={styles.time}>
                       {(comment.createdAt)}
-                    </Text>
+                    </Text> */}
                     {(user.id === comment.userIdWhoCommented) ? (
                       <Text
                         style={{ color: "red" }}
@@ -225,10 +225,13 @@ const styles = {
     width: "72%",
   },
   profilePicture: {
+    marginLeft: 5,
     width: 50,
     height: 50,
     borderRadius: 50,
+    borderWidth: 0.5,
     marginRight: 15,
+    borderColor: 'grey'
   },
   username: {
     fontWeight: "bold",
