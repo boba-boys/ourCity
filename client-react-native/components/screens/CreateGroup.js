@@ -14,7 +14,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { getStatus } from "../../redux/carouselStatus";
+import { getGroupStatus } from "../../redux/groupStatus";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -25,7 +25,7 @@ const CreateGroup = () => {
   const userId = useSelector((state) => state.users.id);
   const dispatch = useDispatch();
 
-  const CarouselStatus = useSelector((state) => state.carouselStatus);
+  const groupStatus = useSelector((state) => state.groupStatus);
 
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
@@ -44,7 +44,7 @@ const CreateGroup = () => {
         userId: userId,
       }
     );
-    dispatch(getStatus(CarouselStatus));
+    dispatch(getGroupStatus(groupStatus));
   };
 
   return (
@@ -53,7 +53,7 @@ const CreateGroup = () => {
     //   //behavior={Platform.OS === "ios" ? "padding" : "height"}
     // >
     <ScrollView style={styles.container}>
-      <View style={styles.form}>
+      <View >
         <Text style={styles.title}>Create a Group</Text>
         <TextInput
           style={styles.input}
@@ -84,32 +84,22 @@ const CreateGroup = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     backgroundColor: "#fff",
-    width: ITEM_WIDTH,
-    height: ITEM_HEIGHT,
-    //marginLeft: 30,
-    alignSelf: "center",
-    padding: 20,
+    // width: '100%',
+    // alignSelf: "center",
+    padding: 10,
     borderRadius: 10,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.75,
-    shadowRadius: 4.65,
-    elevation: 7,
     marginTop: 20,
-    //height: "50%",
-  },
-  form: {
-    margin: 20,
+    borderWidth: .5,
+    borderColor: 'black'
+    // height: "70%",
   },
   title: {
     fontSize: 25,
     fontWeight: "bold",
     marginBottom: 10,
+    textAlign: "center",
+
   },
   input: {
     borderBottomColor: "#bbb",
@@ -121,11 +111,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#4286f4",
     padding: 10,
     marginTop: 10,
+    borderWidth: .5,
+    borderColor: 'black',
+    borderRadius: 9,
+    width: 150,
+    alignSelf: "center",
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
+
   },
 });
 

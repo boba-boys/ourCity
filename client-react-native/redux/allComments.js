@@ -14,11 +14,11 @@ const _gotComments = (comments) => {
 // thunks
 export const getComments = ({groupId, tagId}) => async (dispatch) => {
     try {
-        console.log(tagId,groupId,'-----------------');
+        // console.log(tagId,groupId,'-----------------');
         const response = await axios.get(
             `https://my-city-server.herokuapp.com/api/tags/comments/${tagId}/${groupId}`
         );
-        console.log("Comments from the server store in allComment", response.data);
+        // console.log("Comments from the server store in allComment", response.data);
         const refinedComments = response.data.map((comment) => {
             return {
                 id: comment.id,

@@ -8,6 +8,7 @@ import {
   Image,
   Button,
   ScrollView,
+  TouchableWithoutFeedbackBase,
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getTagDetails } from "../../redux/tagDetails";
@@ -38,29 +39,25 @@ const TagScreen = (props) => {
   // console.log('This is the passed tag inside TAG_SCREEN:', props.tagId);
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
   useEffect(() => {
-    console.log(
-      "---------------------ComponentDidMount in SingleTagScreen :--------------------"
-    );
+    // console.log(
+    //   "---------------------ComponentDidMount in SingleTagScreen :--------------------"
+    // );
     dispatch(getTagDetails(props.tagId)); // tagId to render
   }, []);
 
   const Separator = () => <View style={styles.separator} />;
 
   const CarouselCardItem = ({ index, item }) => {
-    console.log('this is the item', item)
+    // console.log('this is the item', item)
 
     return (
       <View style={styles.container} key={item.id}>
-        <View>
-          <Text style={styles.header}>Place Details:</Text>
-        </View>
-        <Separator />
+
         <View>
           <Image
             source={{ uri: item.imageUrl }}
             style={styles.image}
           />
-          {/*This images should come from the Google API places */}
         </View>
         <Separator />
         <View>
@@ -74,9 +71,9 @@ const TagScreen = (props) => {
             "No comments yet... Perhaps I should go..."
           )}
         </View>
-        <Separator />
+        {/* <Separator /> */}
         <View>
-          <Button color={"#9B2F2F"} title='Close' onPress={handlePressClose} />
+          <Button style = {styles.buttonClose} color={"#9B2F2F"} title='Close' onPress={handlePressClose} />
         </View>
       </View>
     );
@@ -105,6 +102,8 @@ const TagScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
+    borderColor:'black',
+    borderWidth: .5,
     backgroundColor: "white",
     borderRadius: 8,
     width: ITEM_WIDTH,
@@ -116,18 +115,12 @@ const styles = StyleSheet.create({
       height: 3,
     },
     shadowOpacity: 0.75,
-    shadowRadius: 4.65,
+    shadowRadius: 6.65,
     elevation: 7,
   },
   image: {
     width: ITEM_WIDTH,
-    height: 125,
-  },
-  header: {
-    color: "#222",
-    fontSize: 20,
-    alignSelf: "center",
-    fontWeight: "bold",
+    height: 130,
   },
   tagName: {
     color: "#222",
@@ -136,11 +129,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   commentSection: {
-    // backgroundColor: "green",
+    marginTop: -10,
     flex: 1,
   },
   separator: {
-    marginVertical: 8,
+    marginVertical: 0,
     borderBottomColor: "black",
     borderBottomWidth: 1.5,
   },

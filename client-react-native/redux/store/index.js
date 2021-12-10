@@ -4,10 +4,8 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import tags from '../tags'
 import groups from '../groups'
-
 import users from '../user';
-
-import carouselStatus from '../carouselStatus';
+import groupStatus from '../groupStatus';
 import tagScreenStatus from '../tagScreenStatus';
 import tagDetails from '../tagDetails';
 import allTagsScreenStatus from '../allTagsScreenStatus';
@@ -20,6 +18,8 @@ import setPressedSearchResultsOnState from '../pressedSearch';
 import allComments from '../allComments';
 import setPhotoOnStateReducer from '../setPhotoOnState';
 import setPlacesArrayOnStateReducer from '../setPlacesArrayOnState'
+import setGroupIndexOnState from '../groupIndexState';
+import setSearchResultsPhotosArrayOnStateReducer from '../setSearchResultPhotosOnState'
 
 
 const reducer= combineReducers({
@@ -27,11 +27,13 @@ const reducer= combineReducers({
     tagDetails,
     groups,
     setPhotoOnStateReducer,
-    carouselStatus,
+    setSearchResultsPhotosArrayOnStateReducer,
+    groupStatus,
     setPlacesArrayOnStateReducer,
     addTagsStatus,
     addTagCoordinates,
     setGroupIdOnState,
+    setGroupIndexOnState,
     users,
     setSearchResultsOnState,
     searchScreenStatus,

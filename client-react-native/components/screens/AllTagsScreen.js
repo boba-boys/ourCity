@@ -48,6 +48,16 @@ const AllTagsScreen = (props) => {
           <Text style={styles.tagName}>{item.name}</Text>
         </View>
         <Separator />
+        <Separator />
+        <View>
+          <Text style={styles.tagAddy}>{item.address}</Text>
+        </View>
+        <Separator />
+        <Separator />
+        <View>
+          <Text style={styles.tagAddy}>{item.phoneNumber}</Text>
+        </View>
+        <Separator />
         <View>
           <Button
             style={styles.body}
@@ -58,7 +68,7 @@ const AllTagsScreen = (props) => {
         </View>
         <Separator />
         <View>
-          <Button color={"#9B2F2F"} title='Close' onPress={handlePressClose} />
+          <Button style = {styles.closeButton} color={"white"} title='Close' onPress={handlePressClose} />
         </View>
       </ScrollView>
     );
@@ -69,7 +79,7 @@ const AllTagsScreen = (props) => {
 
   const handlePressComments = (tagId) => {
     // Will have to build an individual component to display the comments
-    // dispatch(getStatus(CarouselStatus));
+    // dispatch(getStatus(groupStatus));
   };
 
   const onCarouselItemChange = (index) => {
@@ -113,6 +123,9 @@ const styles = StyleSheet.create({
   // },
   container: {
     backgroundColor: "white",
+    borderWidth: .5,
+    borderColor: 'black',
+
     borderRadius: 8,
     width: ITEM_WIDTH,
     height: ITEM_HEIGHT,
@@ -151,7 +164,7 @@ const styles = StyleSheet.create({
   //     paddingRight: 20,
   //     fontWeight: "bold",
   // },
-  // close: {
+  // closeButton: {
   //     color: "#9B2F2F",
   //     fontSize: 18,
   //     paddingLeft: 20,
@@ -163,6 +176,12 @@ const styles = StyleSheet.create({
     borderBottomColor: "#737373",
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
+  tagAddy:{
+    color: "#222",
+    fontSize: 15,
+
+    alignSelf: "center",
+  }
 });
 
 export default AllTagsScreen;

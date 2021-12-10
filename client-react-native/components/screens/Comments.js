@@ -32,13 +32,14 @@ const Comments = (props) => {
   // Local State
   const [typedComment, setTypedComment] = useState("");
   const tagId = props.tagId;
+  console.log(tagId)
 
   const dispatch = useDispatch();
 
-
-  console.log("Comments from the global store in CommentScreen", comments);
+  // console.log("Comments from the global store in CommentScreen", comments);
 
   useEffect(() => {
+    console.log(tagId)
     dispatch(getComments({ tagId, groupId }));
     // console.log("getComments right after axios", comments);
   }, []);
@@ -58,6 +59,7 @@ const Comments = (props) => {
     // let msg = typedComment;
     // setComment([...comments, msg]);
     setTypedComment("");
+    console.log(comments)
   };
 
   const Separator = () => <View style={styles.separator} />;
@@ -65,7 +67,7 @@ const Comments = (props) => {
 
   const handleDelete = async (commentId) => {
     //Just need to set ID of comment to be deleted
-    console.log("comment id to be deleted", commentId);
+    // console.log("comment id to be deleted", commentId);
     await axios.delete(
       `https://my-city-server.herokuapp.com/api/users/comment/${commentId}`
     );
@@ -82,52 +84,8 @@ const Comments = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Comment section:</Text>
       <Separator />
-      <ScrollView>
-        {comments.map((comment, index) => {
-          // console.log('Comment inside map function in Comment:', comment)
-          return (
-            <View key={index}>
-              <View style={styles.commentContainer}>
-                <View style={styles.lefContainer}>
-                  <Image
-                    source={{
-                      uri: comment.userPic,
-                    }}
-                    style={styles.profilePicture}
-                  />
 
-                  <View style={styles.midContainer}>
-                    <Text style={styles.username}>{comment.userWhoCommented}</Text>
-                    <Text
-                      // numberOfLines={2}
-                      style={styles.commentBody}
-                    >
-                      {comment.body}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.rightContainer}>
-                  <Text style={styles.time}>
-                    {Date(comment.createdAt)}
-                  </Text>
-                  {(user.id === comment.userIdWhoCommented) ? (
-                    <Text
-                      style={{ color: "red" }}
-                      onPress={() => handleDelete(comment.id)}
-                    >
-                      Delete
-                    </Text>
-                  ) : null}
-                </View>
-              </View>
-              <Separator />
-            </View>
-          );
-        })}
-      </ScrollView>
-      <SeparatorNewMessage />
       <View style={styles.newMessage}>
         <TextInput
           style={styles.textBox}
@@ -137,9 +95,57 @@ const Comments = (props) => {
         // onSubmitEditing={onSubmit}
         />
         <TouchableOpacity style={styles.button} onPress={onSubmit}>
-          <Text style={styles.buttonText}>Add Comment</Text>
+          <Text style={styles.buttonText}>Add</Text>
         </TouchableOpacity>
       </View>
+
+      <ScrollView>
+        {comments.map((comment, index) => {
+          // console.log('Comment inside map function in Comment:', comment)
+          if (comment.body != 'new Tag') {
+            return(
+              <View key={index}>
+                <View style={styles.commentContainer}>
+                  <View style={styles.lefContainer}>
+                    <Image
+                      source={{
+                        uri: comment.userPic,
+                      }}
+                      style={styles.profilePicture}
+                    />
+
+                    <View style={styles.midContainer}>
+                      <Text style={styles.username}>{comment.userWhoCommented}</Text>
+                      <Text
+                        // numberOfLines={2}
+                        style={styles.commentBody}
+                      >
+                        {comment.body}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.rightContainer}>
+                    <Text style={styles.time}>
+                      {(comment.createdAt)}
+                    </Text>
+                    {(user.id === comment.userIdWhoCommented) ? (
+                      <Text
+                        style={{ color: "red" }}
+                        onPress={() => handleDelete(comment.id)}
+                      >
+                        Delete
+                      </Text>
+                    ) : null}
+                  </View>
+                </View>
+                <Separator />
+              </View>
+            )
+          }
+        })}
+      </ScrollView>
+      <SeparatorNewMessage />
+
     </View>
   );
 };
@@ -182,13 +188,17 @@ const styles = {
     flex: 1,
     backgroundColor: "#4286f4",
     alignSelf: "flex-end",
+    height: 50,
+    borderColor: 'black',
+    borderWidth: 0.5,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
     alignSelf: "center",
-    fontSize: 13,
+    fontSize: 20,
+    marginTop: 12,
   },
   separator: {
     marginVertical: 8,

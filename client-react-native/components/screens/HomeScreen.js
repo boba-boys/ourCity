@@ -1,7 +1,4 @@
-import { CurrentRenderContext } from "@react-navigation/core";
-import { StatusBar } from "expo-status-bar";
 import React, {
-  Component,
   createRef,
   useEffect,
   useRef,
@@ -11,7 +8,7 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
+  Dimensions,
   Alert,
   TouchableOpacity,
   Pressable,
@@ -19,42 +16,40 @@ import {
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useSelector, useDispatch } from "react-redux"; // useSelector is mapState & useDispatch is mapDispatch
 import { getAllTagsScreenStatus } from "../../redux/allTagsScreenStatus";
-import { getStatus } from "../../redux/carouselStatus";
+import { getGroupStatus } from "../../redux/groupStatus";
 import { getGroups } from "../../redux/groups";
 import { getTags } from "../../redux/tags";
 import Menu from "./Menu";
 import { MaterialIcons } from "@expo/vector-icons";
-import CreateGroup from "./CreateGroup";
 import { getTagScreenStatus } from "../../redux/tagScreenStatus";
-import { getGroupStatus } from "../../redux/groups";
 import { addTagCoordinatesFunc } from "../../redux/TagCoordinates";
 import AllTagsScreen from "./AllTagsScreen";
-import CarouselCards from "./GroupsScreen";
+import GroupsScreen from "./GroupsScreen";
 import TagScreen from "./SingleTagScreen";
 import CreateTag from "./CreateTag";
-import axios from "axios";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
 import SearchResultScreen from "./SearchResultsScreen";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 
-const HomeScreen = (props) => {
-  const userState = useSelector((state) => state.users);
+const SLIDER_WIDTH = Dimensions.get("window").width;
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
+const SLIDER_HEIGHT = Dimensions.get("window").height;
+const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT);
 
+const HomeScreen = (props) => {
+  // Hooks
   const dispatch = useDispatch();
   const mapReference = createRef();
 
   // Redux Store (useSelector is Hook!)
+  const userState = useSelector((state) => state.users); // Has all the user info
   const tags = useSelector((state) => state.tags);
-  const CarouselStatus = useSelector((state) => state.carouselStatus);
+  const groupStatus = useSelector((state) => state.groupStatus);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const allTagsStatus = useSelector((state) => state.allTagsScreenStatus);
   const addTagsStatus = useSelector((state) => state.addTagsStatus);
   const groupId = useSelector((state) => state.setGroupIdOnState);
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
-
-
-
-  const createGroupStatus = useSelector((state) => state.createGroupStatus);
 
   // Local State
   const [menuStatus, setMenuStatus] = useState(false);
@@ -69,25 +64,28 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-    dispatch(getStatus(CarouselStatus));
-
-    console.log("USer State", userState);
-
-    dispatch(getTags(groupId)); //Hard coded groupId <--might have to be this way
-    dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+    // console.log('This is the groupId inside HomeScreen ----ComponentDidMount:', groupId)
+    dispatch(getGroupStatus(groupStatus));
+    // dispatch(getTags(groupId));
+    dispatch(getGroups(userState.id));
   }, []);
 
   useEffect(() => {
     dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, [userState]);
 
+  useEffect(() => {
+    // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@ComponentDidUpdate inde HomeScreen@@@@@@@@@@@@', groupId)
+    dispatch(getTags(groupId));
+  }, [groupId]);
+
   const onPressGroup = () => {
-    console.log(
-      "Inside onPressGroup before pressing the Group text: ",
-      CarouselStatus
-    );
+    // console.log(
+    //   "Inside onPressGroup before pressing the Group text: ",
+    //   groupStatus
+    // );
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
-    dispatch(getStatus(CarouselStatus));
+    dispatch(getGroupStatus(groupStatus));
   };
 
   const onPressMap = async (event) => {
@@ -107,27 +105,18 @@ const HomeScreen = (props) => {
       }
     });
     if (isTag.length === 0) {
-      console.log("inside of if(tag.length) HomeScreen", isTag.length);
+      // console.log("inside of if(tag.length) HomeScreen", isTag.length);
       dispatch(addTagStatusFunc(addTagsStatus));
       dispatch(addTagCoordinatesFunc(coordinates));
     }
-    // Notice that this is always called when we interact with the map!!
-    // setMenuStatus(false);
-    //  dispatch(getStatus(true));
-    //  dispatch(getAllTagsScreenStatus(true));
-    //  dispatch(getTagScreenStatus(true));
-     dispatch(setSearchScreenStatus(true))
-    //  setCreateGroupStatus(false);
-
+    dispatch(setSearchScreenStatus(true))
   };
 
   const onPressTag = (tagId) => {
-    console.log(
-      "Inside onPressTag before pressing the Marker/Tag: ",
-      tagScreenStatus
-    );
-    // console.log('This trigers when pressed: ', event.nativeEvent);
-    //dispatch(addTagStatusFunc(true));
+    // console.log(
+    //   "Inside onPressTag before pressing the Marker/Tag: ",
+    //   tagScreenStatus
+    // );
     dispatch(getTagScreenStatus(tagScreenStatus));
     setTagId(tagId);
     dispatch(addTagStatusFunc(true));
@@ -142,6 +131,7 @@ const HomeScreen = (props) => {
   };
 
   return (
+
     <MapView
       onPress={onPressMap}
       provider={PROVIDER_GOOGLE}
@@ -150,6 +140,7 @@ const HomeScreen = (props) => {
       ref={mapReference}
       showUserLocation={true}
     >
+
       <Text style={styles.groupsText} onPress={onPressGroup}>
         {"My Groups"}
       </Text>
@@ -157,7 +148,7 @@ const HomeScreen = (props) => {
         {"All Places"}
       </Text>
       <View style={styles.allGroups}>
-        {CarouselStatus == true ? <CarouselCards /> : null}
+        {groupStatus == true ? <GroupsScreen /> : null}
       </View>
       <View>
         {menuStatus === true ? <Menu style={{ position: "absolute" }} /> : null}
@@ -209,48 +200,44 @@ const HomeScreen = (props) => {
 
 const styles = StyleSheet.create({
   map: {
+    width: ITEM_WIDTH,
+    height: ITEM_HEIGHT,
     ...StyleSheet.absoluteFillObject,
   },
   groupsText: {
     paddingTop: 50,
     marginLeft: 60,
-    fontFamily: "Cochin",
+    // fontFamily: "Montserrat",
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
     width: "25%",
     bottom: 0,
-
     // backgroundColor: "blue",
   },
   allPlacesText: {
     paddingTop: 50,
-    //marginLeft: 250,
     // fontFamily: "Cochin",
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
     width: "25%",
-    height: "30%",
-    //bottom: 0,
+    height: "8%",
     right: 25,
     position: "absolute",
     top: 0,
-
     // backgroundColor:'red',
   },
   allGroups: {
-    //backgroundColor: "grey",
-    //top: 0,
-    marginTop: 50,
-    bottom: 50,
-    position: "absolute",
-    // backgroundColor: "red",
+    // backgroundColor: "grey",
+    width: '74%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: "center",
   },
   tagContainer: {
     position: "absolute",
     bottom: 90,
-    // marginBottom: 40,
     // backgroundColor: "red",
   },
   menu: {
@@ -262,11 +249,6 @@ const styles = StyleSheet.create({
     top: 550,
     width: "85%",
     //backgroundColor: "red",
-  },
-  allGroups: {
-    // backgroundColor:'grey',
-    top: -250,
-    // backgroundColor: "red",
   },
 });
 

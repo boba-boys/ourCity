@@ -14,8 +14,6 @@ const setGroupIdOnStateAction = (groupId) => {
 // thunks
 export const _setGroupIdOnState = (groupId) => async (dispatch) => {
   try {
-
-
     dispatch(setGroupIdOnStateAction(groupId))
   } catch (err) {
     console.log(err);
@@ -24,7 +22,7 @@ export const _setGroupIdOnState = (groupId) => async (dispatch) => {
 };
 
 // Reducer
-export default function setGroupIdOnState(state = '', action) {
+export default function setGroupIdOnState(state = null, action) {
   switch (action.type) {
     case SET_GROUP_ID:
       return action.currentGroup;
