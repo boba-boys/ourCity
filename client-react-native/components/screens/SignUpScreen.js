@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import CustomButton from "../CustomButton";
+import MapView from "react-native-maps";
 import CustomInput from "../CustomInput";
 import SocialSignInButtons from "../SocialSignInButtons/SocialSignInButtons";
 import { useNavigation } from "@react-navigation/core";
