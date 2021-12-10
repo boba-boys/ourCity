@@ -9,6 +9,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Button,
   Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -20,7 +21,8 @@ import { setSearchOnState } from "../../redux/searchResultsOnState";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 import { setPhotoOnState } from "../../redux/setPhotoOnState";
 import { setPlacesArrayOnStateFunc } from "../../redux/setPlacesArrayOnState";
-import {setSearchResultsPhotosArrayOnState} from "../../redux/setSearchResultPhotosOnState"
+import {setSearchResultsPhotosArrayOnState} from "../../redux/setSearchResultPhotosOnState";
+
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -36,6 +38,7 @@ const CreateTag = () => {
   const searchResultStatus = useSelector((state) => state.searchScreenStatus);
   const pressedResult = useSelector((state) => state.setPressedSearchResultsOnState);
   const imageFromState = useSelector((state) => state.setPhotoOnStateReducer)
+
 
   // Local state
   const [name, setName] = useState("");
@@ -150,6 +153,11 @@ const CreateTag = () => {
 
   }
 
+  const handlePressClose = () =>  {
+
+    dispatch(addTagStatusFunc(true))
+  }
+
 
 
   return (
@@ -175,6 +183,9 @@ const CreateTag = () => {
         <TouchableOpacity style={styles.button} onPress={onSubmit}>
           <Text style={styles.buttonText}>Create Pin</Text>
         </TouchableOpacity>
+        <View>
+          <Button style = {styles.closeButton} color={"red"} title='Close' onPress={handlePressClose} />
+        </View>
       </View>
     </ScrollView>
   );

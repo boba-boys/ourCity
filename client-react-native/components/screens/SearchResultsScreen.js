@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Button,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
@@ -18,6 +19,8 @@ import { getSearchOnState } from "../../redux/pressedSearch";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 import { setPhotoOnState } from "../../redux/setPhotoOnState";
 import noImage from '../../assets/noImage.jpeg'
+
+
 
 const DEFAULT_IMAGE = Image.resolveAssetSource(noImage).uri
 
@@ -75,14 +78,22 @@ const SearchResultScreen = () => {
     dispatch(setSearchScreenStatus(true))
   };
 
+  const handlePressClose = () =>  {
 
+    dispatch(setSearchScreenStatus(true))
+  }
 
 
  return (
   ( !placesArray) ? <Text>Selected!</Text> :
   <ScrollView  >
    <View style={styles.container} >
-      <Text style={styles.header}>Search Results:</Text>
+      <Text style={styles.header}>Search Results:
+      <View style={styles.closeButton} >
+          <Button  color={"red"} title='Close' alignSelf='right' onPress={handlePressClose} />
+        </View>
+
+      </Text>
       <Separator />
       <ScrollView>
         {placesArray.map((place, index) => {
@@ -151,9 +162,10 @@ const styles = {
     // opacity: .9,
   },
   header: {
+
     color: "#222",
     fontSize: 20,
-    alignSelf: "center",
+    alignSelf: "left",
     fontWeight: "bold",
   },
   newMessage: {
@@ -231,6 +243,11 @@ const styles = {
     color: "black",
     flex: 1,
   },
+  closeButton:{
+   flex:1,
+   alignSelf: 'right'
+
+  }
 };
 
 export default SearchResultScreen;

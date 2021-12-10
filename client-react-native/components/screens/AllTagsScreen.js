@@ -68,7 +68,7 @@ const AllTagsScreen = (props) => {
         </View>
         <Separator />
         <View>
-          <Button style = {styles.closeButton} color={"white"} title='Close' onPress={handlePressClose} />
+          <Button style = {styles.closeButton} color={"red"} title='Close' onPress={handlePressClose} />
         </View>
       </ScrollView>
     );
@@ -164,13 +164,13 @@ const styles = StyleSheet.create({
   //     paddingRight: 20,
   //     fontWeight: "bold",
   // },
-  // closeButton: {
-  //     color: "#9B2F2F",
-  //     fontSize: 18,
-  //     paddingLeft: 20,
-  //     paddingRight: 20,
-  //     fontWeight: "bold",
-  // },
+  closeButton: {
+      color: "#9B2F2F",
+      fontSize: 18,
+      paddingLeft: 20,
+      paddingRight: 20,
+      fontWeight: "bold",
+  },
   separator: {
     marginVertical: 8,
     borderBottomColor: "#737373",
