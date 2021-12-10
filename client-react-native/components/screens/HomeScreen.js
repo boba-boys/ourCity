@@ -64,11 +64,10 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-    console.log('This is the groupId inside HomeScreen ----ComponentDidMount:', groupId)
+    // console.log('This is the groupId inside HomeScreen ----ComponentDidMount:', groupId)
     dispatch(getGroupStatus(groupStatus));
-    // console.log("USer State", userState);
-    dispatch(getTags(groupId)); //Hard coded groupId <--might have to be this way
-    dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+    // dispatch(getTags(groupId));
+    dispatch(getGroups(userState.id));
   }, []);
 
   useEffect(() => {
@@ -76,7 +75,7 @@ const HomeScreen = (props) => {
   }, [userState]);
 
   useEffect(() => {
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@ComponentDidUpdate inde HomeScreen@@@@@@@@@@@@', groupId)
+    // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@ComponentDidUpdate inde HomeScreen@@@@@@@@@@@@', groupId)
     dispatch(getTags(groupId));
   }, [groupId]);
 
@@ -110,14 +109,7 @@ const HomeScreen = (props) => {
       dispatch(addTagStatusFunc(addTagsStatus));
       dispatch(addTagCoordinatesFunc(coordinates));
     }
-    // Notice that this is always called when we interact with the map!!
-    // setMenuStatus(false);
-    //  dispatch(getGroupStatus(true));
-    //  dispatch(getAllTagsScreenStatus(true));
-    //  dispatch(getTagScreenStatus(true));
     dispatch(setSearchScreenStatus(true))
-    //  setCreateGroupStatus(false);
-
   };
 
   const onPressTag = (tagId) => {
@@ -125,8 +117,6 @@ const HomeScreen = (props) => {
     //   "Inside onPressTag before pressing the Marker/Tag: ",
     //   tagScreenStatus
     // );
-    // console.log('This trigers when pressed: ', event.nativeEvent);
-    //dispatch(addTagStatusFunc(true));
     dispatch(getTagScreenStatus(tagScreenStatus));
     setTagId(tagId);
     dispatch(addTagStatusFunc(true));
@@ -233,7 +223,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     width: "25%",
     height: "8%",
-    //bottom: 0,
     right: 25,
     position: "absolute",
     top: 0,
@@ -244,18 +233,11 @@ const styles = StyleSheet.create({
     width: '74%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // height: '70%',
-    // // top: 0,
-    // // marginTop: 80,
-    // // bottom: 50,
-    // position: "absolute",
     alignSelf: "center",
-    // flex:1,
   },
   tagContainer: {
     position: "absolute",
     bottom: 90,
-    // marginBottom: 40,
     // backgroundColor: "red",
   },
   menu: {
