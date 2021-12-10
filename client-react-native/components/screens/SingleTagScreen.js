@@ -8,6 +8,7 @@ import {
   Image,
   Button,
   ScrollView,
+  TouchableWithoutFeedbackBase,
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { getTagDetails } from "../../redux/tagDetails";
@@ -51,16 +52,12 @@ const TagScreen = (props) => {
 
     return (
       <View style={styles.container} key={item.id}>
-        <View>
-          <Text style={styles.header}>Place Details:</Text>
-        </View>
-        <Separator />
+
         <View>
           <Image
             source={{ uri: item.imageUrl }}
             style={styles.image}
           />
-          {/*This images should come from the Google API places */}
         </View>
         <Separator />
         <View>
@@ -74,9 +71,9 @@ const TagScreen = (props) => {
             "No comments yet... Perhaps I should go..."
           )}
         </View>
-        <Separator />
+        {/* <Separator /> */}
         <View>
-          <Button color={"#9B2F2F"} title='Close' onPress={handlePressClose} />
+          <Button style = {styles.buttonClose} color={"#9B2F2F"} title='Close' onPress={handlePressClose} />
         </View>
       </View>
     );
@@ -121,13 +118,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: ITEM_WIDTH,
-    height: 125,
-  },
-  header: {
-    color: "#222",
-    fontSize: 20,
-    alignSelf: "center",
-    fontWeight: "bold",
+    height: 130,
   },
   tagName: {
     color: "#222",
@@ -136,11 +127,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   commentSection: {
-    // backgroundColor: "green",
+    marginTop: -10,
     flex: 1,
   },
   separator: {
-    marginVertical: 8,
+    marginVertical: 0,
     borderBottomColor: "black",
     borderBottomWidth: 1.5,
   },
