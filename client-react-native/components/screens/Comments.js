@@ -57,6 +57,7 @@ const Comments = (props) => {
     // let msg = typedComment;
     // setComment([...comments, msg]);
     setTypedComment("");
+    console.log(comments)
   };
 
   const Separator = () => <View style={styles.separator} />;
@@ -81,8 +82,21 @@ const Comments = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Comment section:</Text>
       <Separator />
+
+      <View style={styles.newMessage}>
+        <TextInput
+          style={styles.textBox}
+          placeholder='Write a comment'
+          onChangeText={setTypedComment}
+          value={typedComment}
+        // onSubmitEditing={onSubmit}
+        />
+        <TouchableOpacity style={styles.button} onPress={onSubmit}>
+          <Text style={styles.buttonText}>Add</Text>
+        </TouchableOpacity>
+      </View>
+
       <ScrollView>
         {comments.map((comment, index) => {
           // console.log('Comment inside map function in Comment:', comment)
@@ -129,18 +143,7 @@ const Comments = (props) => {
         })}
       </ScrollView>
       <SeparatorNewMessage />
-      <View style={styles.newMessage}>
-        <TextInput
-          style={styles.textBox}
-          placeholder='Write a comment'
-          onChangeText={setTypedComment}
-          value={typedComment}
-        // onSubmitEditing={onSubmit}
-        />
-        <TouchableOpacity style={styles.button} onPress={onSubmit}>
-          <Text style={styles.buttonText}>Add Comment</Text>
-        </TouchableOpacity>
-      </View>
+
     </View>
   );
 };
@@ -183,13 +186,17 @@ const styles = {
     flex: 1,
     backgroundColor: "#4286f4",
     alignSelf: "flex-end",
+    height: 50,
+    borderColor: 'black',
+    borderWidth: 0.5,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
     alignSelf: "center",
-    fontSize: 13,
+    fontSize: 20,
+    marginTop: 12,
   },
   separator: {
     marginVertical: 8,

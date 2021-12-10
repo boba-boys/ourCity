@@ -58,7 +58,7 @@ const AllTagsScreen = (props) => {
         </View>
         <Separator />
         <View>
-          <Button color={"#9B2F2F"} title='Close' onPress={handlePressClose} />
+          <Button style = {styles.closeButton} color={"white"} title='Close' onPress={handlePressClose} />
         </View>
       </ScrollView>
     );
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   //     paddingRight: 20,
   //     fontWeight: "bold",
   // },
-  // close: {
+  // closeButton: {
   //     color: "#9B2F2F",
   //     fontSize: 18,
   //     paddingLeft: 20,
