@@ -18,6 +18,7 @@ import setPressedSearchResultsOnState from '../pressedSearch';
 import allComments from '../allComments';
 import setPhotoOnStateReducer from '../setPhotoOnState';
 import setPlacesArrayOnStateReducer from '../setPlacesArrayOnState'
+import setGroupIndexOnState from '../groupIndexState';
 import setSearchResultsPhotosArrayOnStateReducer from '../setSearchResultPhotosOnState'
 
 
@@ -27,12 +28,12 @@ const reducer= combineReducers({
     groups,
     setPhotoOnStateReducer,
     setSearchResultsPhotosArrayOnStateReducer,
-
     groupStatus,
     setPlacesArrayOnStateReducer,
     addTagsStatus,
     addTagCoordinates,
     setGroupIdOnState,
+    setGroupIndexOnState,
     users,
     setSearchResultsOnState,
     searchScreenStatus,

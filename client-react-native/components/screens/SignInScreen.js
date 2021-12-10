@@ -30,10 +30,10 @@ const SignInScreen = () => {
       `https://my-city-server.herokuapp.com/auth/login`,
       { email, password }
     );
-    console.log(user);
+    // console.log(user);
     dispatch(loadUserToState(email));
 
-    console.log("user", user.data);
+    // console.log("user", user.data);
 
     if (user.data["token"]) {
       navigation.navigate("Home");

@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Dimensions,
   Alert,
   TouchableOpacity,
   Pressable,
@@ -29,6 +30,11 @@ import CreateTag from "./CreateTag";
 import { addTagStatusFunc } from "../../redux/addTagStatus";
 import SearchResultScreen from "./SearchResultsScreen";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
+
+const SLIDER_WIDTH = Dimensions.get("window").width;
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
+const SLIDER_HEIGHT = Dimensions.get("window").height;
+const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT);
 
 const HomeScreen = (props) => {
   // Hooks
@@ -58,21 +64,26 @@ const HomeScreen = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
+    // console.log('This is the groupId inside HomeScreen ----ComponentDidMount:', groupId)
     dispatch(getGroupStatus(groupStatus));
-    // console.log("USer State", userState);
-    dispatch(getTags(groupId)); //Hard coded groupId <--might have to be this way
-    dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+    // dispatch(getTags(groupId));
+    dispatch(getGroups(userState.id));
   }, []);
 
   useEffect(() => {
     dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
   }, [userState]);
 
+  useEffect(() => {
+    // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@ComponentDidUpdate inde HomeScreen@@@@@@@@@@@@', groupId)
+    dispatch(getTags(groupId));
+  }, [groupId]);
+
   const onPressGroup = () => {
-    console.log(
-      "Inside onPressGroup before pressing the Group text: ",
-      groupStatus
-    );
+    // console.log(
+    //   "Inside onPressGroup before pressing the Group text: ",
+    //   groupStatus
+    // );
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
     dispatch(getGroupStatus(groupStatus));
   };
@@ -94,18 +105,11 @@ const HomeScreen = (props) => {
       }
     });
     if (isTag.length === 0) {
-      console.log("inside of if(tag.length) HomeScreen", isTag.length);
+      // console.log("inside of if(tag.length) HomeScreen", isTag.length);
       dispatch(addTagStatusFunc(addTagsStatus));
       dispatch(addTagCoordinatesFunc(coordinates));
     }
-    // Notice that this is always called when we interact with the map!!
-    // setMenuStatus(false);
-    //  dispatch(getGroupStatus(true));
-    //  dispatch(getAllTagsScreenStatus(true));
-    //  dispatch(getTagScreenStatus(true));
-     dispatch(setSearchScreenStatus(true))
-    //  setCreateGroupStatus(false);
-
+    dispatch(setSearchScreenStatus(true))
   };
 
   const onPressTag = (tagId) => {
@@ -113,8 +117,6 @@ const HomeScreen = (props) => {
     //   "Inside onPressTag before pressing the Marker/Tag: ",
     //   tagScreenStatus
     // );
-    // console.log('This trigers when pressed: ', event.nativeEvent);
-    //dispatch(addTagStatusFunc(true));
     dispatch(getTagScreenStatus(tagScreenStatus));
     setTagId(tagId);
     dispatch(addTagStatusFunc(true));
@@ -198,48 +200,44 @@ const HomeScreen = (props) => {
 
 const styles = StyleSheet.create({
   map: {
+    width: ITEM_WIDTH,
+    height: ITEM_HEIGHT,
     ...StyleSheet.absoluteFillObject,
   },
   groupsText: {
     paddingTop: 50,
     marginLeft: 60,
-    fontFamily: "Cochin",
+    // fontFamily: "Montserrat",
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
     width: "25%",
     bottom: 0,
-
     // backgroundColor: "blue",
   },
   allPlacesText: {
     paddingTop: 50,
-    //marginLeft: 250,
     // fontFamily: "Cochin",
     alignItems: "center",
     fontSize: 20,
     fontWeight: "bold",
     width: "25%",
-    height: "30%",
-    //bottom: 0,
+    height: "8%",
     right: 25,
     position: "absolute",
     top: 0,
-
     // backgroundColor:'red',
   },
   allGroups: {
-    //backgroundColor: "grey",
-    //top: 0,
-    marginTop: 50,
-    bottom: 50,
-    position: "absolute",
-    // backgroundColor: "red",
+    // backgroundColor: "grey",
+    width: '74%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: "center",
   },
   tagContainer: {
     position: "absolute",
     bottom: 90,
-    // marginBottom: 40,
     // backgroundColor: "red",
   },
   menu: {
@@ -251,11 +249,6 @@ const styles = StyleSheet.create({
     top: 550,
     width: "85%",
     //backgroundColor: "red",
-  },
-  allGroups: {
-    // backgroundColor:'grey',
-    top: -250,
-    // backgroundColor: "red",
   },
 });
 
