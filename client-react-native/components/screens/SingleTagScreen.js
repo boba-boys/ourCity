@@ -64,6 +64,25 @@ const TagScreen = (props) => {
           <Text style={styles.tagName}>{item.name}</Text>
         </View>
         <Separator />
+        <Separator />
+        <View>
+          <Text style={styles.addy}>{item.address}</Text>
+        </View>
+        <Separator />
+        <Separator />
+        <View>
+          <Text style={styles.addy}>{item.phoneNumber}</Text>
+        </View>
+        <Separator />
+
+        <Separator />
+        <View>
+          <Text style={styles.tagName}>{item.n}</Text>
+        </View>
+        <Separator />
+
+
+
         <View style={styles.commentSection}>
           {commentStatus ? (
             <Comments tagId={props.tagId} />
@@ -82,7 +101,7 @@ const TagScreen = (props) => {
   const handlePressClose = () => {
     dispatch(getTagScreenStatus(tagScreenStatus));
   };
-
+ //
   return (
     <View>
       <Carousel
@@ -137,6 +156,12 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1.5,
   },
+  addy: {
+    color: "#222",
+    fontSize: 15,
+
+    alignSelf: "center",
+  }
 });
 
 export default TagScreen;
