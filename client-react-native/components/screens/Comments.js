@@ -78,6 +78,61 @@ const Comments = (props) => {
     // setComments(getComments.data);
     alert("Comment deleted");
   };
+  // function timeSince(date) {
+  //   let seconds = Math.floor((new Date() - date) / 1000);
+  //   // let seconds = Math.floor(date/1000000);
+  //   let interval = seconds / 31536000;
+
+  //   if (interval > 1) {
+  //     return Math.floor(interval) + " years";
+  //   }
+  //   interval = seconds / 2592000;
+  //   if (interval > 1) {
+  //     return Math.floor(interval) + " months";
+  //   }
+  //   interval = seconds / 86400;
+  //   if (interval > 1) {
+  //     return Math.floor(interval) + " days";
+  //   }
+  //   interval = seconds / 3600;
+  //   if (interval > 1) {
+  //     return Math.floor(interval) + " hours";
+  //   }
+  //   interval = seconds / 60;
+  //   if (interval > 1) {
+  //     return Math.floor(interval) + " minutes";
+  //   }
+  //   return Math.floor(seconds) + " seconds";
+  // }
+  const epochs = [
+    ['year', 31536000],
+    ['month', 2592000],
+    ['day', 86400],
+    ['hour', 3600],
+    ['minute', 60],
+    ['second', 1]
+];
+
+const getDuration = (timeAgoInSeconds) => {
+    for (let [name, seconds] of epochs) {
+        const interval = Math.floor(timeAgoInSeconds / seconds);
+        if (interval >= 1) {
+            return {
+                interval: interval,
+                epoch: name
+            };
+        }
+    }
+};
+
+const timeAgo = (date) => {
+    // const timeAgoInSeconds = Math.floor((new Date() - new Date(date)) / 1000);
+    const timeAgoInSeconds = Math.floor(date/1000)
+
+    const {interval, epoch} = getDuration(timeAgoInSeconds);
+    const suffix = interval === 1 ? '' : 's';
+    return `${interval} ${epoch}${suffix} ago`;
+};
 
   return (
     <View style={styles.container}>
@@ -87,7 +142,7 @@ const Comments = (props) => {
         {comments.map((comment, index) => {
           // console.log('Comment inside map function in Comment:', comment)
           if (comment.body != 'new Tag') {
-            return(
+            return (
               <View key={index}>
                 <View style={styles.commentContainer}>
                   <View style={styles.lefContainer}>
@@ -110,7 +165,10 @@ const Comments = (props) => {
                   </View>
                   <View style={styles.rightContainer}>
                     <Text style={styles.time}>
-                      {(comment.createdAt)}
+                      {
+                        // timeSince(new Date(comment.createdAt))
+                        timeAgo(Date.now()-new Date(comment.createdAt))
+                      }
                     </Text>
                     {(user.id === comment.userIdWhoCommented) ? (
                       <Text
