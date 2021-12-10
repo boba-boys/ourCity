@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     width: "25%",
-    height: "8%",
+    height: "12%",
     right: 25,
     position: "absolute",
     top: 0,
