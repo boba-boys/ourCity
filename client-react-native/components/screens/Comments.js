@@ -84,9 +84,10 @@ const Comments = (props) => {
       <Text style={styles.header}>Comment section:</Text>
       <Separator />
       <ScrollView>
-        {comments.filter((comment, index) => {
+        {comments.map((comment, index) => {
           // console.log('Comment inside map function in Comment:', comment)
           if (comment.body != 'new Tag') {
+            return(
               <View key={index}>
                 <View style={styles.commentContainer}>
                   <View style={styles.lefContainer}>
@@ -123,7 +124,7 @@ const Comments = (props) => {
                 </View>
                 <Separator />
               </View>
-            
+            )
           }
         })}
       </ScrollView>
