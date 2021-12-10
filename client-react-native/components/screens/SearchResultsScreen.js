@@ -142,6 +142,8 @@ const styles = {
     // height: "50%",
     marginLeft: 35,
     borderRadius: 10,
+    borderWidth: .5,
+    borderColor: 'black'
     // paddingTop:50, // This affect affects the elements inside the view
     // position: 'absolute',
     // bottom: 138,

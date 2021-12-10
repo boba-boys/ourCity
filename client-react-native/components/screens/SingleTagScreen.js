@@ -105,6 +105,8 @@ const TagScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
+    borderColor:'black',
+    borderWidth: .5,
     backgroundColor: "white",
     borderRadius: 8,
     width: ITEM_WIDTH,
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
       height: 3,
     },
     shadowOpacity: 0.75,
-    shadowRadius: 4.65,
+    shadowRadius: 6.65,
     elevation: 7,
   },
   image: {

@@ -65,7 +65,7 @@ const CreateTag = () => {
       address: pressedResult.data.result.formatted_address,
       phoneNumber: pressedResult.data.result.formatted_phone_number,
        imageUrl: imageFromState,
-  
+
       groupId,
       userId,
     })
@@ -182,8 +182,10 @@ const CreateTag = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    backgroundColor: "#fff",
+    // flex: 1
+    backgroundColor: '#FEFFFE',
+
+
     width: ITEM_WIDTH,
     height: ITEM_HEIGHT,
     //marginLeft: 30,
@@ -199,6 +201,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 7,
     marginTop: 20,
+    borderColor: 'black',
+    borderWidth: .5
     //height: "50%",
   },
   form: {
@@ -208,6 +212,9 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold",
     marginBottom: 10,
+
+
+    alignSelf: "center",
   },
   input: {
     borderBottomColor: "#bbb",
@@ -219,6 +226,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#4286f4",
     padding: 10,
     marginTop: 10,
+    borderWidth: .5,
+    borderColor: 'black',
+    borderRadius: 9,
+
+    width: 150,
+    alignSelf: "center",
   },
   buttonText: {
     color: "#fff",

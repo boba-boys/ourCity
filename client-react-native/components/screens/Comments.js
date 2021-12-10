@@ -32,12 +32,14 @@ const Comments = (props) => {
   // Local State
   const [typedComment, setTypedComment] = useState("");
   const tagId = props.tagId;
+  console.log(tagId)
 
   const dispatch = useDispatch();
 
   // console.log("Comments from the global store in CommentScreen", comments);
 
   useEffect(() => {
+    console.log(tagId)
     dispatch(getComments({ tagId, groupId }));
     // console.log("getComments right after axios", comments);
   }, []);
