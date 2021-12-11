@@ -48,17 +48,15 @@ const AllTagsScreen = (props) => {
           <Text style={styles.tagName}>{item.name}</Text>
         </View>
         <Separator />
-        <Separator />
         <View>
           <Text style={styles.tagAddy}>{item.address}</Text>
         </View>
-        <Separator />
         <Separator />
         <View>
           <Text style={styles.tagAddy}>{item.phoneNumber}</Text>
         </View>
         <Separator />
-        <View>
+        {/* <View>
           <Button
             style={styles.body}
             color={"rgb(31, 126, 160)"}
@@ -66,7 +64,7 @@ const AllTagsScreen = (props) => {
             onPress={() => handlePressComments(item.id)}
           />
         </View>
-        <Separator />
+        <Separator /> */}
         <View>
           <Button style = {styles.closeButton} color={"red"} title='Close' onPress={handlePressClose} />
         </View>

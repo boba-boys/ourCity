@@ -52,7 +52,10 @@ const TagScreen = (props) => {
 
     return (
       <View style={styles.container} key={item.id}>
-
+        <View>
+          <Text style={styles.header}>Place Details:</Text>
+        </View>
+        <Separator />
         <View>
           <Image
             source={{ uri: item.imageUrl }}
@@ -64,6 +67,14 @@ const TagScreen = (props) => {
           <Text style={styles.tagName}>{item.name}</Text>
         </View>
         <Separator />
+        <View>
+          <Text style={styles.tagAddy}>{item.address}</Text>
+        </View>
+        <Separator />
+        <View>
+          <Text style={styles.tagAddy}>{item.phoneNumber}</Text>
+        </View>
+        <Separator />
         <View style={styles.commentSection}>
           {commentStatus ? (
             <Comments tagId={props.tagId} />
@@ -71,9 +82,9 @@ const TagScreen = (props) => {
             "No comments yet... Perhaps I should go..."
           )}
         </View>
-        {/* <Separator /> */}
+        <Separator />
         <View>
-          <Button style = {styles.buttonClose} color={"#9B2F2F"} title='Close' onPress={handlePressClose} />
+          <Button color={"#9B2F2F"} title='Close' onPress={handlePressClose} />
         </View>
       </View>
     );
@@ -137,6 +148,12 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1.5,
   },
+  tagAddy:{
+    color: "#222",
+    fontSize: 15,
+
+    alignSelf: "center",
+  }
 });
 
 export default TagScreen;
