@@ -20,7 +20,6 @@ export const loadUserToState = (email) => async (dispatch) => {
       `https://my-city-server.herokuapp.com/api/users`,
       { email }
     );
-    console.log("User in thunk", user.data);
     dispatch(_gotUser(user.data));
   } catch (err) {
     console.log(err);
