@@ -32,14 +32,14 @@ const Comments = (props) => {
   // Local State
   const [typedComment, setTypedComment] = useState("");
   const tagId = props.tagId;
-  console.log(tagId)
+  // console.log(tagId)
 
   const dispatch = useDispatch();
 
   // console.log("Comments from the global store in CommentScreen", comments);
 
   useEffect(() => {
-    console.log(tagId)
+    // console.log(tagId)
     dispatch(getComments({ tagId, groupId }));
     // console.log("getComments right after axios", comments);
   }, []);
@@ -59,7 +59,7 @@ const Comments = (props) => {
     // let msg = typedComment;
     // setComment([...comments, msg]);
     setTypedComment("");
-    console.log(comments)
+    // console.log(comments)
   };
 
   const Separator = () => <View style={styles.separator} />;
@@ -85,7 +85,6 @@ const Comments = (props) => {
   return (
     <View style={styles.container}>
       <Separator />
-
       <View style={styles.newMessage}>
         <TextInput
           style={styles.textBox}
@@ -98,12 +97,12 @@ const Comments = (props) => {
           <Text style={styles.buttonText}>Add</Text>
         </TouchableOpacity>
       </View>
-
+      <Separator />
       <ScrollView>
         {comments.map((comment, index) => {
           // console.log('Comment inside map function in Comment:', comment)
           if (comment.body != 'new Tag') {
-            return(
+            return (
               <View key={index}>
                 <View style={styles.commentContainer}>
                   <View style={styles.lefContainer}>
@@ -125,9 +124,9 @@ const Comments = (props) => {
                     </View>
                   </View>
                   <View style={styles.rightContainer}>
-                    <Text style={styles.time}>
+                    {/* <Text style={styles.time}>
                       {(comment.createdAt)}
-                    </Text>
+                    </Text> */}
                     {(user.id === comment.userIdWhoCommented) ? (
                       <Text
                         style={{ color: "red" }}
