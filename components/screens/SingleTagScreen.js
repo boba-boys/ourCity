@@ -113,7 +113,7 @@ const TagScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderColor:'black',
+    borderColor: 'black',
     borderWidth: .5,
     backgroundColor: "white",
     borderRadius: 8,
@@ -148,7 +148,13 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1.5,
   },
-  tagAddy:{
+  header: {
+    color: "#222",
+    fontSize: 20,
+    alignSelf: "center",
+    fontWeight: "bold",
+  },
+  tagAddy: {
     color: "#222",
     fontSize: 15,
 

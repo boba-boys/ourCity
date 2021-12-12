@@ -97,7 +97,7 @@ const Comments = (props) => {
           <Text style={styles.buttonText}>Add</Text>
         </TouchableOpacity>
       </View>
-
+      <Separator />
       <ScrollView>
         {comments.map((comment, index) => {
           // console.log('Comment inside map function in Comment:', comment)
