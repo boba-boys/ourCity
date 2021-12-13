@@ -165,7 +165,7 @@ const styles = {
 
     color: "#222",
     fontSize: 20,
-    alignSelf: "left",
+    // alignSelf: "left",
     fontWeight: "bold",
   },
   newMessage: {

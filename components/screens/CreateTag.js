@@ -22,6 +22,7 @@ import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 import { setPhotoOnState } from "../../redux/setPhotoOnState";
 import { setPlacesArrayOnStateFunc } from "../../redux/setPlacesArrayOnState";
 import {setSearchResultsPhotosArrayOnState} from "../../redux/setSearchResultPhotosOnState";
+import noImage from '../../assets/noImage.jpeg'
 
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
@@ -60,7 +61,7 @@ const CreateTag = () => {
 
 
     //  console.log('this is the photo from state', placeDetails),
-
+if(imageFromState){
     await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
       name: pressedResult.data.result.name,
       long: pressedResult.data.result.geometry.location.lng,
@@ -76,6 +77,19 @@ const CreateTag = () => {
     // dispatch(getStatus(false))
     dispatch(getTags(groupId));
     dispatch(addTagStatusFunc(true));
+  }else{
+    await axios.post("https://my-city-server.herokuapp.com/api/tags/addTag", {
+      name: pressedResult.data.result.name,
+      long: pressedResult.data.result.geometry.location.lng,
+      lat: pressedResult.data.result.geometry.location.lat,
+      address: pressedResult.data.result.formatted_address,
+      phoneNumber: pressedResult.data.result.formatted_phone_number,
+       imageUrl: noImage,
+
+      groupId,
+      userId,
+    })
+  }
   };
 
   // console.log('this is the photo from state', imageFromState)
