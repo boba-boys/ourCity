@@ -1,3 +1,4 @@
+import _ from '../../env';
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -62,7 +63,7 @@ const SearchResultScreen = () => {
 
 
     const promisedPhotos = photoArray.map(async (photo) => {
-      return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`)
+      return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${process.env.API_KEY}`)
     })
 
     Promise.all(promisedPhotos).then(photos =>

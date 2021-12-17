@@ -13,6 +13,7 @@
     "@expo/ngrok": "^4.1.0",
     "@react-navigation/native": "^6.0.6",
     "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
     "expo": "~43.0.2",
     "expo-status-bar": "~1.1.0",
     "ngrok": "^4.1.0",
