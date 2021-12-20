@@ -1,4 +1,4 @@
-import _ from '../../env';
+import Constants from "expo-constants";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -57,7 +57,7 @@ const CreateTag = () => {
 
     // console.log('This should be the Coordinates',pressedResult );
 
-    //  let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=${process.env.API_KEY}`);
+    //  let placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${pressedResult.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=${Constants.manifest.extra.API_KEY}`);
 
 
 
@@ -98,12 +98,12 @@ if(imageFromState){
   const onSearch = async () => {
     // Call to GOOGLE API to get the AutoComplete array
     let formattedSearch = search.split(' ').join('');
-    let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${formattedSearch}&types=establishment&location=${coordinates.lat}%2C${coordinates.long}&radius=100000&strictbounds=true&key=${process.env.API_KEY}`);
+    let results = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${formattedSearch}&types=establishment&location=${coordinates.lat}%2C${coordinates.long}&radius=100000&strictbounds=true&key=${Constants.manifest.extra.API_KEY}`);
 
 
 
     const promisedKeys = results.data.predictions.map(async (place) => {
-      return await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=${process.env.API_KEY}`);
+      return await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place.place_id}&fields=name%2Crating%2Cformatted_phone_number%2Cformatted_address%2Cphotos%2Cgeometry&key=${Constants.manifest.extra.API_KEY}`);
     })
 
 
@@ -133,7 +133,7 @@ if(imageFromState){
         })
 
         let promisedPhotoRefs = photoRefs.map(async (photo) => {
-          return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${process.env.API_KEY}`)
+          return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${Constants.manifest.extra.API_KEY}`)
         })
 
         Promise.all(promisedPhotoRefs).then(photos => {
