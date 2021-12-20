@@ -1,3 +1,4 @@
+import Constants from "expo-constants";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -54,22 +55,22 @@ const SearchResultScreen = () => {
   const onSubmit = async (resultObj) => {
 
 
-    if(resultObj.data.result.photos){
-    let photoArray = resultObj.data.result.photos.map((photo) => {
-      return photo.photo_reference
-    })
+    if (resultObj.data.result.photos) {
+      let photoArray = resultObj.data.result.photos.map((photo) => {
+        return photo.photo_reference
+      })
 
 
 
-    const promisedPhotos = photoArray.map(async (photo) => {
-      return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyAmYmN1pMqX1g-igPscaRfmqI7D-TPEhx8`)
-    })
+      const promisedPhotos = photoArray.map(async (photo) => {
+        return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${Constants.manifest.extra.API_KEY}`)
+      })
 
-    Promise.all(promisedPhotos).then(photos =>
+      Promise.all(promisedPhotos).then(photos =>
 
-      dispatch(setPhotoOnState(photos[0].config.url)))
+        dispatch(setPhotoOnState(photos[0].config.url)))
 
-    }else{
+    } else {
       dispatch(setPhotoOnState(DEFAULT_IMAGE))
     }
 
@@ -78,78 +79,78 @@ const SearchResultScreen = () => {
     dispatch(setSearchScreenStatus(true))
   };
 
-  const handlePressClose = () =>  {
+  const handlePressClose = () => {
 
     dispatch(setSearchScreenStatus(true))
   }
 
 
- return (
-  ( !placesArray) ? <Text>Selected!</Text> :
-  <ScrollView  >
-   <View style={styles.container} >
-      <Text style={styles.header}>Search Results:
-      <View style={styles.closeButton} >
-          <Button  color={"red"} title='Close' alignSelf='right' onPress={handlePressClose} />
-        </View>
+  return (
+    (!placesArray) ? <Text>Selected!</Text> :
+      <ScrollView  >
+        <View style={styles.container} >
+          <Text style={styles.header}>Search Results:
+            <View style={styles.closeButton} >
+              <Button color={"red"} title='Close' alignSelf='right' onPress={handlePressClose} />
+            </View>
 
-      </Text>
-      <Separator />
-      <ScrollView>
-        {placesArray.map((place, index) => {
-          // console.log('Comment inside map function in Comment:', comment)
-          return (
-            <TouchableOpacity key={index} onPress={() => onSubmit(place)} >
-            <View   >
-              <View style={styles.commentContainer}>
-                <View style={styles.lefContainer}>
-                  <Image
-                    source={{
-                      uri: placesPhotosArray[index]
-                    }}
-                    style={styles.profilePicture}
-                  />
+          </Text>
+          <Separator />
+          <ScrollView>
+            {placesArray.map((place, index) => {
+              // console.log('Comment inside map function in Comment:', comment)
+              return (
+                <TouchableOpacity key={index} onPress={() => onSubmit(place)} >
+                  <View   >
+                    <View style={styles.commentContainer}>
+                      <View style={styles.lefContainer}>
+                        <Image
+                          source={{
+                            uri: placesPhotosArray[index]
+                          }}
+                          style={styles.profilePicture}
+                        />
 
-                  <View style={styles.midContainer}>
-                    <Text style={styles.username}>{place.data.result.name}</Text>
-                    <Text
-                      // numberOfLines={2}
-                      style={styles.commentBody}
-                    >
-                      {place.data.result.formatted_address}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.rightContainer}>
-                  <Text style={styles.time}>
-                    {(place.data.result.formatted_phone_number)}
-                  </Text>
+                        <View style={styles.midContainer}>
+                          <Text style={styles.username}>{place.data.result.name}</Text>
+                          <Text
+                            // numberOfLines={2}
+                            style={styles.commentBody}
+                          >
+                            {place.data.result.formatted_address}
+                          </Text>
+                        </View>
+                      </View>
+                      <View style={styles.rightContainer}>
+                        <Text style={styles.time}>
+                          {(place.data.result.formatted_phone_number)}
+                        </Text>
 
-                </View>
-                {/* <TouchableOpacity style={styles.button} onPress={() => onSubmit(place)} >
+                      </View>
+                      {/* <TouchableOpacity style={styles.button} onPress={() => onSubmit(place)} >
               <Text style={styles.buttonText}>Choose location</Text>
             </TouchableOpacity> */}
-              </View>
-              <Separator />
-            </View>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
-      <SeparatorNewMessage />
+                    </View>
+                    <Separator />
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+          <SeparatorNewMessage />
 
-    </View>
-  </ScrollView>
-);
+        </View>
+      </ScrollView>
+  );
 
 };
 
 
 const styles = {
   container: {
-     backgroundColor: 'white',
+    backgroundColor: 'white',
     flex: 1,
-     width: ITEM_WIDTH * 1.19,
+    width: ITEM_WIDTH * 1.19,
     // height: "50%",
     marginLeft: 35,
     borderRadius: 10,
@@ -243,9 +244,9 @@ const styles = {
     color: "black",
     flex: 1,
   },
-  closeButton:{
-   flex:1,
-   alignSelf: 'right'
+  closeButton: {
+    flex: 1,
+    alignSelf: 'right'
 
   }
 };
