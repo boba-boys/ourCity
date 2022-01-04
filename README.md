@@ -1,4 +1,4 @@
-# ourTown
+# Our City
 
 Welcome to our Social Reviewing App, we're happy to have you here!
 
