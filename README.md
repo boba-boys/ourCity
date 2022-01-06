@@ -9,3 +9,5 @@ Add a new location, create a group of your closest friends, discuss the quality 
 
 #Api key to get the info from Google Places API, Autocomplete, Photos & set Google Maps as the map to render for iOS. All of these have to be properly set in the Google dashboard.
 API_KEY=your API key
+
+:D
