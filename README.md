@@ -18,7 +18,7 @@ To create a marker, a user simply taps on the screen near where they think the l
 
 
 
-<img src="assets/death&company.png" width="200" height="300">
+<img src="assets/death&Company.png" width="200" height="300">
 
 A user can then select the desired place/location from the list of search results. Once the user finds the desired location, they can create the marker. The marker will be shared with the rest of the group and serve as a shared review board of the location, where users can comment and share experiences.
 
