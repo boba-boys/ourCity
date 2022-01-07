@@ -48,10 +48,7 @@ const CreateGroup = () => {
   };
 
   return (
-    // <View
-    //   style={styles.container}
-    //   //behavior={Platform.OS === "ios" ? "padding" : "height"}
-    // >
+
     <ScrollView style={styles.container}>
       <View >
         <Text style={styles.title}>Create a Group</Text>
@@ -78,21 +75,21 @@ const CreateGroup = () => {
         </TouchableOpacity>
       </View>
     </ScrollView>
-    // </View>
+
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    // width: '100%',
-    // alignSelf: "center",
+
+
     padding: 10,
     borderRadius: 10,
     marginTop: 20,
     borderWidth: .5,
     borderColor: 'black'
-    // height: "70%",
+
   },
   title: {
     fontSize: 25,
