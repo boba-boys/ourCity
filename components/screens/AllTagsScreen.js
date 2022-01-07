@@ -109,16 +109,7 @@ const AllTagsScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-  // backgroundScreen: {
-  //     width: "85%",
-  //     height: '45%',
-  //     marginLeft: 30,
-  //     position: 'absolute',
-  //     justifyContent: 'flex-start', // moves the content respective the main axis
-  //     alignItems: "center",
-  //     bottom: 50,
-  //     backgroundColor: 'blue',
-  // },
+
   container: {
     backgroundColor: "white",
     borderWidth: .5,
@@ -136,8 +127,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.75,
     shadowRadius: 4.65,
     elevation: 7,
-    // bottom: -1,
-    // // paddingTop: 0,
+
   },
   image: {
     width: ITEM_WIDTH,
@@ -155,13 +145,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
   },
-  // body: {
-  //     color: "rgb(31, 126, 160)",
-  //     fontSize: 18,
-  //     paddingLeft: 20,
-  //     paddingRight: 20,
-  //     fontWeight: "bold",
-  // },
   closeButton: {
       color: "#9B2F2F",
       fontSize: 18,
