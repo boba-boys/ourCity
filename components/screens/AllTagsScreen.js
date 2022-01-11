@@ -29,7 +29,6 @@ const AllTagsScreen = (props) => {
   const Separator = () => <View style={styles.separator} />;
 
   const CarouselCardItem = ({ index, item }) => {
-    console.log( 'this is the item', item)
     return (
       <ScrollView style={styles.container} key={item.id}>
         <View>
@@ -37,10 +36,7 @@ const AllTagsScreen = (props) => {
         </View>
         <Separator />
         <View>
-          <Image
-            source={{ uri: item.imageUrl }}
-            style={styles.image}
-          />
+          <Image source={{ uri: item.imageUrl }} style={styles.image} />
           {/*This images should come from the Google API places */}
         </View>
         <Separator />
@@ -66,7 +62,12 @@ const AllTagsScreen = (props) => {
         </View>
         <Separator /> */}
         <View>
-          <Button style = {styles.closeButton} color={"red"} title='Close' onPress={handlePressClose} />
+          <Button
+            style={styles.closeButton}
+            color={"red"}
+            title='Close'
+            onPress={handlePressClose}
+          />
         </View>
       </ScrollView>
     );
@@ -109,11 +110,10 @@ const AllTagsScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-
   container: {
     backgroundColor: "white",
-    borderWidth: .5,
-    borderColor: 'black',
+    borderWidth: 0.5,
+    borderColor: "black",
 
     borderRadius: 8,
     width: ITEM_WIDTH,
@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.75,
     shadowRadius: 4.65,
     elevation: 7,
-
   },
   image: {
     width: ITEM_WIDTH,
@@ -146,23 +145,23 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   closeButton: {
-      color: "#9B2F2F",
-      fontSize: 18,
-      paddingLeft: 20,
-      paddingRight: 20,
-      fontWeight: "bold",
+    color: "#9B2F2F",
+    fontSize: 18,
+    paddingLeft: 20,
+    paddingRight: 20,
+    fontWeight: "bold",
   },
   separator: {
     marginVertical: 8,
     borderBottomColor: "#737373",
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  tagAddy:{
+  tagAddy: {
     color: "#222",
     fontSize: 15,
 
     alignSelf: "center",
-  }
+  },
 });
 
 export default AllTagsScreen;

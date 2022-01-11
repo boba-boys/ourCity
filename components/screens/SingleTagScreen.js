@@ -32,24 +32,17 @@ const TagScreen = (props) => {
   // const imageFromState = useSelector((state) => state.setPhotoOnStateReducer)
 
   // let imageFromStateNotJson = JSON.parse(imageFromState)
-  // console.log('this is the image from state in the tag view', imageFromState)
   // Local State
   const [commentStatus, setCommentStatus] = useState(true);
 
-  // console.log('This is the passed tag inside TAG_SCREEN:', props.tagId);
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
   useEffect(() => {
-    // console.log(
-    //   "---------------------ComponentDidMount in SingleTagScreen :--------------------"
-    // );
     dispatch(getTagDetails(props.tagId)); // tagId to render
   }, []);
 
   const Separator = () => <View style={styles.separator} />;
 
   const CarouselCardItem = ({ index, item }) => {
-    // console.log('this is the item', item)
-
     return (
       <View style={styles.container} key={item.id}>
         <View>
@@ -57,10 +50,7 @@ const TagScreen = (props) => {
         </View>
         <Separator />
         <View>
-          <Image
-            source={{ uri: item.imageUrl }}
-            style={styles.image}
-          />
+          <Image source={{ uri: item.imageUrl }} style={styles.image} />
         </View>
         <Separator />
         <View>
@@ -113,8 +103,8 @@ const TagScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderColor: 'black',
-    borderWidth: .5,
+    borderColor: "black",
+    borderWidth: 0.5,
     backgroundColor: "white",
     borderRadius: 8,
     width: ITEM_WIDTH,
@@ -159,7 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
 
     alignSelf: "center",
-  }
+  },
 });
 
 export default TagScreen;
