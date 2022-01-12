@@ -61,21 +61,21 @@ const SignUpScreen = () => {
       <View style={styles.root}>
         <TextInput
           style={styles.container}
-          placeholderTextColor='white'
-          placeholder='email'
-          name='email'
-          autoCapitalize='none'
-          keyboardType='email-address'
+          placeholderTextColor="white"
+          placeholder="email"
+          name="email"
+          autoCapitalize="none"
+          keyboardType="email-address"
           value={email}
           onChangeText={(email) => setEmail(email)}
         />
 
         <TextInput
           style={styles.container}
-          placeholder='password'
-          placeholderTextColor='white'
-          name='password'
-          autoCapitalize='none'
+          placeholder="password"
+          placeholderTextColor="white"
+          name="password"
+          autoCapitalize="none"
           password
           value={password}
           onChangeText={(password) => setPassword(password)}
@@ -83,27 +83,27 @@ const SignUpScreen = () => {
 
         <TextInput
           style={styles.container}
-          placeholder='first name'
-          placeholderTextColor='white'
-          name='firstName'
-          autoCapitalize='none'
+          placeholder="first name"
+          placeholderTextColor="white"
+          name="firstName"
+          autoCapitalize="none"
           value={firstName}
           onChangeText={(firstName) => setFirst(firstName)}
         />
 
         <TextInput
           style={styles.container}
-          placeholder='last name'
-          placeholderTextColor='white'
-          name='lastName'
-          autoCapitalize='none'
+          placeholder="last name"
+          placeholderTextColor="white"
+          name="lastName"
+          autoCapitalize="none"
           password
           value={lastName}
           onChangeText={(lastName) => setLast(lastName)}
         />
         <CustomButton
-          text='Register'
-          type='signIn'
+          text="Register"
+          type="signIn"
           onPress={onRegisterPressed}
         />
         <Text style={styles.text}>
@@ -120,9 +120,9 @@ const SignUpScreen = () => {
         {/* <SocialSignInButtons /> */}
 
         <CustomButton
-          text='Have an account? Sign in'
+          text="Have an account? Sign in"
           onPress={onSignInPressed}
-          type='forgot'
+          type="forgot"
         />
       </View>
     </ImageBackground>
@@ -130,35 +130,11 @@ const SignUpScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  // root: {
-  //   alignItems: "center",
-  //   padding: 20,
-  // },
-
-  // title: {
-  //   fontSize: 24,
-  //   fontWeight: "bold",
-  //   color: "#051C60",
-  //   margin: 10,
-  // },
   text: {
     color: "white",
     marginVertical: 10,
   },
-  // link: {
-  //   color: "#FDB075",
-  // },
-  // container: {
-  //   backgroundColor: "white",
-  //   width: "100%",
 
-  //   borderColor: "#e8e8e8",
-  //   borderWidth: 1,
-  //   borderRadius: 5,
-
-  //   paddingHorizontal: 5,
-  //   marginVertical: 2,
-  // },
   title: {
     fontSize: 30,
     marginTop: 100,

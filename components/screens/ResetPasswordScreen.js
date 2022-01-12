@@ -1,88 +1,74 @@
-import React, {useState} from 'react'
-import{View, Text, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  useWindowDimensions,
+  ScrollView,
+} from "react-native";
 
-import CustomButton from '../CustomButton'
-import CustomInput from '../CustomInput'
-import { useNavigation } from '@react-navigation/core'
-
-
+import CustomButton from "../CustomButton";
+import CustomInput from "../CustomInput";
+import { useNavigation } from "@react-navigation/core";
 
 const ResetPasswordScreen = () => {
-  const [code, setCode] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-
+  const [code, setCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const navigation = useNavigation();
 
-
-
   const backToSignInPressed = () => {
-
-    navigation.navigate('signIn')
-  }
+    navigation.navigate("signIn");
+  };
 
   const onSubmitPressed = () => {
-
-    navigation.navigate('Home')
-  }
+    navigation.navigate("Home");
+  };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-    <View style={styles.root}>
-     <Text style={styles.title}>Reset your password</Text>
+      <View style={styles.root}>
+        <Text style={styles.title}>Reset your password</Text>
 
-      <CustomInput
-       placeholder="Code"
-       value={code}
-       setValue={setCode}
-       />
+        <CustomInput placeholder="Code" value={code} setValue={setCode} />
 
-       <CustomInput
-       placeholder="Enter new password"
-       value={newPassword}
-       setValue={setNewPassword}
-       />
-
-
-      <CustomButton
-      text='Submit'
-       type='signIn'
-       onPress={onSubmitPressed}
-       />
-
-
-
-      <CustomButton
-       text="Back to sign in"
-        onPress={backToSignInPressed}
-        type="backToSignIn"
+        <CustomInput
+          placeholder="Enter new password"
+          value={newPassword}
+          setValue={setNewPassword}
         />
-    </View>
+
+        <CustomButton text="Submit" type="signIn" onPress={onSubmitPressed} />
+
+        <CustomButton
+          text="Back to sign in"
+          onPress={backToSignInPressed}
+          type="backToSignIn"
+        />
+      </View>
     </ScrollView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  root:{
-    alignItems:'center',
+  root: {
+    alignItems: "center",
     padding: 20,
   },
 
-  title:{
+  title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#051C60',
-    margin: 10
+    fontWeight: "bold",
+    color: "#051C60",
+    margin: 10,
   },
-  text:{
-    color:'gray',
-    marginVertical: 10
-
+  text: {
+    color: "gray",
+    marginVertical: 10,
   },
-  link:{
-    color: '#FDB075'
-  }
-})
+  link: {
+    color: "#FDB075",
+  },
+});
 
-
-export default ResetPasswordScreen
+export default ResetPasswordScreen;

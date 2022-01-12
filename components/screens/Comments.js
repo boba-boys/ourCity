@@ -33,19 +33,13 @@ const Comments = (props) => {
   const [typedComment, setTypedComment] = useState("");
   const tagId = props.tagId;
 
-
   const dispatch = useDispatch();
 
-
-
   useEffect(() => {
-
     dispatch(getComments({ tagId, groupId }));
-
   }, []);
 
   const onSubmit = async () => {
-
     await axios.post(
       `https://my-city-server.herokuapp.com/api/tags/comments/${tagId}/${groupId}`,
       {
@@ -88,10 +82,10 @@ const Comments = (props) => {
       <View style={styles.newMessage}>
         <TextInput
           style={styles.textBox}
-          placeholder='Write a comment'
+          placeholder="Write a comment"
           onChangeText={setTypedComment}
           value={typedComment}
-        // onSubmitEditing={onSubmit}
+          // onSubmitEditing={onSubmit}
         />
         <TouchableOpacity style={styles.button} onPress={onSubmit}>
           <Text style={styles.buttonText}>Add</Text>
@@ -101,7 +95,7 @@ const Comments = (props) => {
       <ScrollView>
         {comments.map((comment, index) => {
           // console.log('Comment inside map function in Comment:', comment)
-          if (comment.body != 'new Tag') {
+          if (comment.body != "new Tag") {
             return (
               <View key={index}>
                 <View style={styles.commentContainer}>
@@ -114,7 +108,9 @@ const Comments = (props) => {
                     />
 
                     <View style={styles.midContainer}>
-                      <Text style={styles.username}>{comment.userWhoCommented}</Text>
+                      <Text style={styles.username}>
+                        {comment.userWhoCommented}
+                      </Text>
                       <Text
                         // numberOfLines={2}
                         style={styles.commentBody}
@@ -127,7 +123,7 @@ const Comments = (props) => {
                     {/* <Text style={styles.time}>
                       {(comment.createdAt)}
                     </Text> */}
-                    {(user.id === comment.userIdWhoCommented) ? (
+                    {user.id === comment.userIdWhoCommented ? (
                       <Text
                         style={{ color: "red" }}
                         onPress={() => handleDelete(comment.id)}
@@ -139,12 +135,11 @@ const Comments = (props) => {
                 </View>
                 <Separator />
               </View>
-            )
+            );
           }
         })}
       </ScrollView>
       <SeparatorNewMessage />
-
     </View>
   );
 };
@@ -188,7 +183,7 @@ const styles = {
     backgroundColor: "#4286f4",
     alignSelf: "flex-end",
     height: 50,
-    borderColor: 'black',
+    borderColor: "black",
     borderWidth: 0.5,
   },
   buttonText: {

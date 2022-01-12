@@ -19,12 +19,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { getSearchOnState } from "../../redux/pressedSearch";
 import { setSearchScreenStatus } from "../../redux/SearchScreenStatus";
 import { setPhotoOnState } from "../../redux/setPhotoOnState";
-import noImage from '../../assets/noImage.jpeg'
+import noImage from "../../assets/noImage.jpeg";
 
-
-
-const DEFAULT_IMAGE = Image.resolveAssetSource(noImage).uri
-
+const DEFAULT_IMAGE = Image.resolveAssetSource(noImage).uri;
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -34,10 +31,12 @@ const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
 const SearchResultScreen = () => {
   const userId = useSelector((state) => state.users.id);
   const coordinates = useSelector((state) => state.addTagCoordinates);
-  const placesArray = useSelector((state) => state.setPlacesArrayOnStateReducer);
-  const placesPhotosArray = useSelector((state) => state.setSearchResultsPhotosArrayOnStateReducer);
-
-
+  const placesArray = useSelector(
+    (state) => state.setPlacesArrayOnStateReducer
+  );
+  const placesPhotosArray = useSelector(
+    (state) => state.setSearchResultsPhotosArrayOnStateReducer
+  );
 
   const [name, setName] = useState("");
   const [search, setSearch] = useState("");
@@ -53,109 +52,107 @@ const SearchResultScreen = () => {
   const SeparatorNewMessage = () => <View style={styles.separatorNewMessage} />;
 
   const onSubmit = async (resultObj) => {
-
-
     if (resultObj.data.result.photos) {
       let photoArray = resultObj.data.result.photos.map((photo) => {
-        return photo.photo_reference
-      })
-
-
+        return photo.photo_reference;
+      });
 
       const promisedPhotos = photoArray.map(async (photo) => {
-        return await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${Constants.manifest.extra.API_KEY}`)
-      })
+        return await axios.get(
+          `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${Constants.manifest.extra.API_KEY}`
+        );
+      });
 
-      Promise.all(promisedPhotos).then(photos =>
-
-        dispatch(setPhotoOnState(photos[0].config.url)))
-
+      Promise.all(promisedPhotos).then((photos) =>
+        dispatch(setPhotoOnState(photos[0].config.url))
+      );
     } else {
-      dispatch(setPhotoOnState(DEFAULT_IMAGE))
+      dispatch(setPhotoOnState(DEFAULT_IMAGE));
     }
 
-
     dispatch(getSearchOnState(resultObj));
-    dispatch(setSearchScreenStatus(true))
+    dispatch(setSearchScreenStatus(true));
   };
 
   const handlePressClose = () => {
+    dispatch(setSearchScreenStatus(true));
+  };
 
-    dispatch(setSearchScreenStatus(true))
-  }
+  return !placesArray ? (
+    <Text>Selected!</Text>
+  ) : (
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.header}>
+          Search Results:
+          <View style={styles.closeButton}>
+            <Button
+              color={"red"}
+              title="Close"
+              alignSelf="right"
+              onPress={handlePressClose}
+            />
+          </View>
+        </Text>
+        <Separator />
+        <ScrollView>
+          {placesArray.map((place, index) => {
+            // console.log('Comment inside map function in Comment:', comment)
+            return (
+              <TouchableOpacity key={index} onPress={() => onSubmit(place)}>
+                <View>
+                  <View style={styles.commentContainer}>
+                    <View style={styles.lefContainer}>
+                      <Image
+                        source={{
+                          uri: placesPhotosArray[index],
+                        }}
+                        style={styles.profilePicture}
+                      />
 
-
-  return (
-    (!placesArray) ? <Text>Selected!</Text> :
-      <ScrollView  >
-        <View style={styles.container} >
-          <Text style={styles.header}>Search Results:
-            <View style={styles.closeButton} >
-              <Button color={"red"} title='Close' alignSelf='right' onPress={handlePressClose} />
-            </View>
-
-          </Text>
-          <Separator />
-          <ScrollView>
-            {placesArray.map((place, index) => {
-              // console.log('Comment inside map function in Comment:', comment)
-              return (
-                <TouchableOpacity key={index} onPress={() => onSubmit(place)} >
-                  <View   >
-                    <View style={styles.commentContainer}>
-                      <View style={styles.lefContainer}>
-                        <Image
-                          source={{
-                            uri: placesPhotosArray[index]
-                          }}
-                          style={styles.profilePicture}
-                        />
-
-                        <View style={styles.midContainer}>
-                          <Text style={styles.username}>{place.data.result.name}</Text>
-                          <Text
-                            // numberOfLines={2}
-                            style={styles.commentBody}
-                          >
-                            {place.data.result.formatted_address}
-                          </Text>
-                        </View>
-                      </View>
-                      <View style={styles.rightContainer}>
-                        <Text style={styles.time}>
-                          {(place.data.result.formatted_phone_number)}
+                      <View style={styles.midContainer}>
+                        <Text style={styles.username}>
+                          {place.data.result.name}
                         </Text>
-
+                        <Text
+                          // numberOfLines={2}
+                          style={styles.commentBody}
+                        >
+                          {place.data.result.formatted_address}
+                        </Text>
                       </View>
-                      {/* <TouchableOpacity style={styles.button} onPress={() => onSubmit(place)} >
+                    </View>
+                    <View style={styles.rightContainer}>
+                      <Text style={styles.time}>
+                        {place.data.result.formatted_phone_number}
+                      </Text>
+                    </View>
+                    {/* <TouchableOpacity style={styles.button} onPress={() => onSubmit(place)} >
               <Text style={styles.buttonText}>Choose location</Text>
             </TouchableOpacity> */}
-                    </View>
-                    <Separator />
                   </View>
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
-          <SeparatorNewMessage />
-
-        </View>
-      </ScrollView>
+                  <Separator />
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+        <SeparatorNewMessage />
+      </View>
+    </ScrollView>
   );
-
 };
-
 
 const styles = {
   container: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     flex: 1,
     width: ITEM_WIDTH * 1.19,
     // height: "50%",
     marginLeft: 35,
     borderRadius: 10,
-    borderWidth: .5,
-    borderColor: 'black'
+    borderWidth: 0.5,
+    borderColor: "black",
     // paddingTop:50, // This affect affects the elements inside the view
     // position: 'absolute',
     // bottom: 138,
@@ -163,7 +160,6 @@ const styles = {
     // opacity: .9,
   },
   header: {
-
     color: "#222",
     fontSize: 20,
     // alignSelf: "left",
@@ -246,9 +242,8 @@ const styles = {
   },
   closeButton: {
     flex: 1,
-    alignSelf: 'right'
-
-  }
+    alignSelf: "right",
+  },
 };
 
 export default SearchResultScreen;

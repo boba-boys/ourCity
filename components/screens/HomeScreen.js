@@ -61,24 +61,19 @@ const HomeScreen = (props) => {
   useEffect(() => {
     // console.log('This is the groupId inside HomeScreen ----ComponentDidMount:', groupId)
     dispatch(getGroupStatus(groupStatus));
-    // dispatch(getTags(groupId));
+
     dispatch(getGroups(userState.id));
   }, []);
 
   useEffect(() => {
-    dispatch(getGroups(userState.id)); // Hard code userId <--DONT UNCOMMENT THIS Creates infinit loop
+    dispatch(getGroups(userState.id));
   }, [userState]);
 
   useEffect(() => {
-    // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@ComponentDidUpdate inde HomeScreen@@@@@@@@@@@@', groupId)
     dispatch(getTags(groupId));
   }, [groupId]);
 
   const onPressGroup = () => {
-    // console.log(
-    //   "Inside onPressGroup before pressing the Group text: ",
-    //   groupStatus
-    // );
     //upon pressing the group name, we want the carousel to pop up via conditional rendering.
     dispatch(getGroupStatus(groupStatus));
   };
@@ -108,10 +103,6 @@ const HomeScreen = (props) => {
   };
 
   const onPressTag = (tagId) => {
-    // console.log(
-    //   "Inside onPressTag before pressing the Marker/Tag: ",
-    //   tagScreenStatus
-    // );
     dispatch(getTagScreenStatus(tagScreenStatus));
     setTagId(tagId);
     dispatch(addTagStatusFunc(true));
@@ -182,7 +173,7 @@ const HomeScreen = (props) => {
         ) : null}
       </View>
       <MaterialIcons
-        name='menu'
+        name="menu"
         size={50}
         onPress={onPressOpenMenu}
         style={{ position: "absolute", bottom: 30, right: 35 }}

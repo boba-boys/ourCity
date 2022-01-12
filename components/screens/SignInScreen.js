@@ -35,11 +35,7 @@ const SignInScreen = () => {
       { email, password }
     );
 
-    //console.log(user);
     dispatch(loadUserToState(email));
-
-    //console.log("user", user.data);
-
 
     if (user.data["token"]) {
       navigation.navigate("Home");
@@ -75,28 +71,28 @@ const SignInScreen = () => {
           <TextInput
             style={styles.container}
             placeholderTextColor={"white"}
-            placeholder='email'
-            name='email'
-            autoCapitalize='none'
-            keyboardType='email-address'
+            placeholder="email"
+            name="email"
+            autoCapitalize="none"
+            keyboardType="email-address"
             value={email}
             onChangeText={(email) => setEmail(email)}
           />
           <TextInput
             style={styles.container}
             placeholderTextColor={"white"}
-            placeholder='password'
-            name='password'
-            autoCapitalize='none'
+            placeholder="password"
+            name="password"
+            autoCapitalize="none"
             secureTextEntry={true}
             value={password}
             onChangeText={(password) => setPassword(password)}
           />
 
           <Button
-            title='Sign In'
-            text='Sign In'
-            type='signIn'
+            title="Sign In"
+            text="Sign In"
+            type="signIn"
             onPress={onSignInPressed}
           />
           {/* <CustomButton
@@ -105,10 +101,10 @@ const SignInScreen = () => {
           type='forgot'
         /> */}
           <Button
-            title='Sign up'
-            text='Sign Up'
+            title="Sign up"
+            text="Sign Up"
             onPress={onSignUpPressed}
-            type='forgot'
+            type="forgot"
           />
         </View>
       </View>

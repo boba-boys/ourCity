@@ -19,13 +19,10 @@ import CreateGroup from "./CreateGroup";
 import { _setGroupIndexOnState } from "../../redux/groupIndexState";
 import { _setGroupIdOnState } from "../../redux/groupState";
 
-
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 const SLIDER_HEIGHT = Dimensions.get("window").height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.35);
-
-//We can add pagination so users can skip to a certain item in the carousel without having to swipe continuously.  Below I create a state to store the current pagination index.
 
 const GroupScreen = (props) => {
   const isCarousel = useRef(null);
@@ -34,10 +31,11 @@ const GroupScreen = (props) => {
   const groupStatus = useSelector((state) => state.groupStatus);
   const usersGroups = useSelector((state) => state.groups);
   const userId = useSelector((state) => state.users.id);
-  const indexOfSelectedGroup = useSelector((state) => state.setGroupIndexOnState);
+  const indexOfSelectedGroup = useSelector(
+    (state) => state.setGroupIndexOnState
+  );
 
   const [email, setEmail] = useState("");
-  // const [indexOfSelectedGroup, setIndexOfSelectedGroup] = useState(0);
 
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
   useEffect(() => {
@@ -108,14 +106,18 @@ const GroupScreen = (props) => {
         <TextInput
           style={styles.input}
           placeholder={`Put your friend's email here!`}
-          name='email'
-          autoCapitalize='none'
+          name="email"
+          autoCapitalize="none"
           value={email}
-          keyboardType='email-address'
+          keyboardType="email-address"
           onChangeText={(email) => setEmail(email)}
         />
-        <Button title='Add to Group' onPress={() => onAddToGroup(item.id)} />
-        <Button title='Leave Group' color='red' onPress={() => handleDelete(item.id)} />
+        <Button title="Add to Group" onPress={() => onAddToGroup(item.id)} />
+        <Button
+          title="Leave Group"
+          color="red"
+          onPress={() => handleDelete(item.id)}
+        />
       </ScrollView>
     );
   };
@@ -134,7 +136,7 @@ const GroupScreen = (props) => {
     <View style={styles.view} /* style={styles.container} */>
       <View style={styles.carouselContainer}>
         <Carousel
-          layout='tinder'
+          layout="tinder"
           layoutCardOffset={15}
           ref={isCarousel}
           data={usersGroups}
@@ -147,7 +149,7 @@ const GroupScreen = (props) => {
           useScrollView={true}
         />
       </View>
-      <View >
+      <View>
         <CreateGroup />
       </View>
     </View>
@@ -157,20 +159,20 @@ const GroupScreen = (props) => {
 const styles = StyleSheet.create({
   view: {
     width: ITEM_WIDTH,
-    height: '66%',
-    justifyContent: 'space-between',
+    height: "66%",
+    justifyContent: "space-between",
     // backgroundColor: 'green',
   },
   carouselContainer: {
     marginTop: 5,
-    height: '90%',
+    height: "90%",
     // backgroundColor: 'red',
-    alignSelf: 'center',
+    alignSelf: "center",
     // width: ITEM_WIDTH, // This fixes the background but moves the carousel
   },
   container: {
-    borderColor:'black',
-    borderWidth: .5,
+    borderColor: "black",
+    borderWidth: 0.5,
     backgroundColor: "white",
     borderRadius: 8,
     width: ITEM_WIDTH,
