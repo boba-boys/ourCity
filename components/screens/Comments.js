@@ -80,7 +80,7 @@ const Comments = (props) => {
       <View style={styles.newMessage}>
         <TextInput
           style={styles.textBox}
-          placeholder='Write a comment'
+          placeholder="Write a comment"
           onChangeText={setTypedComment}
           value={typedComment}
           // onSubmitEditing={onSubmit}

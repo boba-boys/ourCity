@@ -29,6 +29,7 @@ const AllTagsScreen = (props) => {
   const Separator = () => <View style={styles.separator} />;
 
   const CarouselCardItem = ({ index, item }) => {
+
     return (
       <ScrollView style={styles.container} key={item.id}>
         <View>
@@ -65,7 +66,7 @@ const AllTagsScreen = (props) => {
           <Button
             style={styles.closeButton}
             color={"red"}
-            title='Close'
+            title="Close"
             onPress={handlePressClose}
           />
         </View>
@@ -94,7 +95,7 @@ const AllTagsScreen = (props) => {
   return (
     <View>
       <Carousel
-        layout='tinder'
+        layout="tinder"
         layoutCardOffset={30}
         ref={isCarousel}
         data={userTags}

@@ -29,10 +29,7 @@ const TagScreen = (props) => {
   const usersTag = useSelector((state) => state.tagDetails);
   const tagScreenStatus = useSelector((state) => state.tagScreenStatus);
   const groupId = useSelector((state) => state.setGroupIdOnState);
-  // const imageFromState = useSelector((state) => state.setPhotoOnStateReducer)
 
-  // let imageFromStateNotJson = JSON.parse(imageFromState)
-  // Local State
   const [commentStatus, setCommentStatus] = useState(true);
 
   //below is a hook called useEffect (similar to component did mount) that gets called when the component initially renders.
@@ -74,7 +71,7 @@ const TagScreen = (props) => {
         </View>
         <Separator />
         <View>
-          <Button color={"#9B2F2F"} title='Close' onPress={handlePressClose} />
+          <Button color={"#9B2F2F"} title="Close" onPress={handlePressClose} />
         </View>
       </View>
     );
@@ -87,7 +84,7 @@ const TagScreen = (props) => {
   return (
     <View>
       <Carousel
-        layout='tinder'
+        layout="tinder"
         layoutCardOffset={30}
         ref={isCarousel}
         data={usersTag}

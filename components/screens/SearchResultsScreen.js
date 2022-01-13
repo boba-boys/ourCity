@@ -88,8 +88,8 @@ const SearchResultScreen = () => {
           <View style={styles.closeButton}>
             <Button
               color={"red"}
-              title='Close'
-              alignSelf='right'
+              title="Close"
+              alignSelf="right"
               onPress={handlePressClose}
             />
           </View>
