@@ -53,7 +53,6 @@ const Comments = (props) => {
     // let msg = typedComment;
     // setComment([...comments, msg]);
     setTypedComment("");
-    // console.log(comments)
   };
 
   const Separator = () => <View style={styles.separator} />;
@@ -61,7 +60,6 @@ const Comments = (props) => {
 
   const handleDelete = async (commentId) => {
     //Just need to set ID of comment to be deleted
-    // console.log("comment id to be deleted", commentId);
     await axios.delete(
       `https://my-city-server.herokuapp.com/api/users/comment/${commentId}`
     );
@@ -94,7 +92,6 @@ const Comments = (props) => {
       <Separator />
       <ScrollView>
         {comments.map((comment, index) => {
-          // console.log('Comment inside map function in Comment:', comment)
           if (comment.body != "new Tag") {
             return (
               <View key={index}>

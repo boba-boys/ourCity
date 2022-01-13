@@ -97,7 +97,6 @@ const SearchResultScreen = () => {
         <Separator />
         <ScrollView>
           {placesArray.map((place, index) => {
-            // console.log('Comment inside map function in Comment:', comment)
             return (
               <TouchableOpacity key={index} onPress={() => onSubmit(place)}>
                 <View>
